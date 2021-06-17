@@ -1,2 +1,2 @@
 #!/bin/bash
-gcc -S $CFILE > "$(echo -n $CFILE | rev | cut -c 2- | rev)o"
+gcc -c $CFILE -o "$(echo -n $CFILE | rev | cut -c 2- | rev)o"
