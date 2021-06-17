@@ -9,11 +9,11 @@
 int main(void)
 {
 	int stdErrFileNo = (2);
-	char quote[60];
+	char buf[60];
 	size_t nBytes;
 
-	strcpy(quote, "and that piece of art is useful\" - Dora Korpar, 2015-10-19\n");
-	nBytes = strlen(quote);
-	write(stdErrFileNo, quote, nBytes);
+	strcpy(buf, "and that piece of art is useful\" - Dora Korpar, 2015-10-19\n");
+	nBytes = strlen(buf);
+	write(stdErrFileNo, buf, nBytes);
 	return (1);
 }
