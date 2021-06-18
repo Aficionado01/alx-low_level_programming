@@ -24,7 +24,7 @@ int main(void)
 					putchar(digit2);
 					putchar(digit3);
 
-					if ((digit1 >= 0x30 && digit1 <= 0x37) && (digit2 >= 0x30 && digit2 <= 0x38) <= 0x39 && digit3 <= 0x39)
+					if ((digit1 >= 0x30 && digit1 < 0x37) && (digit2 >= 0x30 && digit2 <= 0x38) && digit3 <= 0x39)
 					{
 						putchar(',');
 						putchar(' ');
