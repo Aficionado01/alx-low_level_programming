@@ -20,7 +20,7 @@ int main(void)
 	sprintf(num, "%d", n);
 	dig = num[strlen(num) - 1];
 
-	if (num > '5' && n > 0)
+	if (dig > '5' && n > 0)
 		printf("Last digit of %d is %c and is greater than 5\n", n, dig);
 	else if (dig == '0')
 		printf("Last digit of %d is %c and is 0\n", n, dig);
