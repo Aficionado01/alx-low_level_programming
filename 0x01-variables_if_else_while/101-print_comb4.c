@@ -20,11 +20,16 @@ int main(void)
 			{
 				if (digit1 < digit2 && digit2 < digit3)
 				{
+					int req1;
+					int req2;
+
 					putchar(digit1);
 					putchar(digit2);
 					putchar(digit3);
+					req1 = digit1 >= 0x30 && digit1 < 0x37;
+					req2 = digit2 >= 0x30 && digit2 <= 0x38;
 
-					if ((digit1 >= 0x30 && digit1 < 0x37) && (digit2 >= 0x30 && digit2 <= 0x38) && digit3 <= 0x39)
+					if (req1 && req2 && digit3 <= 0x39)
 					{
 						putchar(',');
 						putchar(' ');
