@@ -9,7 +9,7 @@
  *
  * Return: 0 if execution was successful
  */
-int main (void)
+int main(void)
 {
 	int n;
 	char *num;
@@ -17,7 +17,6 @@ int main (void)
 
 	srand(time(0));
 	n = rand() - RAND_MAX / 2;
-	num = "";
 	sprintf(num, "%d", n);
 	dig = num[strlen(num) - 1];
 
