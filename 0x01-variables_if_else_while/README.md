@@ -14,3 +14,6 @@ This project contains tasks __C__ for learning variables and the _if_, _else_ an
 + [x] 7\. Smile in the mirror<br/>_**7-print_tebahpla.c**_ prints the lowercase alphabet in reverse, followed by a new line.
 + [x] 8\. Hexadecimal<br/>_**8-print_base16.c**_ prints all the numbers of base 16 in lowercase, followed by a new line.
 + [x] 9\. Patience, persistence and perspiration make an unbeatable combination for success<br/>_**9-print_comb.c**_ prints all possible combinations of single-digit numbers.
++ [ ] 10\. Inventing is a combination of brains and materials. The more brains you use, the less material you need<br/>_**100-print_comb3.c**_ prints all possible different combinations of two digits.
++ [ ] 11\. The success combination in business is: Do what you do better... and: do more of what you do...<br/>_**101-print_comb4.c**_ prints all possible different combinations of three digits.
++ [ ] 12\. Software is eating the World<br/>_**102-print_comb5.c**_ prints all possible combinations of two two-digit numbers.
