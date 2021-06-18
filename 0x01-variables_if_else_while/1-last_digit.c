@@ -17,6 +17,7 @@ int main (void)
 
 	srand(time(0));
 	n = rand() - RAND_MAX / 2;
+	num = "";
 	sprintf(num, "%d", n);
 	dig = num[strlen(num) - 1];
 
