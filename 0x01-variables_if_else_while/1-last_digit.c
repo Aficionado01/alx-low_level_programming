@@ -12,7 +12,7 @@
 int main(void)
 {
 	int n;
-	char *num;
+	char num[32];
 	char dig;
 
 	srand(time(0));
