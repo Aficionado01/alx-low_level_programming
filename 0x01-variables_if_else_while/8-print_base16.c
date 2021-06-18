@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 /**
- * main - prints the lowercase English alphabet in reverse
+ * main - prints the base-16 digits
  *
  * Return: 0 if execution was successful
  */
