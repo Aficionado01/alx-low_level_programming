@@ -17,7 +17,7 @@ int main (void)
 
 	srand(time(0));
 	n = rand() - RAND_MAX / 2;
-	num = itoa(n, num, 10);
+	sprintf(num, "%d", n);
 	dig = num[strlen(num) - 1];
 
 	if (dig > '5')
