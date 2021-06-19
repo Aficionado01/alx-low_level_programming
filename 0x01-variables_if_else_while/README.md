@@ -1,6 +1,6 @@
 # Variables If Else While
 
-This project contains tasks __C__ for learning variables and the _if_, _else_ and _while_ control structures.
+This project contains __C__ tasks for learning variables and the _if_, _else_ and _while_ control structures.
 
 ## Tasks Completed
 
