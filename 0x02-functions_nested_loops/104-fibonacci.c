@@ -18,10 +18,6 @@ int main(void)
 	long double num1 = 0.0;
 	long double num2 = 1.0;
 	int i;
-	long double test = 455.0f;
-	puts("354224848179261915075");
-	print_long_double(test);
-	putchar('\n');
 
 	for (i = 0; i < limit; i++)
 	{
