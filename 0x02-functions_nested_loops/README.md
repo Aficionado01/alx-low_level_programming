@@ -8,7 +8,7 @@ This project contains __C__ tasks for learning functions and nested loops.
 + [x] 1\. I sometimes suffer from insomnia. And when I can't fall asleep, I play what I call the alphabet game<br/>_**1-alphabet.c**_ prints the alphabet, in lowercase, followed by a new line.
 + [x] 2\. 10 x alphabet<br/>_**2-print_alphabet_x10.c**_ prints 10 times the alphabet, in lowercase, followed by a new line.
 + [x] 3\. islower<br/>_**3-islower.c**_ checks for lowercase character.
-+ [ ] 4\. isalpha<br/>_**4-isalpha.c**_ checks for alphabetic character.
++ [x] 4\. isalpha<br/>_**4-isalpha.c**_ checks for alphabetic character.
 + [ ] 5\. Sign<br/>_**5-sign.c**_ prints the sign of a number.
 + [ ] 6\. There is no such thing as absolute value in this world. You can only estimate what a thing is worth to you<br/>_**6-abs.c**_ computes the absolute value of an integer.
 + [ ] 7\. There are only 3 colors, 10 digits, and 7 notes; it's what we do with them that's important<br/>_**7-print_last_digit.c**_ prints the last digit of a number.
