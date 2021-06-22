@@ -4,8 +4,6 @@
 
 void print_long_double(long double num);
 int int_div_ld(long double num, long double den);
-int mod_ld(long double num, int modulo);
-// void print_128(long double num);
 long double b10_pow_128(int idx);
 
 /**
@@ -20,49 +18,28 @@ int main(void)
 	long double num1 = 0.0;
 	long double num2 = 1.0;
 	int i;
-	long double test = 456.0;
+	long double test = 455.0f;
 	puts("354224848179261915075");
 	print_long_double(test);
 	putchar('\n');
 
-/* 	for (i = 0; i < limit; i++)
+	for (i = 0; i < limit; i++)
 	{
 		long double temp = num1;
 		long double current_num = num1 + num2;
 
 		if (i < limit)
 		{
-			// print_128(current_num);
-			printf("%Lf", current_num+0.0);
+			print_long_double(current_num);
 			printf("%s", i == limit - 1 ? "\n" : ", ");
 		}
 
 		num1 = num2;
 		num2 += temp;
-	} */
+	}
 
 	return (0);
 }
-
-/**
- * print_128 - Prints a 128-bit number
- * @num: The 128 bit number
- *
- */
-// void print_128(long double num)
-// {
-// 	long double rem = num;
-// 	int i;
-
-// 	for (i = 37; i >= 0; i--)
-// 	{
-// 		long double power = b10_pow_128(i);
-
-// 		if (rem > power - 1){
-// 			putchar((int)((rem / power) % 10) + '0');
-// 		}
-// 	}
-// }
 
 /**
  * b10_pow_128 - Computes the power of 10 to the given index
@@ -87,7 +64,7 @@ long double b10_pow_128(int idx)
 
 void print_long_double(long double num)
 {
-	long double rem = num;
+	long double rem = num + 1;
 	int i;
 
 	for (i = 37; i >= 0; i--)
@@ -96,7 +73,6 @@ void print_long_double(long double num)
 
 		if (rem > power - 1){
 			putchar((int)(int_div_ld(rem, power) % 10) + '0');
-			// putchar((int)mod_ld((rem / power), 10) + '0');
 		}
 	}
 }
@@ -111,12 +87,5 @@ int int_div_ld(long double num, long double den)
 		rem -= den;
 		result++;
 	}
-	return result;
-}
-
-int mod_ld(long double num, int modulo)
-{
-	int result = 0;
-
 	return result;
 }
