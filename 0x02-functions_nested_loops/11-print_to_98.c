@@ -16,6 +16,6 @@ void print_to_98(int n)
 	{
 		printf("%d%s", num, (num == limit ? "\n" : ", "));
 		stop = num == limit;
-		num+= step;
+		num += step;
 	}
 }
