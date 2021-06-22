@@ -15,7 +15,8 @@ void times_table(void)
 		{
 			int product = num1 * num2;
 
-			_putchar(product > 9 ? (product / 10) + '0' : ' ');
+			if (num2 > 0)
+				_putchar(product > 9 ? (product / 10) + '0' : ' ');
 			_putchar((product % 10) + '0');
 
 			if (num2 < 9)
