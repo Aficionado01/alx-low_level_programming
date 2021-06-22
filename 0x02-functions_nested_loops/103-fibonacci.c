@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 /**
- * main - prints the first 50 fionacci numbers
+ * main - prints the even fibonacci numbers that are less than 4000000
  *
  * Return: 0 if successful
  */
