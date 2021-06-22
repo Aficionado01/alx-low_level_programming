@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdint.h>
+#include <inttypes.h>
 
 /**
  * main - prints the first 50 fibonacci numbers
@@ -17,7 +18,7 @@ int main(void)
 	{
 		int64_t temp = num1;
 
-		printf("%lld%s", num1 + num2, i == limit - 1 ? "\n" : ", ");
+		printf("%ld%s", num1 + num2, i == limit - 1 ? "\n" : ", ");
 		num1 = num2;
 		num2 += temp;
 	}
