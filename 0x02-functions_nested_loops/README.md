@@ -11,7 +11,7 @@ This project contains __C__ tasks for learning functions and nested loops.
 + [x] 4\. isalpha<br/>_**4-isalpha.c**_ checks for alphabetic character.
 + [x] 5\. Sign<br/>_**5-sign.c**_ prints the sign of a number.
 + [x] 6\. There is no such thing as absolute value in this world. You can only estimate what a thing is worth to you<br/>_**6-abs.c**_ computes the absolute value of an integer.
-+ [ ] 7\. There are only 3 colors, 10 digits, and 7 notes; it's what we do with them that's important<br/>_**7-print_last_digit.c**_ prints the last digit of a number.
++ [x] 7\. There are only 3 colors, 10 digits, and 7 notes; it's what we do with them that's important<br/>_**7-print_last_digit.c**_ prints the last digit of a number.
 + [ ] 8\. I'm federal agent Jack Bauer, and today is the longest day of my life<br/>_**8-24_hours.c**_ prints every minute of the day of Jack Bauer, starting from 00:00 to 23:59.
 + [ ] 9\. Learn your times table<br/>_**9-times_table.c**_ prints the 9 times table, starting with 0.
 + [ ] 10\. a + b<br/>_**10-add.c**_ adds two integers and returns the result.
