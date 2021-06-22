@@ -18,8 +18,11 @@ void print_times_table(int n)
 		{
 			int product = num1 * num2;
 
-			_putchar(product > 99 ? (product / 100) + '0' : ' ');
-			_putchar(product > 9 ? ((product / 10) % 10) + '0' : ' ');
+			if (num2 > 0)
+			{
+				_putchar(product > 99 ? (product / 100) + '0' : ' ');
+				_putchar(product > 9 ? ((product / 10) % 10) + '0' : ' ');
+			}
 			_putchar((product % 10) + '0');
 
 			if (num2 < n)
