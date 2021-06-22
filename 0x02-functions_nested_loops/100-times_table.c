@@ -3,6 +3,7 @@
 /**
  * print_times_table - prints the n times table,
  * starting with 0
+ * @n The times table to generate
  */
 void print_times_table(int n)
 {
@@ -12,9 +13,9 @@ void print_times_table(int n)
 	if (n > 15 || n < 0)
 		return;
 
-	for (num1 = 0; num1 < n+1; num1++)
+	for (num1 = 0; num1 < n + 1; num1++)
 	{
-		for (num2 = 0; num2 < n+1; num2++)
+		for (num2 = 0; num2 < n + 1; num2++)
 		{
 			int product = num1 * num2;
 
