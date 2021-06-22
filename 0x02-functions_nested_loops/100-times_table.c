@@ -3,7 +3,7 @@
 /**
  * print_times_table - prints the n times table,
  * starting with 0
- * @n The times table to generate
+ * @n: the times table to generate
  */
 void print_times_table(int n)
 {
