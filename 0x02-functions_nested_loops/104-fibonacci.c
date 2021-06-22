@@ -14,7 +14,6 @@ long double b10_pow_128(int idx);
 int main(void)
 {
 	int limit = 98;
-	printf("sizeof int: %d\n", sizeof(long double));
 	long double num1 = 0.0;
 	long double num2 = 1.0;
 	int i;
