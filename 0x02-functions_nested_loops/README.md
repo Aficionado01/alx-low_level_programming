@@ -16,3 +16,8 @@ This project contains __C__ tasks for learning functions and nested loops.
 + [x] 9\. Learn your times table<br/>_**9-times_table.c**_ prints the 9 times table, starting with 0.
 + [x] 10\. a + b<br/>_**10-add.c**_ adds two integers and returns the result.
 + [x] 11\. Holberton School, 98 Battery Street, the OG<br/>_**11-print_to_98.c**_ prints all natural numbers from `n` to `98`, followed by a new line.
++ [ ] 12\. The World looks like a multiplication-table, or a mathematical equation, which, turn it how you will, balances itself<br/>_**100-times_table.c**_ prints the `n` times table, starting with 0.
++ [ ] 13\. Nature made the natural numbers; All else is the work of women<br/>_**101-print_to_98.c**_ title.
++ [ ] 14\. In computer class, the first assignment was to write a program to print the first 100 Fibonacci numbers. Instead, I wrote a program that would steal passwords of students. My teacher gave me an A<br/>_**102-fibonacci.c**_ prints the first 50 Fibonacci numbers, starting with `1` and `2`.
++ [ ] 15\. Even Liber Abbaci<br/>_**103-fibonacci.c**_ finds and prints the sum of the even-valued terms by considering the terms in the Fibonacci sequence whose values do not exceed 4,000,000.
++ [ ] 16\. In computer class, the first assignment was to write a program to print the first 100 Fibonacci numbers. Instead, I wrote a program that would steal passwords of students. My teacher gave me an A+<br/>_**104-fibonacci.c**_ finds and prints the first 98 Fibonacci numbers.
