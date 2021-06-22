@@ -14,8 +14,9 @@ int main(void)
 
 	for (i = 0; i < limit; i++)
 	{
-		printf("%d%s", num1 + num2, i == limit - 1 ? "\n" : ", ");
 		int temp = num1;
+	
+		printf("%d%s", num1 + num2, i == limit - 1 ? "\n" : ", ");
 		num1 = num2;
 		num2 += temp;
 	}
