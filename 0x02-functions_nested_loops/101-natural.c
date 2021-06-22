@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 /**
- * main - prints the n times table,
+ * main - prints the n times table
  *
  * Return: 0 if successful
  */
