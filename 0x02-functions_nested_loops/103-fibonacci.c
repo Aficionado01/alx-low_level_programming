@@ -8,14 +8,14 @@
  */
 int main(void)
 {
-	int64_t maxValue = 4000000;
-	int64_t num1 = 0;
-	int64_t num2 = 1;
-	int64_t sum = 0;
+	int32_t maxValue = 4000000;
+	int32_t num1 = 0;
+	int32_t num2 = 1;
+	int32_t sum = 0;
 
 	while (num2 < maxValue)
 	{
-		int64_t temp = num1;
+		int32_t temp = num1;
 
 		num1 = num2;
 		num2 += temp;
@@ -23,7 +23,7 @@ int main(void)
 		if (num2 % 2 == 0 && num2 < maxValue)
 			sum += num2;
 	}
-	printf("%lld\n", sum);
+	printf("%ld\n", sum);
 
 	return (0);
 }
