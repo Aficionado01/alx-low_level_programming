@@ -8,14 +8,14 @@
 int main(void)
 {
 	int limit = 50;
-	long long int num1 = 0;
-	long long int num2 = 1;
+	int num1 = 0;
+	int num2 = 1;
 	int i;
 
 	for (i = 0; i < limit; i++)
 	{
-		printf("%lld%s", num1 + num2, i == limit - 1 ? "\n" : ", ");
-		long long int temp = num1;
+		printf("%d%s", num1 + num2, i == limit - 1 ? "\n" : ", ");
+		int temp = num1;
 		num1 = num2;
 		num2 += temp;
 	}
