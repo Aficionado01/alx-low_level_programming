@@ -23,7 +23,7 @@ int main(void)
 		if (num2 % 2 == 0 && num2 < maxValue)
 			sum += num2;
 	}
-	printf("%ld\n", sum);
+	printf("%d\n", sum);
 
 	return (0);
 }
