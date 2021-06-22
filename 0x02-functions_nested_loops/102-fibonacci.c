@@ -17,7 +17,7 @@ int main(void)
 	{
 		int64_t temp = num1;
 
-		printf("%d%s", num1 + num2, i == limit - 1 ? "\n" : ", ");
+		printf("%lld%s", num1 + num2, i == limit - 1 ? "\n" : ", ");
 		num1 = num2;
 		num2 += temp;
 	}
