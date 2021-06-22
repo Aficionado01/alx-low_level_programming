@@ -2,6 +2,7 @@
 
 /**
  * _abs - prints the absolute value of a number
+ * @n: The number whose absolute value is to be found
  *
  * Return: |n| of n
  */

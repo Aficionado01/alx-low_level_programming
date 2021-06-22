@@ -2,6 +2,7 @@
 
 /**
  * _isalpha - checks for alphabetic character
+ * @c: The letter whose alphabetism is to be found
  *
  * Return: 1 if `c` is an alphabet, otherwise 0
  */

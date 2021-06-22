@@ -2,6 +2,7 @@
 
 /**
  * _islower - checks for lowercase character
+ * @c: The letter whose case is to be found
  *
  * Return: 1 if `c` is lowercase, otherwise 0
  */

@@ -2,6 +2,7 @@
 
 /**
  * print_sign - prints the sign of a number
+ * @n: The number whose sign value is to be found
  *
  * Return: 1 if n is positive, -1 if negative, otherwise 0
  */
