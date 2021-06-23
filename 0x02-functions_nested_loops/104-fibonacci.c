@@ -1,10 +1,8 @@
+#include <inttypes.h>
 #include <stdio.h>
-#include <stdint.h>
-#include <math.h>
+#include <stdlib.h>
 
-void print_long_double(long double num);
-int int_div_ld(long double num, long double den);
-long double b10_pow_128(int idx);
+void print_uint64(uint64_t v, uint64_t radix, char prepend_zeros);
 
 /**
  * main - prints the first 98 fibonacci numbers
@@ -14,73 +12,64 @@ long double b10_pow_128(int idx);
 int main(void)
 {
 	int limit = 98;
-	long double num1 = 0.0;
-	long double num2 = 1.0;
+	uint64_t carried_previous = 0, previous = 1;
+	uint64_t carried_current = 0, current = 2;
+	uint64_t carried_accumulated = 0, accumulated;
 	int i;
+	uint64_t max = 100000000;
 
-	for (i = 0; i < limit; i++)
+	max *= 100000000; /*max=10^16*/
+	putchar('1');
+	putchar(',');
+	putchar(' ');
+	putchar('2');
+	putchar(',');
+	putchar(' ');
+
+	for (i = 3; i <= limit; i++)
 	{
-		long double temp = num1;
-		long double current_num = num1 + num2;
+		carried_accumulated = carried_current + carried_previous;
+		accumulated = current + previous;
 
-		if (i < limit)
+		carried_previous = carried_current;
+		previous = current;
+
+		carried_current = carried_accumulated;
+		current = accumulated;
+
+		while(current >= max)
 		{
-			print_long_double(current_num);
-			printf("%s", i == limit - 1 ? "\n" : ", ");
+			carried_current += 1;
+			current -= max;
 		}
 
-		num1 = num2;
-		num2 += temp;
+		if (i != 3)
+		{
+			putchar(',');
+			putchar(' ');
+		}
+		print_uint64(carried_current,max/10,0);
+		print_uint64(current,max/10,carried_current > 0);
 	}
+	putchar('\n');
 
 	return (0);
 }
 
-/**
- * b10_pow_128 - Computes the power of 10 to the given index
- * @idx: The index to which 10 is raised to.
- *
- * Return: A power of 10
- */
-long double b10_pow_128(int idx)
+void print_uint64(uint64_t v, uint64_t radix, char prepend_zeros)
 {
-	int i;
-	long double result = 1;
+	uint64_t divisor = radix;
+	uint64_t quotient = v;
+	char significant_zero = 0;
 
-	if (idx < 0)
-		return 0;
-
-	for (i = 0; i < idx; i++)
+	for(; divisor != 0; divisor /= 10)
 	{
-		result *= 10;
+		char digit = quotient/divisor;
+		if(digit == 0 && !significant_zero && !prepend_zeros)
+			continue;
+		significant_zero = 1;
+
+		putchar(digit + '0');
+		quotient = quotient % divisor;
 	}
-	return result;
-}
-
-void print_long_double(long double num)
-{
-	long double rem = num + 1;
-	int i;
-
-	for (i = 37; i >= 0; i--)
-	{
-		long double power = b10_pow_128(i);
-
-		if (rem > power - 1){
-			putchar((int)(int_div_ld(rem, power) % 10) + '0');
-		}
-	}
-}
-
-int int_div_ld(long double num, long double den)
-{
-	int result = 0;
-	int rem = num;
-
-	while (rem > den)
-	{
-		rem -= den;
-		result++;
-	}
-	return result;
 }
