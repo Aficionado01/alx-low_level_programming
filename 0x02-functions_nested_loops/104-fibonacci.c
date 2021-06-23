@@ -56,6 +56,12 @@ int main(void)
 	return (0);
 }
 
+/**
+ * print_uint64 - Prints an uint64_t number
+ * @v: The value to print
+ * @radix: The initial divisor
+ * @prepend_zeros: specifies whether zeros should be printed
+ */
 void print_uint64(uint64_t v, uint64_t radix, char prepend_zeros)
 {
 	uint64_t divisor = radix;
