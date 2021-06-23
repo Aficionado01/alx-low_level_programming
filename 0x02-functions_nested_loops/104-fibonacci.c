@@ -70,7 +70,7 @@ void print_uint64(uint64_t v, uint64_t radix, char prepend_zeros)
 
 	for (; divisor != 0; divisor /= 10)
 	{
-		char digit = quotient/divisor;
+		char digit = quotient / divisor;
 
 		if (digit == 0 && !significant_zero && !prepend_zeros)
 			continue;
