@@ -2,6 +2,7 @@
 
 /**
  * main - causes an infinite loop
+ *
  * Return: 0 if successful
  */
 int main(void)
@@ -14,7 +15,7 @@ int main(void)
 	/*
 	 * while (i < 10)
 	 * {
-	 * 		putchar(i);
+	 * putchar(i);
 	 * }
 	 */
 
