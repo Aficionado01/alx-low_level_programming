@@ -37,7 +37,7 @@ int main(void)
 		carried_current = carried_accumulated;
 		current = accumulated;
 
-		while(current >= max)
+		while (current >= max)
 		{
 			carried_current += 1;
 			current -= max;
@@ -48,8 +48,8 @@ int main(void)
 			putchar(',');
 			putchar(' ');
 		}
-		print_uint64(carried_current,max/10,0);
-		print_uint64(current,max/10,carried_current > 0);
+		print_uint64(carried_current, max / 10, 0);
+		print_uint64(current, max / 10, carried_current > 0);
 	}
 	putchar('\n');
 
@@ -62,10 +62,11 @@ void print_uint64(uint64_t v, uint64_t radix, char prepend_zeros)
 	uint64_t quotient = v;
 	char significant_zero = 0;
 
-	for(; divisor != 0; divisor /= 10)
+	for (; divisor != 0; divisor /= 10)
 	{
 		char digit = quotient/divisor;
-		if(digit == 0 && !significant_zero && !prepend_zeros)
+
+		if (digit == 0 && !significant_zero && !prepend_zeros)
 			continue;
 		significant_zero = 1;
 
