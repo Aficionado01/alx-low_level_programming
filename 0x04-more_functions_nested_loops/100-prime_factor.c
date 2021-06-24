@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdint.h>
 #include <math.h>
 
 /**
@@ -8,9 +9,19 @@
  */
 int main(void)
 {
-	long long num = 612852475143;
-	long long largest;
-	long long i;
+	int64_t num = 6000000;/**/
+	int64_t add = 100000;
+	int64_t mid = 70499;
+	int64_t largest;
+	int64_t i;
+
+	num *= 100000;
+	add *= 100000;
+	mid *= 10000;
+	num += add;
+	num += mid;
+	num += INT32_MAX;
+	num += 1496;
 
 	while (num % 2 == 0)
 	{
@@ -31,6 +42,6 @@ int main(void)
 	if (num > 2 && num > largest)
 		largest = num;
 
-	printf("%ld\n", largest);
+	printf("%ld\n", (long int)largest);
 	return (0);
 }
