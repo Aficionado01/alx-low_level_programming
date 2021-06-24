@@ -9,8 +9,10 @@ int b10_pow(int idx);
 void print_number(int n)
 {
 	int i;
-	int max = 1000000000;
+	int max = 10000;
 	int rem = n < 0 ? 0 - n: n;
+
+	max *= 100000;
 
 	if (n < 0)
 		_putchar(0x2D);
@@ -23,7 +25,7 @@ void print_number(int n)
 			_putchar((int)((rem / power) % 10) + 0x30);
 	}
 
-	_putchar(0xA);
+	_putchar('\n');
 }
 
 /**
