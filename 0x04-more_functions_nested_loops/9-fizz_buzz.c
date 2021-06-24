@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 /**
- * main -
+ * main - Fizz-Buzz solution
  *
  * Return: 0 if successful
  */
