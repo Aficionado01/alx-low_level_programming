@@ -42,5 +42,5 @@ int b10_pow(int idx)
 	{
 		result *= 10;
 	}
-	return result;
+	return (result);
 }
