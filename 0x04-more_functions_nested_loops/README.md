@@ -8,7 +8,7 @@ This project contains __C__ tasks for learning more functions and nested loops.
 + [x] 1\. isdigit<br/>_**1-isdigit.c**_ checks for a base 10 digit.
 + [x] 2\. Collaboration is multiplication<br/>_**2-mul.c**_ multiplies two integers.
 + [x] 3\. The numbers speak for themselves<br/>_**3-print_numbers.c**_ prints the numbers, from `0` to `9`.
-+ [ ] 4\. I believe in numbers and signs<br/>_**4-print_most_numbers.c**_ prints the numbers, from `0` to `9` except `2` and `4`.
++ [x] 4\. I believe in numbers and signs<br/>_**4-print_most_numbers.c**_ prints the numbers, from `0` to `9` except `2` and `4`.
 + [ ] 5\. Numbers constitute the only universal language<br/>_**5-more_numbers.c**_ prints 10 times the numbers, from `0` to `14`.
 + [ ] 6\. The shortest distance between two points is a straight line<br/>_**6-print_line.c**_ draws a straight line in the terminal.
 + [ ] 7\. I feel like I am diagonally parked in a parallel universe<br/>_**7-print_diagonal.c**_ draws a diagonal line on the terminal.
