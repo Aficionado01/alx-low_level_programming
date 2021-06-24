@@ -26,22 +26,6 @@ void print_remaining_days(int month, int day, int year)
 		{
 			printf("Invalid date: %02d/%02d/%04d\n", month, day - (59 - 28), year);
 		}
-		else if (month == 4 && day > 120)
-		{
-			printf("Invalid date: %02d/%02d/%04d\n", month, day - (120 - 30), year);
-		}
-		else if (month == 6 && day > 181)
-		{
-			printf("Invalid date: %02d/%02d/%04d\n", month, day - (181 - 30), year);
-		}
-		else if (month == 9 && day > 273)
-		{
-			printf("Invalid date: %02d/%02d/%04d\n", month, day - (273 - 30), year);
-		}
-		else if (month == 11 && day > 334)
-		{
-			printf("Invalid date: %02d/%02d/%04d\n", month, day - (334 - 30), year);
-		}
 		else
 		{
 			printf("Day of the year: %d\n", day);
