@@ -4,7 +4,7 @@ This project contains __C__ tasks for learning more functions and nested loops.
 
 ## Tasks Completed
 
-+ [ ] 0\. isupper<br/>_**0-isupper.c**_ checks for uppercase character.
++ [x] 0\. isupper<br/>_**0-isupper.c**_ checks for uppercase character.
 + [ ] 1\. isdigit<br/>_**1-isdigit.c**_ checks for a base 10 digit.
 + [ ] 2\. Collaboration is multiplication<br/>_**2-mul.c**_ multiplies two integers.
 + [ ] 3\. The numbers speak for themselves<br/>_**3-print_numbers.c**_ prints the numbers, from `0` to `9`.
