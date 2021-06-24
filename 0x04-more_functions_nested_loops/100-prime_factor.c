@@ -8,8 +8,9 @@
  */
 int main(void)
 {
-	long long int num = 612852475143;
-	long long int largest, i;
+	long long num = 612852475143;
+	long long largest;
+	long long i;
 
 	while (num % 2 == 0)
 	{
@@ -17,11 +18,8 @@ int main(void)
 		num /= 2;
 	}
 
-	/* n must be odd at this point.  So we can */
-	/* skip one element (Note i = i +2) */
-	for (i = 3; i <= sqrt(num); i+= 2)
+	for (i = 3; i <= sqrt(num); i += 2)
 	{
-		/* While i divides n, print i and divide n */
 		while (num % i == 0)
 		{
 			if (i > largest)
@@ -30,8 +28,6 @@ int main(void)
 		}
 	}
 
-	/* This condition is to handle the case whien */
-	/* n is a prime number greater than 2 */
 	if (num > 2 && num > largest)
 		largest = num;
 
