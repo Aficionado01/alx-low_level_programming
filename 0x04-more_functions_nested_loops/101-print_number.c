@@ -1,7 +1,5 @@
 #include "holberton.h"
 
-int b10_pow(int idx);
-
 /**
  * print_number - prints an integer
  * @n: the integer to print
