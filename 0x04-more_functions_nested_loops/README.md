@@ -15,5 +15,5 @@ This project contains __C__ tasks for learning more functions and nested loops.
 + [x] 8\. You are so much sunshine in every square inch<br/>_**8-print_square.c**_ prints a square.
 + [x] 9\. Fizz-Buzz<br/>_**9-fizz_buzz.c**_ prints the numbers from `1` to `100`, followed by a new line. But for multiples of three print `Fizz` instead of the number and for the multiples of five print `Buzz`. For numbers which are multiples of both three and five print `FizzBuzz`.
 + [x] 10\. Triangles<br/>_**10-print_triangle.c**_ prints a triangle.
-+ [ ] 11\. The problem of distinguishing prime numbers from composite numbers and of resolving the latter into their prime factors is known to be one of the most important and useful in arithmetic<br/>_**100-prime_factor.c**_ prints the largest prime factor of the number `612852475143`.
++ [x] 11\. The problem of distinguishing prime numbers from composite numbers and of resolving the latter into their prime factors is known to be one of the most important and useful in arithmetic<br/>_**100-prime_factor.c**_ prints the largest prime factor of the number `612852475143`.
 + [x] 12\. Numbers have life; they're not just symbols on paper<br/>_**101-print_number.c**_ prints an integer.
