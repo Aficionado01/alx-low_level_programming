@@ -6,7 +6,7 @@ This project contains __C__ tasks for learning more functions and nested loops.
 
 + [x] 0\. isupper<br/>_**0-isupper.c**_ checks for uppercase character.
 + [x] 1\. isdigit<br/>_**1-isdigit.c**_ checks for a base 10 digit.
-+ [ ] 2\. Collaboration is multiplication<br/>_**2-mul.c**_ multiplies two integers.
++ [x] 2\. Collaboration is multiplication<br/>_**2-mul.c**_ multiplies two integers.
 + [ ] 3\. The numbers speak for themselves<br/>_**3-print_numbers.c**_ prints the numbers, from `0` to `9`.
 + [ ] 4\. I believe in numbers and signs<br/>_**4-print_most_numbers.c**_ prints the numbers, from `0` to `9` except `2` and `4`.
 + [ ] 5\. Numbers constitute the only universal language<br/>_**5-more_numbers.c**_ prints 10 times the numbers, from `0` to `14`.
