@@ -8,7 +8,7 @@ void print_number(int n)
 {
 	int i;
 	int max;
-	int rem = n < 0 ? 0 - n: n;
+	int rem = n < 0 ? 0 - n : n;
 
 	max = 1;
 	max *= 100000;
