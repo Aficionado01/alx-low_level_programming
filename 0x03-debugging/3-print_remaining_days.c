@@ -10,7 +10,9 @@
  */
 void print_remaining_days(int month, int day, int year)
 {
-	int months_cum_days[12] = {31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334, 365};
+	int months_cum_days[12] = {31, 59, 90, 120, 151, 181,
+		212, 243, 273, 304, 334, 365
+	};
 
 	if ((year % 4 == 0 && year > 1582) && (year % 100 != 0 || year % 400 == 0))
 	{
