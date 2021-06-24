@@ -7,20 +7,22 @@
 void print_number(int n)
 {
 	int i;
-	int max = 10000;
+	int max;
 	int rem = n < 0 ? 0 - n: n;
 
+	max = 1;
+	max *= 100000;
 	max *= 100000;
 
 	if (n < 0)
-		_putchar(0x2D);
+		_putchar('-');
 
 	for (i = 9; i >= 0; i--)
 	{
 		int power = b10_pow(i);
 
 		if (rem > power - 1 || i == 0)
-			_putchar((int)((rem / power) % 10) + 0x30);
+			_putchar((int)((rem / power) % 10) + '0');
 	}
 
 	_putchar('\n');
