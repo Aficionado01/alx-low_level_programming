@@ -29,8 +29,6 @@ void print_number(int n)
 		if (i == 0 && minVal < 0)
 			_putchar('8');
 	}
-
-	_putchar('\n');
 }
 
 /**
