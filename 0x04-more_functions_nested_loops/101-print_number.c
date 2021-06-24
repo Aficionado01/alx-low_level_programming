@@ -17,13 +17,11 @@ void print_number(int n)
 	{
 		int power = b10_pow(i);
 
-		if (rem > power - 1)
-			_putchar((int)((rem / power) % 10) + '0');
-		else if (i == 0)
-			_putchar((int)((rem / power) % 10) + '0');
+		if (rem > power - 1 || i == 0)
+			_putchar((int)((rem / power) % 10) + 0x30);
 	}
 
-	_putchar(0x20);
+	_putchar(0xA);
 }
 
 /**
