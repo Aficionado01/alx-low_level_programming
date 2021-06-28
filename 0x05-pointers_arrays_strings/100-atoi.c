@@ -10,67 +10,53 @@
 int _atoi(char *s)
 {
 	short sign = 1;
-	int result = 0;
+	double result = 0;
 	short pass = 1;
-	int length = 0;
-	short sign_seen = 0;
-	char previous_sign = '&';
-	short numbers_seen = 0;
-	int digits_seen_count = 0;
-	int i = 0;
+	int len, digits_seen_count, i;
+	char old_sign = '&';
 
+	len = i = digits_seen_count = 0;
 	while (pass <= 2)
 	{
-		char symbol = *(s + length);
-		int positive = sign_seen == 1 ? previous_sign == symbol : symbol == '+';
+		int positive = old_sign != '&' ? old_sign == *(s + len) : *(s + len) == '+';
 
-		if (symbol == '\0')
+		if (*(s + len) == '\0')
 		{
 			pass++;
-			length = 0;
+			len = 0;
 			continue;
 		}
-		else if (symbol == '+' || symbol == '-')
+		else if (*(s + len) == '+' || *(s + len) == '-')
 		{
-			sign_seen = 1;
-			if (pass == 1 && numbers_seen)
+			if (pass == 1 && digits_seen_count > 0)
 			{
 				pass++;
-				length -= digits_seen_count;
+				len -= digits_seen_count;
 				continue;
 			}
-			if (!numbers_seen)
+			if (digits_seen_count == 0)
 			{
 				sign = positive ? 1 : 0 - 1;
-				previous_sign = positive ? '+' : '-';
+				old_sign = positive ? '+' : '-';
 			}
 		}
-		else if (symbol >= '0' && symbol <= '9')
+		else if (*(s + len) >= '0' && *(s + len) <= '9')
 		{
-			numbers_seen = 1;
 			if (pass == 1)
-			{
 				digits_seen_count++;
-			}
 			else
-			{
-				int digit = symbol - '0';
-				int val = digit * b10_pow(digits_seen_count - i - 1);
-
-				result += val;
-				i++;
-			}
+				result += (*(s + len) - '0') * b10_pow(digits_seen_count - i++ - 1);
 		}
 		else
 		{
-			if (pass == 1 && numbers_seen)
+			if (pass == 1 && digits_seen_count > 0)
 			{
 				pass++;
-				length -= digits_seen_count;
+				len -= digits_seen_count;
 				continue;
 			}
 		}
-		length++;
+		len++;
 	}
 	return (result * sign);
 }
@@ -93,5 +79,5 @@ int b10_pow(int idx)
 	{
 		result *= 10;
 	}
-	return (result);
+	return ((int)result);
 }
