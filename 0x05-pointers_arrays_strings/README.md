@@ -13,4 +13,4 @@ This project contains __C__ tasks for learning about pointers, arrays and string
 + [x] 6\. Half the lies they tell about me aren't true<br/>_**6-puts2.c**_ contains a function that prints every other character of a string, starting with the first character, followed by a new line.
 + [x] 7\. Winning is only half of it. Having fun is the other half<br/>_**7-puts_half.c**_ contains a function that prints half of a string, followed by a new line.
 + [x] 8\. Arrays are not pointers<br/>_**8-print_array.c**_ contains a function that prints `n` elements of an array of integers, followed by a new line.
-+ [ ] 9\. strcpy<br/>_**9-strcpy.c**_ contains a function that copies the string pointed to by `src`, including the terminating null byte (`\0`), to the buffer pointed to by `dest`.
++ [x] 9\. strcpy<br/>_**9-strcpy.c**_ contains a function that copies the string pointed to by `src`, including the terminating null byte (`\0`), to the buffer pointed to by `dest`.
