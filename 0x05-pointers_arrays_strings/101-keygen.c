@@ -9,9 +9,7 @@
  */
 int main(void)
 {
-	int n, i;
-	unsigned int sum;
-	int password_length = 8;
+	int n;
 	int lower = '!';
 	int char_range = 90;
 	int upper = lower + char_range;
