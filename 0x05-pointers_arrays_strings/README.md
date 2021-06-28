@@ -15,4 +15,4 @@ This project contains __C__ tasks for learning about pointers, arrays and string
 + [x] 8\. Arrays are not pointers<br/>_**8-print_array.c**_ contains a function that prints `n` elements of an array of integers, followed by a new line.
 + [x] 9\. strcpy<br/>_**9-strcpy.c**_ contains a function that copies the string pointed to by `src`, including the terminating null byte (`\0`), to the buffer pointed to by `dest`.
 + [x] 10\. Great leaders are willing to sacrifice the numbers to save the people. Poor leaders sacrifice the people to save the numbers<br/>_**100-atoi.c**_ contains a function that converts a string to an integer.
-+ [ ] 11\. Don't hate the hacker, hate the code<br/>_**101-keygen.c**_ generates random valid passwords for the program [101-crackme](https://github.com/holbertonschool/0x04.c).
++ [x] 11\. Don't hate the hacker, hate the code<br/>_**101-keygen.c**_ generates random valid passwords for the program [101-crackme](https://github.com/holbertonschool/0x04.c).
