@@ -5,7 +5,7 @@ This project contains __C__ tasks for learning about pointers, arrays and string
 ## Tasks Completed
 
 + [x] 0\. 98 Battery st.<br/>_**0-reset_to_98.c**_ contains a function that takes a pointer to an `int` as parameter and updates the value it points to to `98`.
-+ [ ] 1\. Don't swap horses in crossing a stream<br/>_**1-swap.c**_ contains a function that swaps the values of two integers.
++ [x] 1\. Don't swap horses in crossing a stream<br/>_**1-swap.c**_ contains a function that swaps the values of two integers.
 + [ ] 2\. This report, by its very length, defends itself against the risk of being read<br/>_**2-strlen.c**_ contains a function that returns the length of a string.
 + [ ] 3\. I do not fear computers. I fear the lack of them<br/>_**3-puts.c**_ a function that prints a string, followed by a new line, to `stdout`.
 + [ ] 4\. I can only go one way. I've not got a reverse gear<br/>_**4-print_rev.c**_ a function that prints a string, in reverse, followed by a new line.
