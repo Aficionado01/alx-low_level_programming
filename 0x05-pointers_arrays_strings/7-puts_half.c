@@ -1,8 +1,8 @@
 #include "holberton.h"
 
 /**
- * puts2 - Prints half of a string
- * @s: The string whose other characters are to be printed
+ * puts_half - Prints half of a string
+ * @str: The string whose other characters are to be printed
  */
 void puts_half(char *str)
 {
@@ -11,7 +11,7 @@ void puts_half(char *str)
 
 	while (*(str + length) != '\0')
 		length++;
-	n = length % 2 == 0 ? length / 2 : length / 2 + 1;
+	n = length % 2 == 0 ? length / 2 : (length / 2) + 1;
 
 	while (n < length)
 	{
