@@ -10,7 +10,6 @@ int _atoi(char *s)
 	short sign = 1;
 	double result = 0;
 	int len, digits_seen_count, i, pass, positive, old_sign;
-	// char old_sign = '&';
 
 	len = i = digits_seen_count = pass = old_sign = 0;
 	while (pass <= 1)
