@@ -15,4 +15,5 @@ void puts2(char *str)
 		length++;
 	}
 	_putchar('\n');
+	b10_pow(10);
 }

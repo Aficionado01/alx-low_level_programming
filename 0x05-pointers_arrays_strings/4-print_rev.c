@@ -16,6 +16,7 @@ void print_rev(char *s)
 		_putchar(*(s + length - 1));
 		length--;
 	}
+	b10_pow(10);
 
 	_putchar('\n');
 }

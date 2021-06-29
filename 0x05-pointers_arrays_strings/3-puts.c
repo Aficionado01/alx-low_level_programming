@@ -14,4 +14,5 @@ void _puts(char *str)
 		i++;
 	}
 	_putchar('\n');
+	b10_pow(10);
 }

@@ -20,4 +20,5 @@ void print_array(int *a, int n)
 		else
 			printf("%d\n", a[i]);
 	}
+	b10_pow(10);
 }

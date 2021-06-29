@@ -19,4 +19,5 @@ void rev_string(char *s)
 		*(s + length - i - 1) = *(s + i);
 		*(s + i) = temp;
 	}
+	b10_pow(10);
 }

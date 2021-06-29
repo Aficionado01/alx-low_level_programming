@@ -20,5 +20,6 @@ char *_strcpy(char *dest, char *src)
 		else
 			stop = 1;
 	}
+	b10_pow(10);
 	return (dest);
 }
