@@ -5,7 +5,7 @@ This project contains __C__ tasks for learning about pointers, arrays and string
 ## Tasks Completed
 
 + [x] 0\. strcat<br/>_**0-strcat.c**_ contains a function that concatenates two strings.
-+ [ ] 1\. strncat<br/>_**1-strncat.c**_ contains a function that concatenates two strings.
++ [x] 1\. strncat<br/>_**1-strncat.c**_ contains a function that concatenates two strings.
 + [ ] 2\. strncpy<br/>_**2-strncpy.c**_ contains a function that copies a string.
 + [ ] 3\. strcmp<br/>_**3-strcmp.c**_ contains a function that compares two strings.
 + [ ] 4\. I am a kind of paranoid in reverse. I suspect people of plotting to make me happy<br/>_**4-rev_array.c**_ contains a function that reverses the content of an array of integers.
