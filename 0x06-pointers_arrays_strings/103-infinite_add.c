@@ -13,7 +13,6 @@ char *infinite_add(char *n1, char *n2, char *r, int size_r)
 {
 	int n1_len, n2_len, max_len, idx;
 	char n1_dig, n2_dig, carry, rem;
-	char end_dig = '%';
 
 	n1_len = n2_len = carry = rem = 0;
 	n1_dig = *n1;
