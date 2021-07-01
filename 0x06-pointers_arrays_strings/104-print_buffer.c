@@ -12,7 +12,7 @@ void print_buffer(char *b, int size)
 
 	for (idx = 0; idx < size; idx += 10)
 	{
-		printf("%08x: ", idx);
+		printf("%08x ", idx);
 		for (col = idx; col < idx + 10; col += 2)
 		{
 			if (col < size)
