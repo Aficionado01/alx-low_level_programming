@@ -1,4 +1,4 @@
-#include "holberton.h"
+include "holberton.h"
 /**
 * print_times_table - prints the times table for n.
 * @n: The multiplication table requested.
@@ -29,7 +29,7 @@ _putchar((res % 10) + '0');
 else if (res >= 10 && res < 100)
 {
 _putchar(' ');
-putchar((res / 10) + '0');
+_putchar((res / 10) + '0');
 _putchar((res % 10) + '0');
 }
 else if (res >= 100 && j != 0)
@@ -42,6 +42,5 @@ else
 _putchar((res % 10) + '0');
 }
 _putchar('\n');
-}
 }
 }
