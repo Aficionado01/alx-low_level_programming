@@ -1,4 +1,3 @@
-#include "holberton.h"
 #include <stdio.h>
 
 /**
@@ -19,7 +18,6 @@ void print_buffer(char *b, int size)
 				printf("%02x", *(b + col));
 			else
 				printf("%2c", ' ');
-
 			if (col + 1 < size)
 				printf("%02x", *(b + col + 1));
 			else
