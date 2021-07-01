@@ -1,5 +1,3 @@
-#include "holberton.h"
-
 /**
  * infinite_add - Adds two numbers
  * @n1: The first number
@@ -45,7 +43,6 @@ char *infinite_add(char *n1, char *n2, char *r, int size_r)
 
 	if (carry > 0 && size_r >= max_len + 2)
 	{
-		/* shift digits 1 byte to the right */
 		for (idx = max_len + 1; idx > 0; idx--)
 		{
 			char right = *(r + idx);
@@ -58,6 +55,5 @@ char *infinite_add(char *n1, char *n2, char *r, int size_r)
 	}
 	if (carry > 0 && size_r < max_len + 2)
 		return (0);
-
 	return (r);
 }
