@@ -1,46 +1,48 @@
-include "holberton.h"
+#include "holberton.h"
+
 /**
-* print_times_table - prints the times table for n.
-* @n: The multiplication table requested.
-* Return: Nothing.
+* print_times_table - print times tables from zero to n
+* @n: time
 */
+
 void print_times_table(int n)
 {
-int i, j, res;
+int b, p;
+int a = 0;
 
-if (!(n > 15 || n < 0))
+if (n >= 0 && n <= 15)
 {
-for (i = 0; i <= n; i++)
+while (a <= n)
 {
-for (j = 0; j <= n; j++)
+b = 1;
+_putchar('0');
+while (b <= n)
 {
-res = (i * j);
-if (j != 0)
-{
+p = a * b;
 _putchar(',');
 _putchar(' ');
-}
-if (res < 10 && j != 0)
+if (p < 10)
 {
 _putchar(' ');
 _putchar(' ');
-_putchar((res % 10) + '0');
+_putchar(p + '0');
 }
-else if (res >= 10 && res < 100)
+else if (p > 99)
 {
-_putchar(' ');
-_putchar((res / 10) + '0');
-_putchar((res % 10) + '0');
-}
-else if (res >= 100 && j != 0)
-{
-_putchar((res / 100) + '0');
-_putchar((res / 10) % 10 + '0');
-_putchar((res % 10) + '0');
+_putchar((p / 100) + '0');
+_putchar(((p / 10) % 10) + '0');
+_putchar((p % 10) + '0');
 }
 else
-_putchar((res % 10) + '0');
+{
+_putchar(' ');
+_putchar((p / 10) + '0');
+_putchar((p % 10) + '0');
+}
+b++;
 }
 _putchar('\n');
+a++;
 }
 }
+} 
