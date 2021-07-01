@@ -10,7 +10,8 @@ char *cap_string(char *str)
 {
 	int idx, i;
 	char previous_char = '\t';
-	char word_separators[] = {' ', '\t', '\r', '\n', ',', ';', '.', '!', '?', '"', '(', ')', '{', '}'};
+	char word_separators[] = {' ', '\t', '\r', '\n', ',', ';', '.', '!', '?',
+		'"', '(', ')', '{', '}'};
 	char word_separators_length = 14;
 	char should_capitalize = idx = 0;
 
