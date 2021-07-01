@@ -41,7 +41,5 @@ char *infinite_add(char *n1, char *n2, char *r, int size_r)
 		*(r + i) = carry + '0';
 		return (r);
 	}
-	if (carry > 0 && size_r < max_len + 2)
-		return (0);
-	return (r);
+	return ((carry > 0 && size_r < max_len + 2) ? 0 : r);
 }
