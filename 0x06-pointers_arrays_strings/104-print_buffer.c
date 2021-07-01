@@ -28,8 +28,6 @@ void print_buffer(char *b, int size)
 		{
 			if (col < size)
 				putchar(*(b + col) < ' ' ? '.' : *(b + col));
-			else
-				putchar(' ');
 		}
 		putchar('\n');
 	}
