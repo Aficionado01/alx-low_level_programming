@@ -1,3 +1,5 @@
+#include "holberton.h"
+
 /**
  * infinite_add - Adds two numbers
  * @n1: The first number
@@ -24,13 +26,16 @@ char *infinite_add(char *n1, char *n2, char *r, int size_r)
 	i = max_len;
 	if (size_r < i + 1)
 		return (0);
-	*(r + i) = '\0'; i--; n1_len--;n2_len--;
+	*(r + i) = '\0';
+	i--;
+	n1_len--;
+	n2_len--;
 	while (i >= 0) {
 		n1_dig = n1_len >= 0 ? *(n1 + n1_len) - '0' : 0;
 		n2_dig = n2_len >= 0 ? *(n2 + n2_len) - '0' : 0;
 		rem = (n1_dig + n2_dig + carry) % 10;
 		carry = (n1_dig + n2_dig + carry) / 10;
-		*(r + i) = (char)(rem + '0');
+		*(r + i) = (rem + '0');
 		n1_len--;
 		n2_len--;
 		i--;
