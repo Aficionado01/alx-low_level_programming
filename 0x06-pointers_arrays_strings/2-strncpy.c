@@ -16,9 +16,8 @@ char *_strncpy(char *dest, char *src, int n)
 	while (idx < n)
 	{
 		null_pad = *(src + idx) == '\0' && !null_pad ? 1 : null_pad;
-		*(dest + idx++) = null_pad ? '\0' : *(src + idx);
+		*(dest + idx) = null_pad ? '\0' : *(src + idx);
+		idx++;
 	}
-	// if (n <= src_length)
-	// 	*(dest + src_length++) = '\0';
 	return (dest);
 }
