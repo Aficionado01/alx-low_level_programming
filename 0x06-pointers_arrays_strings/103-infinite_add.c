@@ -11,13 +11,9 @@
  */
 char *infinite_add(char *n1, char *n2, char *r, int size_r)
 {
-	int n1_len, n2_len, max_len, i;
-	char n1_dig, n2_dig, carry, rem, tmp;
+	int n1_len = 0, n2_len = 0, max_len, i;
+	char n1_dig = 0, n2_dig = 0, carry = 0, rem = 0, tmp = 0;
 
-	n1_len = 0;
-	n2_len = 0;
-	carry = 0;
-	rem = 0;
 	while (*(n1 + n1_len) != '\0')
 		n1_len++;
 	while (*(n2 + n2_len) != '\0')
