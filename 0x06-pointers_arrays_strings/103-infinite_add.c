@@ -27,16 +27,20 @@ char *infinite_add(char *n1, char *n2, char *r, int size_r)
 	if (size_r < idx + 1)
 		return (0);
 
-	*(r + idx--) = '\0';
+	*(r + idx) = '\0';
+	idx--;
 	n1_len--;
 	n2_len--;
 	while (idx >= 0)
 	{
-		n1_dig = n1_len >= 0 ? *(n1 + n1_len--) - '0' : 0;
-		n2_dig = n2_len >= 0 ? *(n2 + n2_len--) - '0' : 0;
+		n1_dig = n1_len >= 0 ? *(n1 + n1_len) - '0' : 0;
+		n2_dig = n2_len >= 0 ? *(n2 + n2_len) - '0' : 0;
 		rem = (n1_dig + n2_dig + carry) % 10;
 		carry = (n1_dig + n2_dig + carry) / 10;
-		*(r + idx--) = (char)(rem + '0');
+		*(r + idx) = (char)(rem + '0');
+		n1_len--;
+		n2_len--;
+		idx--;
 	}
 
 	if (carry > 0 && size_r >= max_len + 2)
