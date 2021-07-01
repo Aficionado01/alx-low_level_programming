@@ -18,7 +18,11 @@ char *infinite_add(char *n1, char *n2, char *r, int size_r)
 		n1_len++;
 	while (*(n2 + n2_len) != '\0')
 		n2_len++;
-	max_len = n1_len > n2_len ? n1_len : n2_len;
+	/* max_len = n1_len > n2_len ? n1_len : n2_len; */
+	if (n1_len > n2_len)
+		max_len = n1_len;
+	else
+		max_len = n1_len;
 	i = max_len;
 	if (size_r < i + 1)
 		return (0);
@@ -26,9 +30,18 @@ char *infinite_add(char *n1, char *n2, char *r, int size_r)
 	i--;
 	n1_len--;
 	n2_len--;
-	while (i >= 0) {
-		n1_dig = n1_len >= 0 ? *(n1 + n1_len) - '0' : 0;
-		n2_dig = n2_len >= 0 ? *(n2 + n2_len) - '0' : 0;
+	while (i >= 0)
+	{
+		/* n1_dig = n1_len >= 0 ? *(n1 + n1_len) - '0' : 0; */
+		if (n1_len >= 0)
+			n1_dig = *(n1 + n1_len) - '0';
+		else
+			n1_dig = 0;
+		/* n2_dig = n2_len >= 0 ? *(n2 + n2_len) - '0' : 0; */
+		if (n2_len >= 0)
+			n2_dig = *(n2 + n2_len) - '0';
+		else
+			n2_dig = 0;
 		rem = (n1_dig + n2_dig + carry) % 10;
 		carry = (n1_dig + n2_dig + carry) / 10;
 		*(r + i) = (rem + '0');
@@ -36,8 +49,10 @@ char *infinite_add(char *n1, char *n2, char *r, int size_r)
 		n2_len--;
 		i--;
 	}
-	if (carry > 0 && size_r >= max_len + 2) {
-		for (i = max_len + 1; i > 0; i--) {
+	if (carry > 0 && size_r >= max_len + 2)
+	{
+		for (i = max_len + 1; i > 0; i--)
+		{
 			tmp = *(r + i);
 			*(r + i) = *(r + i - 1);
 			*(r + i - 1) = tmp;
@@ -45,5 +60,7 @@ char *infinite_add(char *n1, char *n2, char *r, int size_r)
 		*(r + i) = carry + '0';
 		return (r);
 	}
-	return ((carry > 0 && size_r < max_len + 2) ? 0 : r);
+	if ((carry > 0 && size_r < max_len + 2))
+		return (0);
+	return (r);
 }
