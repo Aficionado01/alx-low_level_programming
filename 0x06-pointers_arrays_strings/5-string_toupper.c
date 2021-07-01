@@ -1,8 +1,8 @@
 #include "holberton.h"
 
 /**
- * _strncat - Changes all lowercase letters of a string to uppercase
- * @str: The destination string
+ * string_toupper - Changes all lowercase letters of a string to uppercase
+ * @str: The source string
  *
  * Return: The string
  */
