@@ -12,18 +12,18 @@ void print_buffer(char *b, int size)
 
 	for (idx = 0; idx < size; idx += 10)
 	{
-		printf("%08x ", idx);
+		printf("%08x: ", idx);
 		for (col = idx; col < idx + 10; col += 2)
 		{
 			if (col < size)
 				printf("%02x", *(b + col));
 			else
-				printf("  ");
+				printf("%2c", ' ');
 
 			if (col + 1 < size)
 				printf("%02x", *(b + col + 1));
 			else
-				printf("  ");
+				printf("%2c", ' ');
 			putchar(' ');
 		}
 		for (col = idx; col < idx + 10; col++)
