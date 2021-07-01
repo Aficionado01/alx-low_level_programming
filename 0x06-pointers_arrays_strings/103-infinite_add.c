@@ -9,9 +9,13 @@
  */
 char *infinite_add(char *n1, char *n2, char *r, int size_r)
 {
-	int n1_len, n2_len, max_len, i;	char n1_dig, n2_dig, carry, rem, tmp;
+	int n1_len, n2_len, max_len, i;
+	char n1_dig, n2_dig, carry, rem, tmp;
 
-	n1_len = n2_len = carry = rem = 0;
+	n1_len = 0;
+	n2_len = 0;
+	carry = 0;
+	rem = 0;
 	while (*(n1 + n1_len) != '\0')
 		n1_len++;
 	while (*(n2 + n2_len) != '\0')
@@ -27,7 +31,9 @@ char *infinite_add(char *n1, char *n2, char *r, int size_r)
 		rem = (n1_dig + n2_dig + carry) % 10;
 		carry = (n1_dig + n2_dig + carry) / 10;
 		*(r + i) = (char)(rem + '0');
-		n1_len--;n2_len--;i--;
+		n1_len--;
+		n2_len--;
+		i--;
 	}
 	if (carry > 0 && size_r >= max_len + 2) {
 		for (i = max_len + 1; i > 0; i--) {
