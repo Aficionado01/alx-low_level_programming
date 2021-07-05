@@ -1,1 +1,1 @@
-C - Even more pointers, arrays and strings
+*pointers, arrays, strings*
