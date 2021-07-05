@@ -2,7 +2,7 @@
 
 /**
 * _strstr - locates a substring
-0* @haystack: string in which to check for needle
+* @haystack: string in which to check for needle
 * @needle: substring to find in haystack
 *
 * Return: pointer to beginning of needle in haystack or NULL if no match
@@ -18,7 +18,7 @@ while (needle[j] && (haystack[i] == needle[0]))
 if (haystack[i + j] == needle[j])
 j++;
 else
-sbreak;
+break;
 }
 if (needle[j])
 {
