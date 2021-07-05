@@ -11,8 +11,9 @@
 unsigned int _strspn(char *s, char *accept)
 {
 	unsigned int i, j;
-	char stop;
+	char stop, match_found;
 
+	match_found = 0;
 	for (i = 0; *(s + i) != '\0';)
 	{
 		for (j = 0; *(accept + j) != '\0'; j++)
@@ -20,6 +21,7 @@ unsigned int _strspn(char *s, char *accept)
 			if (*(s + i) == *(accept + j))
 			{
 				stop = 0;
+				match_found = 1;
 				break;
 			}
 			else
@@ -32,5 +34,5 @@ unsigned int _strspn(char *s, char *accept)
 		else
 			break;
 	}
-	return (i);
+	return (match_found ? i : 0);
 }
