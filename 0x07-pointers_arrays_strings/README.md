@@ -12,3 +12,5 @@ This project contains __C__ tasks for learning about pointers, arrays and string
 + [x] 5\. strstr<br/>_**5-strstr.c**_ contains a function that locates a substring.
 + [x] 6\. Chess is mental torture<br/>_**7-print_chessboard.c**_ contains a function that prints the chessboard.
 + [x] 7\. The line of life is a ragged diagonal between duty and desire<br/>_**8-print_diagsums.c**_ contains a function that prints the sum of the two diagonals of a square matrix of integers.
++ [ ] 8\. Double pointer, double fun<br/>_**100-set_string.c**_ contains a function that sets the value of a pointer to a char.
++ [ ] 9\. My primary goal of hacking was the intellectual curiosity, the seduction of adventure<br/>_**101-crackme_password**_ contains the password for the [crackme2](https://github.com/holbertonschool/0x06.c) executable.
