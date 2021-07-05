@@ -11,4 +11,4 @@ This project contains __C__ tasks for learning about pointers, arrays and string
 + [x] 4\. strpbrk<br/>_**4-strpbrk.c**_ contains a function that searches a string for any of a set of bytes.
 + [x] 5\. strstr<br/>_**5-strstr.c**_ contains a function that locates a substring.
 + [x] 6\. Chess is mental torture<br/>_**7-print_chessboard.c**_ contains a function that prints the chessboard.
-+ [ ] 7\. The line of life is a ragged diagonal between duty and desire<br/>_**8-print_diagsums.c**_ contains a function that prints the sum of the two diagonals of a square matrix of integers.
++ [x] 7\. The line of life is a ragged diagonal between duty and desire<br/>_**8-print_diagsums.c**_ contains a function that prints the sum of the two diagonals of a square matrix of integers.
