@@ -1,1 +1,1 @@
-Here is my forst work on C
+Here is my first work on C
