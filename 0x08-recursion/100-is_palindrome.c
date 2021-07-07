@@ -1,4 +1,5 @@
 #include "holberton.h"
+
 /**
  * _strlen_recursion - Computes the length of a string
  * @s: The string
@@ -9,6 +10,7 @@ int _strlen_recursion(char *s)
 {
 	return (*s == '\0' ? 0 : 1 + _strlen_recursion(s + 1));
 }
+
 /**
  * is_palindrome_substr - Checks if a string is a palindrome
  * @s: The string to check
@@ -26,6 +28,7 @@ int is_palindrome_substr(char *s, int left, int right)
 	else
 		return (0);
 }
+
 /**
  * is_palindrome - Checks if a string is a palindrome
  * @s: The string to check
@@ -39,7 +42,7 @@ int is_palindrome(char *s)
 	if (*s == '\0')
 		return (1);
 	else if (*s == s[len - 1])
-		return ( len > 2 ? is_palindrome_substr(s, 1, len - 2) : 1);
+		return (len > 2 ? is_palindrome_substr(s, 1, len - 2) : 1);
 	else
 		return (0);
 }
