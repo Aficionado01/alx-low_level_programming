@@ -12,4 +12,4 @@ This project contains __C__ tasks for learning about recursive procedures.
 + [x] 5\. Your subconscious is looking for the dreamer<br/>_**5-sqrt_recursion.c**_ contains a function that returns the natural square root of a number.
 + [x] 6\. Inception. Is it possible?<br/>_**6-is_prime_number.c**_ contains a function that returns `1` if the input integer is a [prime number](https://en.wikipedia.org/wiki/Prime_number), otherwise return `0`.
 + [x] 7\. They say we only use a fraction of our brain's true potential. Now that's when we're awake. When we're asleep, we can do almost anything<br/>_**100-is_palindrome.c**_ contains a function that returns `1` if a string is a palindrome and `0` if not.
-+ [ ] 8\. Inception. Now, before you bother telling me it's impossible...<br/>_**101-wildcmp.c**_ contains a function that compares two strings and returns `1` if the strings can be considered identical, otherwise return `0`.
++ [x] 8\. Inception. Now, before you bother telling me it's impossible...<br/>_**101-wildcmp.c**_ contains a function that compares two strings and returns `1` if the strings can be considered identical, otherwise return `0`.
