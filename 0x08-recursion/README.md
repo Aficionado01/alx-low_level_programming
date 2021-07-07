@@ -7,7 +7,7 @@ This project contains __C__ tasks for learning about recursive procedures.
 + [x] 0\. She locked away a secret, deep inside herself, something she once knew to be true... but chose to forget<br/>_**0-puts_recursion.c**_ contains a function that prints a string, followed by a new line.
 + [x] 1\. Why is it so important to dream? Because, in my dreams we are together<br/>_**1-print_rev_recursion.c**_ contains a function that prints a string in reverse.
 + [x] 2\. Dreams feel real while we're in them. It's only when we wake up that we realize something was actually strange<br/>_**2-strlen_recursion.c**_ contains a function that returns the length of a string.
-+ [x] 3\. You mustn't be afraid to dream a little bigger, darling<br/>_**3-factorial.c**_ contains a function that returns the factorial of a given number.
++ [ ] 3\. You mustn't be afraid to dream a little bigger, darling<br/>_**3-factorial.c**_ contains a function that returns the factorial of a given number.
 + [ ] 4\. Once an idea has taken hold of the brain it's almost impossible to eradicate<br/>_**4-pow_recursion.c**_ contains a function that returns the value of `x` raised to the power of `y`.
 + [ ] 5\. Your subconscious is looking for the dreamer<br/>_**5-sqrt_recursion.c**_ contains a function that returns the natural square root of a number.
 + [ ] 6\. Inception. Is it possible?<br/>_**6-is_prime_number.c**_ contains a function that returns `1` if the input integer is a [prime number], otherwise return `0`.
