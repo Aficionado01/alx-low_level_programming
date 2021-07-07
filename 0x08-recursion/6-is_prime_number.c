@@ -39,5 +39,5 @@ int is_prime_number(int n)
 		return (0);
 	}
 	else
-		return is_prime(start, n);
+		return (is_prime(start, n));
 }
