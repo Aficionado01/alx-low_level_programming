@@ -1,12 +1,3 @@
-# Static Libraries
-
-This project contains __C__ tasks for learning generating static libraries.
-
-## Tasks Completed
-
-+ [x] 0\. A library is not a luxury but one of the necessities of life<br/>_**libholberton.a**_ is a static library containing the functions below.
-
-```c
 int _putchar(char c);
 int _islower(int c);
 int _isalpha(int c);
@@ -27,5 +18,3 @@ char *_strchr(char *s, char c);
 unsigned int _strspn(char *s, char *accept);
 char *_strpbrk(char *s, char *accept);
 char *_strstr(char *haystack, char *needle);
-```
-+ [ ] 1\. Without libraries what have we? We have no past and no future<br/>_**create_static_lib.sh**_ creates a static library called `liball.a` from all the `.c` files that are in the current directory.
