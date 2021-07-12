@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 /**
  * main - Prints the product of two numbers passed to this program
@@ -14,8 +15,10 @@ int main(int argc, char *argv[])
 
 	if (argc == 3)
 	{
-		sscanf(argv[1], "%d", &num1);
-		sscanf(argv[2], "%d", &num2);
+		num1 = atoi(argv[1]);
+		num2 = atoi(argv[2]);
+		/* sscanf(argv[1], "%d", &num1); */
+		/* sscanf(argv[2], "%d", &num2); */
 		printf("%d\n", num1 * num2);
 		return (0);
 	}
