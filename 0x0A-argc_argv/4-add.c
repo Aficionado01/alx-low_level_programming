@@ -2,6 +2,8 @@
 
 /**
  * main - Prints the sum of the whole numbers passed to this program
+ * @argc: The number of command-line arguments
+ * @argv: The command-line arguments
  *
  * Return: 0 if successfull, otherwise 1
  */

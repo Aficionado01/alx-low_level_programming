@@ -4,6 +4,8 @@
 /**
  * main - Prints the minimum number of coins to make change for an amount
  * of money passed to this program
+ * @argc: The number of command-line arguments
+ * @argv: The command-line arguments
  *
  * Return: 0 if successfull, otherwise 1
  */
