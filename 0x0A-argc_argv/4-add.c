@@ -19,9 +19,14 @@ int main(int argc, char *argv[])
 		while (argv[i][j] != '\0')
 		{
 			if (argv[i][j] >= '0' && argv[i][j] <= '9')
+			{
 				j++;
+			}
 			else
-				goto invalid_symbol;
+			{
+				puts("Error");
+				return (1);
+			}
 		}
 		num = atoi(argv[i]);
 		/* sscanf(argv[i], "%d", &num); */
@@ -29,7 +34,4 @@ int main(int argc, char *argv[])
 	}
 	printf("%d\n", sum);
 	return (0);
-	invalid_symbol:
-	puts("Error");
-	return (1);
 }
