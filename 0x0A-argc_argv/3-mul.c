@@ -3,7 +3,7 @@
 /**
  * main - Prints the product of two numbers passed to this program
  *
- * Return: 0 (always successfull)
+ * Return: 0 if successfull, otherwise 1
  */
 int main(int argc, char *argv[])
 {
