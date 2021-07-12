@@ -1,0 +1,31 @@
+#include <stdio.h>
+
+/**
+ * main - Prints the sum of the whole numbers passed to this program
+ *
+ * Return: 0 if successfull, otherwise 1
+ */
+int main(int argc, char *argv[])
+{
+	int num, i, j;
+	int sum = 0;
+
+	for (i = 1; i < argc; i++)
+	{
+		j = 0;
+		while (argv[i][j] != '\0')
+		{
+			if (argv[i][j] >= '0' && argv[i][j] <= '9')
+				j++;
+			else
+				goto invalid_symbol;
+		}
+		sscanf(argv[i], "%d", &num);
+		sum += num;
+	}
+	printf("%d\n", sum);
+	return (0);
+	invalid_symbol:
+	puts("Error");
+	return (1);
+}
