@@ -11,9 +11,9 @@
  */
 int main(int argc, char *argv[])
 {
-	int cents, coins_count, rem, i;
+	int cents, i;
 	int coins[5] = {25, 10, 5, 2, 1};
-	int freq[5] = { 0 };
+	int coins_count;
 
 	if (argc == 2)
 	{
@@ -26,22 +26,19 @@ int main(int argc, char *argv[])
 		else
 		{
 			coins_count = 0;
-			rem = 0;
 			i = 0;
-			while (rem != cents)
+			while (cents > 0)
 			{
-				if (rem + coins[i] <= cents)
+				if (coins[i] <= cents)
 				{
-					rem += coins[i];
-					freq[i]++;
+					coins_count += cents / coins[i];
+					cents %= coins[i];
 				}
 				else
 				{
 					i++;
 				}
 			}
-			for (i = 0; i < 5; i++)
-				coins_count += freq[i];
 			printf("%d\n", coins_count);
 		}
 		return (0);
