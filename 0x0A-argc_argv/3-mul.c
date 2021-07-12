@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 /**
- * main - Prints the name of this program
+ * main - Prints the product of two numbers passed to this program
  *
  * Return: 0 (always successfull)
  */
