@@ -5,7 +5,7 @@
  * main - Prints the minimum number of coins to make change for an amount
  * of money passed to this program
  *
- * Return: 0 (always successfull)
+ * Return: 0 if successfull, otherwise 1
  */
 int main(int argc, char *argv[])
 {
