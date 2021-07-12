@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 /**
  * main - Prints the sum of the whole numbers passed to this program
@@ -22,7 +23,8 @@ int main(int argc, char *argv[])
 			else
 				goto invalid_symbol;
 		}
-		sscanf(argv[i], "%d", &num);
+		num = atoi(argv[i]);
+		/* sscanf(argv[i], "%d", &num); */
 		sum += num;
 	}
 	printf("%d\n", sum);
