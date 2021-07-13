@@ -40,18 +40,15 @@ void get_dimensions(char *str, int *height, int *width)
 char **strtow(char *str)
 {
 	char **words;
-	char *word;
 	int i, j, k, len, words_count;
 	char prev_char = ' ';
 
 	get_dimensions(str, &words_count, &len);
 	if (str == NULL || *str == '\0' || words_count == 0)
 		return (NULL);
-	words = malloc((sizeof(char *) * (words_count + 1))
-		+ (sizeof(char) * (len + 1) * words_count));
+	words = malloc((sizeof(char *) * (words_count + 1)));
 	if (words)
 	{
-		word = (char *)(words + words_count + 1);
 		j = -1;
 		k = 0;
 		prev_char = ' ';
@@ -62,7 +59,9 @@ char **strtow(char *str)
 				if (prev_char == ' ')
 				{
 					j++;
-					*(words + j) = (char *)(word + j * (len + 1));
+					*(words + j) = malloc((sizeof(char) * (len + 1)));
+					if (*(words + j) == NULL)
+						return (NULL);
 					k = 0;
 				}
 				*(*(words + j) + k) = *(str + i);
