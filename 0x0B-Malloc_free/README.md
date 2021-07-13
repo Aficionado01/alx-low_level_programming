@@ -4,7 +4,7 @@ This project contains __C__ tasks for learning about dynamic memory allocation u
 
 ## Tasks Completed
 
-+ [ ] 0\. Float like a butterfly, sting like a bee<br/>_**[0-create_array.c](0-create_array.c)**_ contains a function that creates an array of chars, and initializes it with a specific char.
++ [x] 0\. Float like a butterfly, sting like a bee<br/>_**[0-create_array.c](0-create_array.c)**_ contains a function that creates an array of chars, and initializes it with a specific char.
 + [ ] 1\. The woman who has no imagination has no wings<br/>_**[1-strdup.c](1-strdup.c)**_ contains a function that returns a pointer to a newly allocated space in memory, which contains a copy of the string given as a parameter.
 + [ ] 2\. He who is not courageous enough to take risks will accomplish nothing in life<br/>_**[2-str_concat.c](2-str_concat.c)**_ contains a function that concatenates two strings.
 + [ ] 3\. If you even dream of beating me you'd better wake up and apologize<br/>_**[3-alloc_grid.c](3-alloc_grid.c)**_ contains a function that returns a pointer to a 2 dimensional array of integers.
