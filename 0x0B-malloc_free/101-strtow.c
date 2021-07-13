@@ -2,6 +2,34 @@
 #include <stdlib.h>
 
 /**
+ * get_dimensions - Computes the dimensions of an array of words
+ * @str: The source string
+ * @height: The number of words
+ * @width: The maximum word size
+ */
+void get_dimensions(char *str, int *height, int *width)
+{
+	int i, j;
+	*height = 0;
+	*width = 0;
+	char prev_char = ' ';
+
+	for (i = 0; str != NULL && *(str + i) != '\0'; i++)
+	{
+		if (*(str + i) != ' ' && prev_char == ' ')
+		{
+			*height += 1;
+			j = 0;
+		}
+		if (*(str + i) != ' ')
+			j++;
+		if (*(str + i) != ' ' && (*(str + i + 1) == '\0' || *(str + i + 1) == ' '))
+			*width = j > *width ? j : *width;
+		prev_char = *(str + i);
+	}
+}
+
+/**
  * strtow - Splits a string into words (array of strings)
  * @str: The string to split
  *
@@ -12,29 +40,14 @@ char **strtow(char *str)
 {
 	char **words;
 	char *word;
-	int i, j, k;
-	int len = 0;
-	int words_count = 0;
+	int i, j, k, len, words_count;
 	char prev_char = ' ';
 
-	if (str == NULL || *str == '\0')
+	get_dimensions(str, &words_count, &len);
+	if (str == NULL || *str == '\0' || words_count == 0)
 		return (NULL);
-	for (i = 0; *(str + i) != '\0'; i++)
-	{
-		if (*(str + i) != ' ' && prev_char == ' ')
-		{
-			words_count++;
-			j = 0;
-		}
-		if (*(str + i) != ' ')
-			j++;
-		if (*(str + i) != ' ' && (*(str + i + 1) == '\0' || *(str + i + 1) == ' '))
-			len = j > len ? j : len;
-		prev_char = *(str + i);
-	}
-	len++;
 	words = malloc((sizeof(char *) * (words_count + 1))
-		+ (sizeof(char) * len * words_count));
+		+ (sizeof(char) * (len + 1) * words_count));
 	if (words)
 	{
 		word = (char *)(words + words_count + 1);
@@ -48,7 +61,7 @@ char **strtow(char *str)
 				if (prev_char == ' ')
 				{
 					j++;
-					*(words + j) = (char *)(word + j * len);
+					*(words + j) = (char *)(word + j * (len + 1));
 					k = 0;
 				}
 				*(*(words + j) + k) = *(str + i);
@@ -61,8 +74,5 @@ char **strtow(char *str)
 		*(words + j + 1) = NULL;
 		return (words);
 	}
-	else
-	{
-		return (NULL);
-	}
+	return (NULL);
 }
