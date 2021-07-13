@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 /**
- * alloc_grid - Creates a string from the concatenation of all the
+ * argstostr - Creates a string from the concatenation of all the
  * arguments of a program
  * @ac: The number of arguments to the program
  * @av: The array of arguments to the program
@@ -34,10 +34,9 @@ char *argstostr(int ac, char **av)
 				*(str + len) = *(*(av + i) + j);
 				len++;
 			}
-			*(str + len) = '\n';
+			*(str + len) = i < ac - 1 ? '\n' : '\0';
 			len++;
 		}
-		*(str + len) = '\0';
 		return (str);
 	}
 	else
