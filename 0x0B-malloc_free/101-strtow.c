@@ -3,31 +3,41 @@
 #include <stdio.h>
 
 /**
- * get_dimensions - Computes the dimensions of an array of words
+ * get_word_count - Computes the number of words in a string
  * @str: The source string
- * @height: The number of words
- * @width: The maximum word size
+ * @count: The number of words
  */
-void get_dimensions(char *str, int *height, int *width)
+void get_words_count(char *str, int *count)
 {
 	int i, j;
 	char prev_char = ' ';
 
-	*height = 0;
-	*width = 0;
+	*count = 0;
 	for (i = 0; str != NULL && *(str + i) != '\0'; i++)
 	{
 		if (*(str + i) != ' ' && prev_char == ' ')
 		{
-			*height += 1;
+			*count += 1;
 			j = 0;
 		}
 		if (*(str + i) != ' ')
 			j++;
-		if (*(str + i) != ' ' && (*(str + i + 1) == '\0' || *(str + i + 1) == ' '))
-			*width = j > *width ? j : *width;
 		prev_char = *(str + i);
 	}
+}
+
+/**
+ * get_word_length - Computes the length of a word
+ * @str: The source string beginning with the word
+ * @length: The length of the word
+ */
+void get_word_length(char *str, int *length)
+{
+	*length = 0;
+	if (str == NULL || (str != NULL && (*str == '\0' || *str == ' ')))
+		return;
+	while (*(str + *length) != '\0' && *(str + *length) != ' ')
+		*length += 1;
 }
 
 /**
@@ -43,7 +53,7 @@ char **strtow(char *str)
 	int i, j, k, len, words_count;
 	char prev_char = ' ';
 
-	get_dimensions(str, &words_count, &len);
+	get_words_count(str, &words_count);
 	if (str == NULL || *str == '\0' || words_count == 0)
 		return (NULL);
 	words = malloc((sizeof(char *) * (words_count + 1)));
@@ -59,6 +69,7 @@ char **strtow(char *str)
 				if (prev_char == ' ')
 				{
 					j++;
+					get_word_length(str + i, &len);
 					*(words + j) = malloc((sizeof(char) * (len + 1)));
 					if (*(words + j) == NULL)
 						return (NULL);
