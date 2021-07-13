@@ -1,9 +1,8 @@
 #include "holberton.h"
 #include <stdlib.h>
-#include <stdio.h>
 
 /**
- * get_word_count - Computes the number of words in a string
+ * get_words_count - Computes the number of words in a string
  * @str: The source string
  * @count: The number of words
  */
