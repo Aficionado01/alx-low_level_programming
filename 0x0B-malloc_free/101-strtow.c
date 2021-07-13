@@ -10,10 +10,10 @@
 void get_dimensions(char *str, int *height, int *width)
 {
 	int i, j;
-	*height = 0;
-	*width = 0;
 	char prev_char = ' ';
 
+	*height = 0;
+	*width = 0;
 	for (i = 0; str != NULL && *(str + i) != '\0'; i++)
 	{
 		if (*(str + i) != ' ' && prev_char == ' ')
