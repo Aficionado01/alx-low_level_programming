@@ -17,7 +17,7 @@ void print_str(char *str)
 /**
  * program_fail - Computes the program failure instructions
  */
-void program_fail()
+void program_fail(void)
 {
 	print_str("Error");
 	exit(98);
@@ -130,6 +130,7 @@ char *multiply(char *num, char *multiple)
 		return (result);
 	}
 	program_fail();
+	return (NULL);
 }
 
 /**
@@ -199,4 +200,5 @@ int main(int argc, char *argv[])
 		}
 	}
 	program_fail();
+	return (98);
 }
