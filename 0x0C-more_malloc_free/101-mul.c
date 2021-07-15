@@ -2,16 +2,43 @@
 #include <stdlib.h>
 
 /**
- * print_str - Prints a string
- * @str: The string to print
+ * str_ops - Performs some string operations
+ * @op: The operation to perform (0-> set length, 1-> fill bytes,
+ * 2-> left shift by one byte, 3-> print string and newline)
+ * @str: The source string
+ * @len: The pointer to the length of the string
+ * @n: The number of bytes to fill
+ * @c: The character to fill the positions with
  */
-void print_str(char *str)
+void str_ops(char op, char *str, int *len, int n, char c)
 {
-	int i = 0;
+	int i;
 
-	for (i = 0; str && *(str + i) != '\0'; i++)
+	if (op == 0)
+	{
+		*len = 0;
+		while (str && *(str + *len) != '\0')
+			*len += 1;
+	}
+	else if (op == 1)
+	{
+		for (i = 0; str && i < n; i++)
+			*(str + i) = c;
+	}
+	else if (op == 2)
+	{
+		for (i = 1; i <= n; i++)
+		{
+			*(str + i - 1) = *(str + i) != '\0' && *(str + i - 1) != '\0'
+				? *(str + i) : '\0';
+		}
+	}
+	else if (op == 3)
+	{
+		for (i = 0; str && *(str + i) != '\0'; i++)
 		_putchar(*(str + i));
 	_putchar('\n');
+	}
 }
 
 /**
@@ -19,77 +46,8 @@ void print_str(char *str)
  */
 void program_fail(void)
 {
-	print_str("Error\n");
+	str_ops(3, "Error\n", NULL, 0, '\0');
 	exit(98);
-}
-
-/**
- * validate_input - Ensures that this program's arguments are valid
- * @num1: The first argument
- * @num2: The second argument
- */
-void validate_input(char *num1, char *num2)
-{
-	int len1;
-	int len2;
-
-	for (len1 = 0; *(num1 + len1) != '\0'; len1++)
-	{
-		if (!(*(num1 + len1) >= '0' && *(num1 + len1) <= '9'))
-			program_fail();
-	}
-	for (len2 = 0; *(num2 + len2) != '\0'; len2++)
-	{
-		if (!(*(num2 + len2) >= '0' && *(num2 + len2) <= '9'))
-			program_fail();
-	}
-}
-
-/**
- * set_strlen - Sets the length of a string
- * @str: The source string
- * @len: The pointer to the length of the string
- */
-void set_strlen(char *str, int *len)
-{
-	*len = 0;
-	while (str && *(str + *len) != '\0')
-		*len += 1;
-}
-
-/**
- * fill_str - Fills the first n bytes of a string with a given character
- * @str: The string to be filled
- * @n: The number of bytes to fill
- * @c: The character to fill the positions with
- */
-void fill_str(char *str, int n, char c)
-{
-	int i;
-
-	for (i = 0; str && i < n; i++)
-		*(str + i) = c;
-}
-
-/**
- * left_shift - Shifts a string to the left for a given number of bytes
- * @str: The string to shift
- * @num: The number of bytes to shift the string by
- * @len: The length of the string
- */
-void left_shift(char *str, int num, int len)
-{
-	int i;
-	int j;
-
-	for (i = 0; i < num; i++)
-	{
-		for (j = 1; j <= len; j++)
-		{
-			*(str + j - 1) = *(str + j) != '\0' && *(str + j - 1) != '\0'
-				? *(str + j) : '\0';
-		}
-	}
 }
 
 /**
@@ -102,21 +60,19 @@ void left_shift(char *str, int num, int len)
 char *multiply(char *num, char *multiple)
 {
 	int size;
-	int mult_len;
-	int num_len;
-	int i;
-	int j;
+	int mult_len, num_len;
+	int i, j;
 	char *result;
 	char rem;
 	char carry = 0;
 
-	set_strlen(multiple, &mult_len);
-	set_strlen(num, &num_len);
+	str_ops(0, multiple, &mult_len, 0, '\0');
+	str_ops(0, num, &num_len, 0, '\0');
 	size = mult_len + num_len;
 	result = malloc(sizeof(char) * (size + 1));
 	if (result)
 	{
-		fill_str(result, size, '0');
+		str_ops(1, result, NULL, size, '0');
 		*(result + size) = '\0';
 		mult_len--;
 		j = size - mult_len - 1;
@@ -124,6 +80,9 @@ char *multiply(char *num, char *multiple)
 			*(result + size - i) = '0';
 		for (i = num_len - 1; i >= 0; i--)
 		{
+			if (!(*(num + i) >= '0' && *(num + i) <= '9')
+				|| !(*multiple >= '0' && *multiple <= '9'))
+				program_fail();
 			rem = ((*(num + i) - '0') * (*multiple - '0') + carry) % 10;
 			carry = ((*(num + i) - '0') * (*multiple - '0') + carry) / 10;
 			*(result + j) = rem + '0';
@@ -132,7 +91,7 @@ char *multiply(char *num, char *multiple)
 		if (carry > 0)
 			*(result + j) = carry + '0';
 		if (*result == '0')
-			left_shift(result, 1, size);
+			str_ops(2, result, NULL, size, '\0');
 		return (result);
 	}
 	program_fail();
@@ -154,7 +113,7 @@ void add(char *num, char *r, int size_r)
 	char carry;
 	char rem;
 
-	set_strlen(num, &idx_num);
+	str_ops(0, num, &idx_num, 0, '\0');
 	carry = 0;
 	idx_num--;
 	for (idx_r = size_r - 1; idx_r >= 0; idx_r--)
@@ -178,25 +137,20 @@ void add(char *num, char *r, int size_r)
  */
 int main(int argc, char *argv[])
 {
-	char *num1;
-	char *num2;
-	int size;
-	int i;
-	int len2;
-	char *result;
+	char *num1, *num2, *result;
+	int size, i, len2;
 
 	if (argc == 3)
 	{
 		num1 = argv[1];
 		num2 = argv[2];
-		validate_input(num1, num2);
-		set_strlen(num1, &size);
-		set_strlen(num2, &len2);
+		str_ops(0, num1, &size, 0, '\0');
+		str_ops(0, num2, &len2, 0, '\0');
 		size += len2;
 		result = malloc(sizeof(char) * (size + 1));
 		if (result)
 		{
-			fill_str(result, size, '0');
+			str_ops(1, result, NULL, size, '0');
 			*(result + size) = '\0';
 			for (i = 0; i < len2; i++)
 			{
@@ -206,9 +160,8 @@ int main(int argc, char *argv[])
 				free(product);
 			}
 			while (*result == '0' && *(result + 1) != '\0')
-				left_shift(result, 1, size);
-			print_str(result);
-			_putchar('\n');
+				str_ops(2, result, NULL, size, '\0');
+			str_ops(3, result, NULL, 0, '\0');
 			free(result);
 			return (0);
 		}
