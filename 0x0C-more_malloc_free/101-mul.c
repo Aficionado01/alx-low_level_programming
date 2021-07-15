@@ -19,7 +19,7 @@ void print_str(char *str)
  */
 void program_fail(void)
 {
-	print_str("Error");
+	print_str("Error\n");
 	exit(98);
 }
 
@@ -195,6 +195,7 @@ int main(int argc, char *argv[])
 			while (*result == '0' && *(result + 1) != '\0')
 				left_shift(result, 1, size);
 			print_str(result);
+			_putchar('\n');
 			free(result);
 			return (0);
 		}
