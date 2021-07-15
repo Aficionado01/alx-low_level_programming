@@ -18,8 +18,8 @@ void *_calloc(unsigned int nmemb, unsigned int size)
 	arr_block = malloc(nmemb * size);
 	if (arr_block)
 	{
-		for (i = 0; i < nmemb; i++)
-			*((char *)arr_block + size) = 0;
+		for (i = 0; i < (nmemb * size); i++)
+			*((char *)arr_block + i) = 0;
 		return (arr_block);
 	}
 	return (NULL);
