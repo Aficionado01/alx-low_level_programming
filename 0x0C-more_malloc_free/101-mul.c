@@ -17,27 +17,26 @@ void str_ops(char op, char *str, int *len, int n, char c)
 	if (op == 0)
 	{
 		*len = 0;
-		while (str && *(str + *len) != '\0')
+		while (str != NULL && *(str + *len) != '\0')
 			*len += 1;
 	}
 	else if (op == 1)
 	{
-		for (i = 0; str && i < n; i++)
+		for (i = 0; str != NULL && i < n; i++)
 			*(str + i) = c;
 	}
 	else if (op == 2)
 	{
 		for (i = 1; i <= n; i++)
 		{
-			*(str + i - 1) = *(str + i) != '\0' && *(str + i - 1) != '\0'
-				? *(str + i) : '\0';
+			str[i - 1] = str[i] != '\0' && str[i - 1] != '\0' ? str[i] : '\0';
 		}
 	}
 	else if (op == 3)
 	{
-		for (i = 0; str && *(str + i) != '\0'; i++)
-		_putchar(*(str + i));
-	_putchar('\n');
+		for (i = 0; str != NULL && *(str + i) != '\0'; i++)
+			_putchar(*(str + i));
+		_putchar('\n');
 	}
 }
 
@@ -70,7 +69,7 @@ char *multiply(char *num, char *multiple)
 	str_ops(0, num, &num_len, 0, '\0');
 	size = mult_len + num_len;
 	result = malloc(sizeof(char) * (size + 1));
-	if (result)
+	if (result != NULL)
 	{
 		str_ops(1, result, NULL, size, '0');
 		*(result + size) = '\0';
@@ -148,7 +147,7 @@ int main(int argc, char *argv[])
 		str_ops(0, num2, &len2, 0, '\0');
 		size += len2;
 		result = malloc(sizeof(char) * (size + 1));
-		if (result)
+		if (result != NULL)
 		{
 			str_ops(1, result, NULL, size, '0');
 			*(result + size) = '\0';
