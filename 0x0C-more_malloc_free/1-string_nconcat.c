@@ -11,22 +11,25 @@
  */
 char *string_nconcat(char *s1, char *s2, unsigned int n)
 {
-	unsigned int s1_len;
-	unsigned int s2_len;
+	unsigned int i;
+	unsigned int len;
 	char *str;
 
-	for (s1_len = 0; s1 && *(s1 + s1_len) != '\0'; s1_len++)
-		continue;
-	for (s2_len = 0; s2 && *(s2 + s2_len) != '\0' && s2_len < n; s2_len++)
-		continue;
-	str = malloc(sizeof(char) * (s1_len + s2_len + 1));
+	s1 = s1 ? s1 : "";
+	s2 = s2 ? s2 : "";
+	len = 0;
+	for (i = 0; *(s1 + i) != '\0'; i++)
+		len++;
+	for (i = 0; *(s2 + i) != '\0' && i < n; i++)
+		len++;
+	str = malloc(sizeof(char) * (len + 1));
 	if (str)
 	{
-		for (s1_len = 0; s1 && *(s1 + s1_len) != '\0'; s1_len++)
-			*(str + s1_len) = *(s1 + s1_len);
-		for (s2_len = 0; s2 && *(s2 + s2_len) != '\0' && s2_len < n; s2_len++)
-			*(str + s1_len + s2_len) = *(s2 + s2_len);
-		*(str + s1_len + s2_len) = '\0';
+		for (i = 0; *(s1 + i) != '\0'; i++)
+			*(str + len++) = *(s1 + i);
+		for (i = 0; *(s2 + i) != '\0' && i < n; i++)
+			*(str + len++) = *(s2 + i);
+		*(str + len) = '\0';
 		return (str);
 	}
 	return (NULL);
