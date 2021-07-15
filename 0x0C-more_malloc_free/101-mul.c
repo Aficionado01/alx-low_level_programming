@@ -30,7 +30,8 @@ void program_fail(void)
  */
 void validate_input(char *num1, char *num2)
 {
-	int len1, len2;
+	int len1;
+	int len2;
 
 	for (len1 = 0; *(num1 + len1) != '\0'; len1++)
 	{
@@ -78,7 +79,8 @@ void fill_str(char *str, int n, char c)
  */
 void left_shift(char *str, int num, int len)
 {
-	int i, j;
+	int i;
+	int j;
 
 	for (i = 0; i < num; i++)
 	{
@@ -99,9 +101,13 @@ void left_shift(char *str, int num, int len)
  */
 char *multiply(char *num, char *multiple)
 {
-	int size, mult_len, num_len;
-	int i, j;
-	char *result, rem;
+	int size;
+	int mult_len;
+	int num_len;
+	int i;
+	int j;
+	char *result;
+	char rem;
 	char carry = 0;
 
 	set_strlen(multiple, &mult_len);
@@ -141,8 +147,12 @@ char *multiply(char *num, char *multiple)
  */
 void add(char *num, char *r, int size_r)
 {
-	int idx_num, idx_r;
-	char dig1, dig2, carry, rem;
+	int idx_num;
+	int idx_r;
+	char dig1;
+	char dig2;
+	char carry;
+	char rem;
 
 	set_strlen(num, &idx_num);
 	carry = 0;
@@ -168,8 +178,11 @@ void add(char *num, char *r, int size_r)
  */
 int main(int argc, char *argv[])
 {
-	char *num1, *num2;
-	int size, i, len2;
+	char *num1;
+	char *num2;
+	int size;
+	int i;
+	int len2;
 	char *result;
 
 	if (argc == 3)
