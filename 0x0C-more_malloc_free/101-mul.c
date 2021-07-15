@@ -135,8 +135,8 @@ char *multiply(char *num, char *multiple)
 
 /**
  * add - Adds two numbers and stores the result in the second number
- * @n1: The first number
- * @n2: The second number
+ * @num: The first number
+ * @r: The second number
  * @size_r: The size of the result buffer
  */
 void add(char *num, char *r, int size_r)
