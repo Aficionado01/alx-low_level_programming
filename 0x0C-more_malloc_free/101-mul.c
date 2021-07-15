@@ -59,8 +59,10 @@ void program_fail(void)
 char *multiply(char *num, char *multiple)
 {
 	int size;
-	int mult_len, num_len;
-	int i, j;
+	int mult_len;
+	int num_len;
+	int i;
+	int j;
 	char *result;
 	char rem;
 	char carry = 0;
@@ -136,7 +138,7 @@ void add(char *num, char *r, int size_r)
  */
 int main(int argc, char *argv[])
 {
-	char *num1, *num2, *result;
+	char *num1, *num2, *result, *product;
 	int size, i, len2;
 
 	if (argc == 3)
@@ -153,8 +155,7 @@ int main(int argc, char *argv[])
 			*(result + size) = '\0';
 			for (i = 0; i < len2; i++)
 			{
-				char *product = multiply(num1, num2 + i);
-
+				product = multiply(num1, num2 + i);
 				add(product, result, size);
 				free(product);
 			}
