@@ -11,29 +11,31 @@
  */
 char *string_nconcat(char *s1, char *s2, unsigned int n)
 {
-	unsigned int i;
-	unsigned int len;
-	char *str;
+	char *strDup;
+	int i;
+	unsigned int j;
 
-	s1 = s1 != NULL ? s1 : "";
-	s2 = s2 != NULL ? s2 : "";
-	len = 0;
-	for (len = 0; *(s1 + len) != '\0'; len++)
-		continue;
-	/* for (i = 0; *(s2 + i) != '\0' && i < n; i++) */
-	/* 	len++; */
-	str = malloc(sizeof(char) * (len + n + 1));
-	if (str != NULL)
+	if (s1 == NULL)
+		s1 = "";
+	if (s2 == NULL)
+		s2 = "";
+	i = 0;
+	while (s1[i] != '\0')
+		i++;
+	strDup = malloc(sizeof(char) * (i + n + 1));
+	if (strDup == NULL)
+		return (NULL);
+	i = j = 0;
+	while (s1[i] != '\0')
 	{
-		for (len = 0; *(s1 + len) != '\0'; len++)
-			*(str + len) = *(s1 + len);
-		for (i = 0; i < n && *(s2 + i) != '\0'; i++)
-		{
-			*(str + len) = *(s2 + i);
-			len++;
-		}
-		*(str + len) = '\0';
-		return (str);
+		strDup[i] = s1[i];
+		i++;
 	}
-	return (NULL);
+	while (j < n && s2[j] != '\0')
+	{
+		strDup[i] = s2[j];
+		i++, j++;
+	}
+	strDup[i] = '\0';
+	return (strDup);
 }
