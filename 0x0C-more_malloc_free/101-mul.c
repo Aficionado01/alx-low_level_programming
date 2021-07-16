@@ -1,5 +1,6 @@
 #include "holberton.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 /**
  * str_ops - Performs some string operations
@@ -137,7 +138,7 @@ int main(int argc, char *argv[])
 	char *num1, *num2, *result, *product;
 	int size, i, len2;
 
-	if (argc >= 3)
+	if (argc == 3)
 	{
 		num1 = argv[1];
 		num2 = argv[2];
@@ -164,5 +165,5 @@ int main(int argc, char *argv[])
 		program_fail();
 	}
 	program_fail();
-	return (0);
+	return (98);
 }
