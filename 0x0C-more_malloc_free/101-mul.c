@@ -164,5 +164,5 @@ int main(int argc, char *argv[])
 		program_fail();
 	}
 	program_fail();
-	return (98);
+	return (0);
 }
