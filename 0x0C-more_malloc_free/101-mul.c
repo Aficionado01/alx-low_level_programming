@@ -125,47 +125,6 @@ void add(char *num, char *r, int size_r)
 }
 
 /**
- * _realloc - Reallocates a memory block
- * @ptr: The pointer to the previous memory block
- * @old_size: The size of the old memory block
- * @new_size: The size of the new memory block
- *
- * Return: The pointer to the new memory block otherwise NULL
- */
-void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
-{
-	void *new_ptr;
-	unsigned int min_size = old_size < new_size ? old_size : new_size;
-	unsigned int i;
-
-	if (new_size == old_size)
-		return (ptr);
-	if (ptr != NULL)
-	{
-		if (new_size == 0)
-		{
-			free(ptr);
-			return (NULL);
-		}
-		new_ptr = malloc(new_size);
-		if (new_ptr != NULL)
-		{
-			for (i = 0; i < min_size; i++)
-				*((char *)new_ptr + i) = *((char *)ptr + i);
-			free(ptr);
-			return (new_ptr);
-		}
-		free(ptr);
-		return (NULL);
-	}
-	else
-	{
-		new_ptr = malloc(new_size);
-		return (new_ptr != NULL ? new_ptr : NULL);
-	}
-}
-
-/**
  * main - A program that computes the product of two numbers
  * \ that are passed to it
  * @argc: The number of command-line arguments
@@ -196,14 +155,8 @@ int main(int argc, char *argv[])
 				add(product, result, size);
 				free(product);
 			}
-			i = 1;
 			while (*result == '0' && *(result + 1) != '\0')
-			{
 				str_ops(2, result, NULL, size, '\0');
-				/* free(result + size - i); */
-				result = _realloc(result, size, size - i);
-				i++;
-			}
 			str_ops(3, result, NULL, 0, '\0');
 			free(result);
 			return (0);
