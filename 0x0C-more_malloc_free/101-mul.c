@@ -58,13 +58,8 @@ void program_fail(void)
  */
 char *multiply(char *num, char *multiple)
 {
-	int size;
-	int mult_len;
-	int num_len;
-	int i;
-	int j;
-	char *result;
-	char rem;
+	int size, mult_len, num_len, i, j;
+	char *result, rem;
 	char carry = 0;
 
 	str_ops(0, multiple, &mult_len, 0, '\0');
@@ -81,8 +76,9 @@ char *multiply(char *num, char *multiple)
 			*(result + size - i) = '0';
 		for (i = num_len - 1; i >= 0; i--)
 		{
-			if (!(*(num + i) >= '0' && *(num + i) <= '9')
-				|| !(*multiple >= '0' && *multiple <= '9'))
+			if (!(*(num + i) >= '0' && *(num + i) <= '9'))
+				program_fail();
+			if (!(*multiple >= '0' && *multiple <= '9'))
 				program_fail();
 			rem = ((*(num + i) - '0') * (*multiple - '0') + carry) % 10;
 			carry = ((*(num + i) - '0') * (*multiple - '0') + carry) / 10;
@@ -165,6 +161,7 @@ int main(int argc, char *argv[])
 			free(result);
 			return (0);
 		}
+		program_fail();
 	}
 	program_fail();
 	return (98);
