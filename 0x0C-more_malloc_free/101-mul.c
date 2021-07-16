@@ -45,7 +45,7 @@ void str_ops(char op, char *str, int *len, int n, char c)
  */
 void program_fail(void)
 {
-	str_ops(3, "Error\n", NULL, 0, '\0');
+	str_ops(3, "Error", NULL, 0, '\0');
 	exit(98);
 }
 
