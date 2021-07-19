@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include "dog.h"
 
 /**
  * print_dog - Prints a variable of type struct dog
