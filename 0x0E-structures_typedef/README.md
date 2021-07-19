@@ -4,7 +4,7 @@ This project contains __C__ tasks for learning about **structures** and **typede
 
 ## Tasks Completed
 
-+ [ ] 0\. Poppy<br/>_**[dog.h](dog.h)**_ contains a new type `struct dog with the following elements.
++ [x] 0\. Poppy<br/>_**[dog.h](dog.h)**_ contains a new type `struct dog with the following elements.
   + `name`, type = `char *`
   + `age`, type = `float *`
   + `owner`, type = `char *`
