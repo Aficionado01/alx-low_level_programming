@@ -22,16 +22,16 @@ int main(int argc, char *argv[])
 		op_func = get_op_func(argv[2]);
 		if (op_func == NULL)
 		{
-			puts("Error");
+			printf("Error\n");
 			exit(99);
 		}
 		result = op_func(left, right);
 		printf("%d\n", result);
-		return (0);
 	}
 	else
 	{
-		puts("Error");
+		printf("Error\n");
 		exit(98);
 	}
+	return (0);
 }
