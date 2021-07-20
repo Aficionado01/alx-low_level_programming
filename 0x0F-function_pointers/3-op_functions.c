@@ -54,7 +54,7 @@ int op_div(int a, int b)
 }
 
 /**
- * op_mod - Computes the remainder of two numbers
+ * op_mod - Computes the remainder of the division of two numbers
  * @a: The first number
  * @b: The second number
  *
