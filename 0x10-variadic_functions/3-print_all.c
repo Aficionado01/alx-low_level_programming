@@ -51,6 +51,7 @@ void print_string(va_list *args)
 void print_all(const char * const format, ...)
 {
 	unsigned int i;
+	int j;
 	va_list args;
 	fmt_printer_t fmt_printers[] = {
 		{'c', print_char},
@@ -58,7 +59,6 @@ void print_all(const char * const format, ...)
 		{'f', print_float},
 		{'s', print_string},
 		{0, NULL},
-		{NULL, NULL}
 	};
 	char *seps[] = {", ", "\0"};
 
@@ -66,16 +66,16 @@ void print_all(const char * const format, ...)
 	i = 0;
 	while (*(format + i) != '\0')
 	{
-		fmt_printers[4].type = 0;
-		while (fmt_printers[4].type < 4)
+		j = 0;
+		while (j < 4)
 		{
-			if (*(format + i) == (fmt_printers + fmt_printers[4].type)->type)
+			if (*(format + i) == (fmt_printers + j)->type)
 			{
-				(fmt_printers + fmt_printers[4].type)->func(&args);
+				(fmt_printers + j)->func(&args);
 				printf("%s", seps[*(format + i + 1) == 0]);
 				break;
 			}
-			fmt_printers[4].type++;
+			j++;
 		}
 		i++;
 	}
