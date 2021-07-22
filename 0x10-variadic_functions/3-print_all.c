@@ -57,6 +57,7 @@ void print_all(const char * const format, ...)
 		{'f', print_float},
 		{'s', print_string},
 	};
+	char *seps[] = {", ", "\n"};
 
 	va_start(args, format);
 	i = 0;
@@ -66,11 +67,14 @@ void print_all(const char * const format, ...)
 		while (j < 4)
 		{
 			if (*(format + i) == (fmt_printers + j)->type)
+			{
 				(fmt_printers + j)->func(&args);
+				printf("%s", seps[*(format + i + 1) == 0]);
+				break;
+			}
 			j++;
 		}
 		i++;
 	}
-	printf("\n");
 	va_end(args);
 }
