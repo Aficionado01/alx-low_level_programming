@@ -58,13 +58,12 @@ void print_all(const char * const format, ...)
 		{'i', print_integer},
 		{'f', print_float},
 		{'s', print_string},
-		{0, NULL},
 	};
 	char *seps[] = {", ", "\0"};
 
 	va_start(args, format);
 	i = 0;
-	while (*(format + i) != '\0')
+	while (format && *(format + i) != '\0')
 	{
 		j = 0;
 		while (j < 4)
