@@ -35,11 +35,13 @@ void print_float(va_list *args)
  */
 void print_string(va_list *args)
 {
-	char *str = va_arg(*args, char *);
+	char *str[2];
+	int i;
 
-	if (!str)
-		str = "(nil)";
-	printf("%s", str);
+	str[0] = va_arg(*args, char *);
+	str[1] = "(nil)";
+	i = str[0] == NULL;
+	printf("%s", str[i]);
 }
 
 /**
@@ -49,32 +51,33 @@ void print_string(va_list *args)
 void print_all(const char * const format, ...)
 {
 	unsigned int i;
-	unsigned int j;
 	va_list args;
 	fmt_printer_t fmt_printers[] = {
 		{'c', print_char},
 		{'i', print_integer},
 		{'f', print_float},
 		{'s', print_string},
+		{0, NULL}
 	};
 	char *seps[] = {", ", "\n"};
 
 	va_start(args, format);
 	i = 0;
-	while (format != NULL && *(format + i) != '\0')
+	while (*(format + i) != '\0')
 	{
-		j = 0;
-		while (j < 4)
+		fmt_printers[4].type = 0;
+		while (fmt_printers[4].type < 4)
 		{
-			if (*(format + i) == (fmt_printers + j)->type)
+			if (*(format + i) == (fmt_printers + fmt_printers[4].type)->type)
 			{
-				(fmt_printers + j)->func(&args);
+				(fmt_printers + fmt_printers[4].type)->func(&args);
 				printf("%s", seps[*(format + i + 1) == 0]);
 				break;
 			}
-			j++;
+			fmt_printers[4].type++;
 		}
 		i++;
 	}
 	va_end(args);
+	printf("\n");
 }
