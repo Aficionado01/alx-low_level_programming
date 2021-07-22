@@ -1,75 +1,48 @@
 #include <stdarg.h>
 #include <stdio.h>
-#include "variadic_functions.h"
-
-/**
- * print_char - Prints a character from an arguments list
- * @args: The arguments list
- */
-void print_char(va_list *args)
-{
-	printf("%c", va_arg(*args, int));
-}
-
-/**
- * print_integer - Prints an integer from an arguments list
- * @args: The arguments list
- */
-void print_integer(va_list *args)
-{
-	printf("%d", va_arg(*args, int));
-}
-
-/**
- * print_float - Prints a float from an arguments list
- * @args: The arguments list
- */
-void print_float(va_list *args)
-{
-	printf("%f", va_arg(*args, double));
-}
-
-/**
- * print_string - Prints a character array from an arguments list
- * @args: The arguments list
- */
-void print_string(va_list *args)
-{
-	char *str = va_arg(*args, char *);
-
-	if (str)
-	{
-		printf("%s", str);
-		return;
-	}
-	printf("(nil)");
-}
 
 /**
  * print_all - Prints anything
- * @format: A list of types of arguments passed to the function
+ * @format: A  list of types of arguments passed to the function
  */
 void print_all(const char * const format, ...)
 {
-	unsigned int i, j;
+	unsigned int i = 0;
 	va_list args;
-	fmt_printer_t fmt_printers[] = {
-		{'c', print_char},
-		{'i', print_integer},
-		{'f', print_float},
-		{'s', print_string},
-	};
+	char *str;
 
 	va_start(args, format);
 	i = 0;
 	while (*(format + i) != '\0')
 	{
-		j = 0;
-		while (j < 4)
+		switch (*(format + i))
 		{
-			if (*(format + i) == (fmt_printers + j)->type)
-				(fmt_printers + j)->func(&args);
-			j++;
+		case 'c':
+			{
+				printf("%c", va_arg(args, int));
+				break;
+			}
+		case 'i':
+			{
+				printf("%d", va_arg(args, int));
+				break;
+			}
+		case 'f':
+			{
+				printf("%f", va_arg(args, double));
+				break;
+			}
+		case 's':
+			{
+				str = va_arg(args, char *);
+				if (str)
+					printf("%s", str);
+				if (!str)
+					printf("(nil)");
+				break;
+			}
+		default:
+			break;
 		}
 		i++;
 	}
