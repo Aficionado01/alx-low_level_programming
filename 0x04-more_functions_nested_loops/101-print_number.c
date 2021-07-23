@@ -19,7 +19,7 @@ _putchar('-');
 }
 if (copy > 0)
 {
-while (copy / 10 != 0
+while (copy / 10 != 0)
 {
 copy /= 10, size *= 10;
 }
