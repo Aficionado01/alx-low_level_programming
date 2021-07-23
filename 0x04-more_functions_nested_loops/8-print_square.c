@@ -1,7 +1,7 @@
-include "holberton.h"
+#include "holberton.h"
 
 /**
-* print_square - check the code for Holberton School students.
+ * print_square - check the code for Holberton School students.
 * @n : int
 * Return: Always 0.
 */
