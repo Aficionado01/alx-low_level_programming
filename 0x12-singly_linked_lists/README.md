@@ -4,7 +4,7 @@ This project contains __C__ tasks for learning about variadic functions.
 
 ## Tasks Completed
 
-+ [ ] 0\. Print list<br/>_**[0-print_list.c](0-print_list.c)**_ contains a function that prints all the elements of a `list_t` list.
++ [x] 0\. Print list<br/>_**[0-print_list.c](0-print_list.c)**_ contains a function that prints all the elements of a `list_t` list.
 + [ ] 1\. List length<br/>_**[1-list_len.c](1-list_len.c)**_ contains a function that returns the number of elements in a linked `list_t` list.
 + [ ] 2\. Add node<br/>_**[2-add_node.c](2-add_node.c)**_ contains a function that adds a new node at the beginning of a `list_t` list.
 + [ ] 3\. Add node at the end<br/>_**[3-add_node_end.c](3-add_node_end.c)**_ contains a function that adds a new node at the end of a `list_t` list.
