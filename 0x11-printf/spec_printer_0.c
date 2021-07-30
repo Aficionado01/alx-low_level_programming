@@ -21,29 +21,26 @@ void convert_fmt_percent(va_list *args_list, fmt_info_t *fmt_info)
  */
 void convert_fmt_p(va_list *args_list, fmt_info_t *fmt_info)
 {
-	int i, size;
+	int i, len;
 	void *ptr = va_arg(*args_list, void *);
-	long tmp = (long)ptr;
-	char *str;
+	char *str = ptr_to_str(ptr);
 
-	size = sizeof(ptr) * 2;
 	(void)fmt_info;
-	str = malloc(sizeof(char) * (size + 1));
-	if (str && ptr)
+	if (str)
 	{
-		mem_set(str, size, '0');
-		for (i = 0; i < size; i++)
+		len = str_len(str);
+		if (!fmt_info->left)
 		{
-			*(str + i) = (tmp % 16) < 10 ? (tmp % 16) + '0'
-				: (tmp % 16) - 10 + 'a';
-			tmp /= 16;
+			for (i = 0; i < MAX(len, fmt_info->width) - len; i++)
+				_putchar(' ');
 		}
-		*(str + i) = '\0';
-		rev_string(str);
-		str = trim_start(str, '0', TRUE);
-		_putstr("0x");
-		for (i = 0; i < size; i++)
+		for (i = 0; *(str + i) != '\0'; i++)
 			_putchar(*(str + i));
+		if (fmt_info->left)
+		{
+			for (i = 0; i < MAX(len, fmt_info->width) - len; i++)
+				_putchar(' ');
+		}
 		free(str);
 	}
 	else

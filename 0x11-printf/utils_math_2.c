@@ -161,6 +161,7 @@ char *u_long_to_hex(unsigned long num, char upper)
 		}
 		rev_string(str);
 		str = trim_start(str, '0', TRUE);
+		str = num == 0 ? str_cat("0", "", FALSE) : str;
 	}
 	return (str);
 }

@@ -10,24 +10,15 @@
 #ifndef NULL
 #define NULL ((void *)0)
 #endif
-#ifndef MAX_WIDTH
 #define MAX_WIDTH "2147483647"
-#endif
-#ifndef MAX
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
-#endif
-#ifndef MIN
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
-#endif
-#ifndef ABS
 #define ABS(a) ((a) > (0) ? (a) : (0 - (a)))
-#endif
-#ifndef TO_UPPER
+#define NO_NEG(a) ((a) < (0) ? (0) : ((a)))
+#define NO_LESS(a, b) ((a) < (b) ? (b) : ((a)))
 #define TO_UPPER(c) ((c) >= 'a' && (c) <= 'z' ? (c) - 6 - 26 : (c))
-#endif
-#ifndef TO_LOWER
 #define TO_LOWER(c) ((c) >= 'A' && (c) <= 'Z' ? (c) + 6 + 26 : (c))
-#endif
+#define FMT_PREC_EMPTY(fmt_inf) (fmt_inf->is_precision_set && !fmt_inf->prec)
 
 /**
  * struct format_info - Contains information about the options
@@ -105,7 +96,13 @@ int write_to_buffer(char c, char action);
 int _printf(const char *format, ...);
 void write_format(va_list *args_list, fmt_info_t *fmt_info);
 
+
 void print_repeat(char c, int n);
+void _putnchars(int n, ...);
+char is_letter(char c);
+void set_format_error(const char *, int *, int len, int, int *);
+void put_num(int zeros_count, long num, char *str);
+
 
 void init_format_info(fmt_info_t *spec);
 fmt_info_t *new_format_info();
@@ -114,11 +111,11 @@ void free_float_info(float_info_t *flt_info);
 
 
 int set_number(const char *str, int *number);
-void set_length(char cur, char nxt, fmt_info_t *fmt_info);
+void set_length(char cur, int *pos, fmt_info_t *fmt_info);
 int set_flags(const char *str, fmt_info_t *fmt_info);
 void set_precision(const char *str, va_list args,
 	fmt_info_t *fmt_info, int *i, int *error_status);
-int read_format_info(const char *, va_list, fmt_info_t *);
+int read_format_info(const char *, va_list, fmt_info_t *, int *);
 
 
 void convert_fmt_percent(va_list *args_list, fmt_info_t *fmt_info);
@@ -177,6 +174,7 @@ char *u_long_to_hex(unsigned long num, char upper);
 
 char *u_long_to_str(unsigned long num);
 char *long_to_str(long num);
+char *ptr_to_str(void *ptr);
 char *is_invalid(float_info_t *flt_info);
 
 void set_float_parts(double num,	uchar_t exponent_size,

@@ -37,3 +37,13 @@ This project is an implementation of the [`printf`](https://www.tutorialspoint.c
 + [x] 15\. The flood of print has turned reading into a process of gulping rather than savoring<br/>_**[file.c](file.c)**_ Handles the following custom conversion specifier:<br/>
   + `R`: prints the rot13'ed string
 + [ ] 16\. \*<br/>All the tasks above are working well together.
+
+## How To Use
+
+The `holberton.h` header must be included before you can use the function.
+
+```c
+#include "holberton.h"
+
+int chars_written = _printf("Wind: %d%s and Precipitation: %d%%\\n", 28, "km/h", 0x1a);
+```

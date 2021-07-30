@@ -28,22 +28,20 @@ int set_number(const char *str, int *number)
 		}
 	}
 	*number = cmp_nums(digits, MAX_WIDTH) <= 0 ? str_to_int(digits) : 0;
-	return (i - 1);
+	return (i);
 }
 
 /**
  * set_length - Sets the length in a format info struct
  * @cur: The current character
- * @nxt: The next character
  * @fmt_info: The pointer to the destination fmt_info_t struct
+ * @pos: The pointer to the current position in the format string
  */
-void set_length(char cur, char nxt, fmt_info_t *fmt_info)
+void set_length(char cur, int *pos, fmt_info_t *fmt_info)
 {
-	fmt_info->is_long_double = cur == 'L' ? TRUE : FALSE;
-	fmt_info->is_long_long = cur == 'l' && nxt == 'l' ? TRUE : FALSE;
-	fmt_info->is_long = cur == 'l' && nxt != 'l' ? TRUE : FALSE;
-	fmt_info->is_short = cur == 'h' && nxt != 'h' ? TRUE : FALSE;
-	fmt_info->is_char = cur == 'h' && nxt == 'h' ? TRUE : FALSE;
+	fmt_info->is_long = cur == 'l' ? TRUE : fmt_info->is_long;
+	fmt_info->is_short = cur == 'h' ? TRUE : fmt_info->is_short;
+	(*pos)++;
 }
 
 /**
@@ -68,7 +66,7 @@ int set_flags(const char *str, fmt_info_t *fmt_info)
 		fmt_info->pad = *(str + i) == '0' ? '0' : fmt_info->pad;
 		i++;
 	}
-	return (i - 1);
+	return (i);
 }
 
 /**
@@ -86,6 +84,7 @@ void set_precision(const char *str, va_list args,
 	if (*(str + *i) == '*')
 	{
 		fmt_info->prec = va_arg(args, int);
+		(*i)++;
 	}
 	else if (is_digit(*(str + *i)))
 	{
@@ -94,7 +93,7 @@ void set_precision(const char *str, va_list args,
 	else if (is_specifier(*(str + *i)))
 	{
 		fmt_info->prec = 0;
-		(*i)--;
+		/* (*i)--; */
 	}
 	else
 	{
@@ -107,16 +106,18 @@ void set_precision(const char *str, va_list args,
  * @str: The string contained the format tokens
  * @args: The arguments list
  * @fmt_info: The pointer to the destination fmt_info_t struct
+ * @last_token: Pointer to the last token from the format specifier
  *
  * Return: The number of positions to skip after the format character (%)
  * , this is negative when there's an error
  */
-int read_format_info(const char *str, va_list args, fmt_info_t *fmt_info)
+int read_format_info(const char *str, va_list args,
+	fmt_info_t *fmt_info, int *last_token)
 {
 	int i = 0, no_error = 1, order = 0;
 
 	init_format_info(fmt_info);
-	for (; str && *(str + i) != '\0' && !fmt_info->spec && no_error == 1; i++)
+	for (; str && *(str + i) != '\0' && !fmt_info->spec && no_error == 1;)
 	{
 		if (is_flag(*(str + i)) && order < 1)
 		{
@@ -125,7 +126,7 @@ int read_format_info(const char *str, va_list args, fmt_info_t *fmt_info)
 		else if ((is_digit(*(str + i)) || *(str + i) == '*') && order < 2)
 		{
 			if (*(str + i) == '*')
-				fmt_info->width = va_arg(args, int);
+				fmt_info->width = va_arg(args, int), i++;
 			else
 				i += set_number(str + i, &(fmt_info->width));
 			fmt_info->is_width_set = TRUE, order = 2;
@@ -137,12 +138,11 @@ int read_format_info(const char *str, va_list args, fmt_info_t *fmt_info)
 		}
 		else if (is_length(*(str + i)) && order < 4)
 		{
-			set_length(*(str + i), *(str + i + 1), fmt_info), order = 4;
-			i += *(str + i) == *(str + i + 1) ? 1 : 0;
+			set_length(*(str + i), &i, fmt_info), order = 4;
 		}
 		else if (is_specifier(*(str + i)) && order < 5)
 		{
-			fmt_info->spec = *(str + i), order = 5;
+			fmt_info->spec = *(str + i), i++, order = 5;
 			break;
 		}
 		else
@@ -150,5 +150,6 @@ int read_format_info(const char *str, va_list args, fmt_info_t *fmt_info)
 			no_error = -1;
 		}
 	}
-	return (i * no_error);
+	*last_token = order;
+	return (i - 1);
 }

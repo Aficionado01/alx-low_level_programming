@@ -13,7 +13,7 @@ void convert_fmt_b(va_list *args_list, fmt_info_t *fmt_info)
 	unsigned int num = va_arg(*args_list, unsigned int), tmp;
 	char *str;
 
-	str = malloc(sizeof(char) * (size));
+	str = malloc(sizeof(char) * (size + 1));
 	if (str)
 	{
 		mem_set(str, size, '\0');
