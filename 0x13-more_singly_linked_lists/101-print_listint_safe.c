@@ -82,8 +82,9 @@ size_t print_listint_safe(const listint_t *head)
 		node = head->next;
 		while (node)
 		{
-			nodes_addr = _realloc(nodes_addr,
-				sizeof(void *) * size, sizeof(void *) * (size + 10));
+			if (i >= size)
+				nodes_addr = _realloc(nodes_addr,
+					sizeof(void *) * size, sizeof(void *) * (size + 10));
 			if (nodes_addr)
 			{
 				size += 10;
