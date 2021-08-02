@@ -1,11 +1,12 @@
 .vscode/
-test/
-tests/
+*test*/
 *test*
 *~
+*#
 *.exe
 *.out
 *.o
+*.gch
 *.log
 prog.py
 main.c
