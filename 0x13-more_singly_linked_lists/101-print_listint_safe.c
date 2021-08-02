@@ -87,14 +87,17 @@ size_t print_listint_safe(const listint_t *head)
 			if (nodes_addr)
 			{
 				size += 10;
-				if (i == 0)
-					printf("[%p] %d\n", (void *)head, head->n);
+				if (exists(nodes_addr, size, (void *)node))
+				{
+					printf("-> [%p] %d\n", (void *)(!i ? head : node), (!i ? head : node)->n);
+					break;
+				}
 				else
-					printf("[%p] %d\n", (void *)node, node->n);
+				{
+					printf("[%p] %d\n", (void *)(!i ? head : node), (!i ? head : node)->n);
+				}
 				*(nodes_addr + i) = i == 0 ? (void *)head : (void *)node;
 				node = i == 0 ? head->next : node->next;
-				if (exists(nodes_addr, size, (void *)node))
-					break;
 				i++;
 			}
 		}
