@@ -11,7 +11,7 @@ This project contains __C__ tasks for learning more about singly linked lists.
 + [x] 4\. Free list<br/>_**[4-free_listint.c](4-free_listint.c)**_ contains a function that frees a `listint_t` list.
 + [x] 5\. Free<br/>_**[5-free_listint2.c](5-free_listint2.c)**_ contains a function that frees a `listint_t` list.
 + [x] 6\. Pop<br/>_**[6-pop_listint.c](6-pop_listint.c)**_ contains a function that deletes the head node of a `listint_t` linked list, and returns the head node’s data (n).
-+ [ ] 7\. Get node at index<br/>_**[7-get_nodeint.c](7-get_nodeint.c)**_ contains a function that returns the nth node of a `listint_t` linked list.
++ [x] 7\. Get node at index<br/>_**[7-get_nodeint.c](7-get_nodeint.c)**_ contains a function that returns the nth node of a `listint_t` linked list.
 + [ ] 8\. Sum list<br/>_**[8-sum_listint.c](8-sum_listint.c)**_ contains a function that returns the sum of all the data (n) of a `listint_t` linked list.
 + [ ] 9\. Insert<br/>_**[9-insert_nodeint.c](9-insert_nodeint.c)**_ contains a function that inserts a new node at a given position.
 + [ ] 10\. Delete at index<br/>_**[10-delete_nodeint.c](10-delete_nodeint.c)**_ contains a function that deletes the node at index `index` of a `listint_t` linked list.
