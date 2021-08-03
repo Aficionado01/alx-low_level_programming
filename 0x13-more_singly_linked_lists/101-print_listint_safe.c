@@ -156,7 +156,7 @@ size_t print_listint_safe(const listint_t *head)
 			if (nodes_addr != NULL)
 			{
 				size += (i >= size ? incr : 0);
-				if (exists(nodes_addr, size, (void *)node))
+				if (exists(nodes_addr, i, (void *)node))
 				{
 					PRINT_LOOP_NODE_2(i == 0 ? head : node);
 					break;

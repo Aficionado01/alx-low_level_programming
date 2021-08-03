@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include <inttypes.h>
 #include "lists.h"
 
@@ -104,9 +105,12 @@ size_t free_listint_safe(listint_t **h)
 			if (nodes_addr != NULL)
 			{
 				size += (i >= size ? incr : 0);
-				if (exists1(nodes_addr, size, (void *)node))
+				if (exists1(nodes_addr, i, (void *)node))
+				{
 					break;
-				*(nodes_addr + i) = (void *)node, i++;
+				}
+				*(nodes_addr + i) = (void *)node;
+				i++;
 				node = node->next;
 			}
 		}
