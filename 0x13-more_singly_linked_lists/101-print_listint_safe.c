@@ -154,12 +154,12 @@ size_t print_listint_safe(const listint_t *head)
 				size += (i >= size ? incr : 0);
 				if (exists(nodes_addr, size, (void *)head))
 				{
-					PRINT_LOOP_NODE_2(head);
+					printf("-> [%p] %d\n", (void *)head, head->n);
 					break;
 				}
 				else
 				{
-					PRINT_LOOP_NODE(head);
+					printf("[%p] %d\n", (void *)head, head->n);
 				}
 				*(nodes_addr + i) = i == 0 ? (void *)head : (void *)head;
 				head = head->next;
