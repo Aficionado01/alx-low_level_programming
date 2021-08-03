@@ -107,7 +107,7 @@ size_t free_listint_safe(listint_t **h)
 				if (exists1(nodes_addr, size, (void *)node))
 					break;
 				*(nodes_addr + i) = (void *)node, i++;
-				node = node->next;
+				node = node ? node->next : NULL;
 			}
 		}
 		free_nodes(nodes_addr, i);
