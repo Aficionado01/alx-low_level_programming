@@ -15,18 +15,16 @@
 	print_int_str((node)->n, NULL, 0);\
 	_putchar('\n'); } \
 /**
- * struct listint_s - singly linked list
+ * struct listint_s - Represents a singly linked list
  * @n: integer
  * @next: points to the next node
- *
- * Description: singly linked list node structure
- * for Holberton project
  */
-typedef struct listint_s
+struct listint_s
 {
 	int n;
 	struct listint_s *next;
-} listint_t;
+};
+typedef struct listint_s listint_t;
 int _putchar(char c);
 size_t print_listint(const listint_t *h);
 size_t listint_len(const listint_t *h);
@@ -45,6 +43,7 @@ char exists(void **arr, size_t n, void *item);
 void print_ptr(void *ptr, char stage);
 void print_int_str(int num, char *str, char stage);
 size_t print_listint_safe(const listint_t *head);
+void free_nodes(void **nodes_ptr, size_t n);
 size_t free_listint_safe(listint_t **h);
 listint_t *find_listint_loop(listint_t *head);
 #endif
