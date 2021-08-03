@@ -147,7 +147,7 @@ size_t print_listint_safe(const listint_t *head)
 	listint_t *node;
 	void **nodes_addr = NULL;
 	size_t size = 0;
-	size_t i = 0;
+	size_t i = !head || (head && head->next) ? 0 : 1;
 
 	if (head)
 	{
@@ -178,7 +178,6 @@ size_t print_listint_safe(const listint_t *head)
 		}
 		if (nodes_addr)
 			free(nodes_addr);
-		return (i);
 	}
 	return (i);
 }
