@@ -18,4 +18,4 @@ This project contains __C__ tasks for learning more about singly linked lists.
 + [x] 11\. Reverse list<br/>_**[100-reverse_listint.c](100-reverse_listint.c)**_ contains a function that reverses a `listint_t` linked list.
 + [x] 12\. Print (safe version)<br/>_**[101-print_listint_safe.c](101-print_listint_safe.c)**_ contains a function that prints a `listint_t` linked list.
 + [x] 13\. Free (safe version)<br/>_**[102-free_listint_safe.c](102-free_listint_safe.c)**_ contains a function that frees a `listint_t` list.
-+ [ ] 14\. Find the loop<br/>_**[103-find_loop.c](103-find_loop.c)**_ contains a function that finds the loop in a linked list.
++ [x] 14\. Find the loop<br/>_**[103-find_loop.c](103-find_loop.c)**_ contains a function that finds the loop in a linked list.
