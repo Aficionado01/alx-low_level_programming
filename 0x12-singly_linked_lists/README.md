@@ -1,6 +1,6 @@
-# Variadic Functions
+# Singly Linked Lists
 
-This project contains __C__ tasks for learning about variadic functions.
+This project contains __C__ tasks for learning about singly linked lists.
 
 ## Tasks Completed
 
