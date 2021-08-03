@@ -112,10 +112,8 @@ size_t free_listint_safe(listint_t **h)
 		}
 		free_nodes(nodes_addr, i);
 		*h = NULL;
-		h = NULL;
 		if (nodes_addr != NULL)
 			free(nodes_addr);
 	}
-	/* return (i * sizeof(listint_t)); */
 	return (i);
 }

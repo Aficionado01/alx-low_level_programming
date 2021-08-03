@@ -137,7 +137,6 @@ void print_int_str(int num, char *str, char stage)
  */
 size_t print_listint_safe(const listint_t *head)
 {
-	/* listint_t *hare = head, *tortoise = head; */
 	listint_t *node;
 	void **nodes_addr = NULL;
 	size_t size = 0;
