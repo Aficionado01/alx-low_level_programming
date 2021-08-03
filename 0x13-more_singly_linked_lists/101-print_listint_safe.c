@@ -1,7 +1,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <inttypes.h>
+#include <unistd.h>
 #include "lists.h"
+
+/**
+ * _putchar2 - writes the character c to stdout
+ * @c: The character to print
+ *
+ * Return: On success 1.
+ * On error, -1 is returned, and errno is set appropriately.
+ */
+int _putchar2(char c)
+{
+	return (write(1, &c, 1));
+}
 
 /**
  * print_ptr - Prints a pointer
@@ -24,13 +37,13 @@ void print_ptr(void *ptr, char stage)
 	{
 		if (adr == 0)
 		{
-			_putchar('0');
+			_putchar2('0');
 		}
 		else
 		{
 			if (adr / 16 > 0)
 				print_ptr((void *)(adr / 16), stage + 1);
-			_putchar((adr % 16) < 10 ? (adr % 16) + '0'
+			_putchar2((adr % 16) < 10 ? (adr % 16) + '0'
 															: (adr % 16) - 10 + 'a');
 		}
 	}
@@ -51,27 +64,27 @@ void print_int_str(int num, char *str, char stage)
 		if (stage == 0)
 		{
 			if (num < 0)
-				_putchar('-');
+				_putchar2('-');
 			print_int_str(num, NULL, 1);
 		}
 		else
 		{
 			if (num == 0)
 			{
-				_putchar('0');
+				_putchar2('0');
 			}
 			else
 			{
 				if (num / 10 > 0)
 					print_int_str(num / 10, NULL, stage + 1);
-				_putchar((num % 10) + '0');
+				_putchar2((num % 10) + '0');
 			}
 		}
 	}
 	else
 	{
 		for (i = 0; str[i] != '\0'; i++)
-			_putchar(str[i]);
+			_putchar2(str[i]);
 	}
 }
 
@@ -131,7 +144,7 @@ size_t print_listint_safe(const listint_t *head)
 				print_ptr((void *)(!i ? head : node), 0);
 				print_int_str(0, "] ", 0);
 				print_int_str((!i ? head : node)->n, NULL, 0);
-				_putchar('\n');
+				_putchar2('\n');
 				break;
 			}
 			else
@@ -140,7 +153,7 @@ size_t print_listint_safe(const listint_t *head)
 				print_ptr((void *)(!i ? head : node), 0);
 				print_int_str(0, "] ", 0);
 				print_int_str((!i ? head : node)->n, NULL, 0);
-				_putchar('\n');
+				_putchar2('\n');
 				round += (loop_node == node ? 1 : 0);
 			}
 			node = i == 0 ? head->next : node->next;
