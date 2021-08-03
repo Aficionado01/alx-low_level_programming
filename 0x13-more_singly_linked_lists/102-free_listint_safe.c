@@ -93,7 +93,7 @@ size_t free_listint_safe(listint_t **h)
 	listint_t *node;
 	size_t i = 0, size = 0, incr = 15;
 
-	if (h && *h)
+	if (h != NULL && *h != NULL)
 	{
 		node = *h;
 		while (node != NULL)
@@ -107,7 +107,7 @@ size_t free_listint_safe(listint_t **h)
 				if (exists1(nodes_addr, size, (void *)node))
 					break;
 				*(nodes_addr + i) = (void *)node, i++;
-				node = node ? node->next : NULL;
+				node = node->next;
 			}
 		}
 		free_nodes(nodes_addr, i);
@@ -115,5 +115,6 @@ size_t free_listint_safe(listint_t **h)
 		if (nodes_addr != NULL)
 			free(nodes_addr);
 	}
+	h = NULL;
 	return (i);
 }
