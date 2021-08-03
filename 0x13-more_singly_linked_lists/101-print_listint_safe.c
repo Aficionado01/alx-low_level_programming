@@ -1,19 +1,67 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <inttypes.h>
-#include <unistd.h>
 #include "lists.h"
 
 /**
- * _putchar2 - writes the character c to stdout
- * @c: The character to print
+ * _realloc - Reallocates a memory block
+ * @ptr: The pointer to the previous memory block
+ * @old_size: The size of the old memory block
+ * @new_size: The size of the new memory block
  *
- * Return: On success 1.
- * On error, -1 is returned, and errno is set appropriately.
+ * Return: The pointer to the new memory block otherwise NULL
  */
-int _putchar2(char c)
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 {
-	return (write(1, &c, 1));
+	void *new_ptr;
+	unsigned int min_size = old_size < new_size ? old_size : new_size;
+	unsigned int i;
+
+	if (new_size == old_size)
+		return (ptr);
+	if (ptr != NULL)
+	{
+		if (new_size == 0)
+		{
+			free(ptr);
+			return (NULL);
+		}
+		new_ptr = malloc(new_size);
+		if (new_ptr != NULL)
+		{
+			for (i = 0; i < min_size; i++)
+				*((char *)new_ptr + i) = *((char *)ptr + i);
+			free(ptr);
+			return (new_ptr);
+		}
+		free(ptr);
+		return (NULL);
+	}
+	else
+	{
+		new_ptr = malloc(new_size);
+		return (new_ptr);
+	}
+}
+
+/**
+ * exists - Checks if an item exists in the given array
+ * @arr: The array to look in
+ * @n: The lentgh of the array
+ * @item: The item to look for
+ *
+ * Return: 1 if it exists, otherwise, 0
+ */
+char exists(void **arr, size_t n, void *item)
+{
+	size_t i;
+
+	for (i = 0; i < n; i++)
+	{
+		if (*(arr + i) == item)
+			return (1);
+	}
+	return (0);
 }
 
 /**
@@ -37,13 +85,13 @@ void print_ptr(void *ptr, char stage)
 	{
 		if (adr == 0)
 		{
-			_putchar2('0');
+			_putchar('0');
 		}
 		else
 		{
 			if (adr / 16 > 0)
 				print_ptr((void *)(adr / 16), stage + 1);
-			_putchar2((adr % 16) < 10 ? (adr % 16) + '0'
+			_putchar((adr % 16) < 10 ? (adr % 16) + '0'
 															: (adr % 16) - 10 + 'a');
 		}
 	}
@@ -64,59 +112,28 @@ void print_int_str(int num, char *str, char stage)
 		if (stage == 0)
 		{
 			if (num < 0)
-				_putchar2('-');
+				_putchar('-');
 			print_int_str(num, NULL, 1);
 		}
 		else
 		{
 			if (num == 0)
 			{
-				_putchar2('0');
+				_putchar('0');
 			}
 			else
 			{
 				if (num / 10 > 0)
 					print_int_str(num / 10, NULL, stage + 1);
-				_putchar2((num % 10) + '0');
+				_putchar((num % 10) + '0');
 			}
 		}
 	}
 	else
 	{
 		for (i = 0; str[i] != '\0'; i++)
-			_putchar2(str[i]);
+			_putchar(str[i]);
 	}
-}
-
-/**
- * get_listint_loop_node - Retrieves the loop in a linked list
- * @head: The node at the beginning of the list
- *
- * Return: The address of the node where the loop starts, or NULL
- */
-listint_t *get_listint_loop_node(listint_t *head)
-{
-	listint_t *hare = head, *tortoise = head;
-
-	if (head)
-	{
-		while (hare && hare->next)
-		{
-			hare = hare->next->next;
-			tortoise = tortoise->next;
-			if (tortoise == hare)
-			{
-				tortoise = head;
-				while (tortoise != hare)
-				{
-					tortoise = tortoise->next;
-					hare = hare->next;
-				}
-				return (tortoise);
-			}
-		}
-	}
-	return (NULL);
 }
 
 /**
@@ -128,37 +145,37 @@ listint_t *get_listint_loop_node(listint_t *head)
 size_t print_listint_safe(const listint_t *head)
 {
 	listint_t *node;
-	char round = 0;
-	listint_t *loop_node;
+	void **nodes_addr = NULL;
+	size_t size = 0;
 	size_t i = 0;
 
 	if (head)
 	{
-		loop_node = get_listint_loop_node(head->next);
 		node = head->next;
 		while (node)
 		{
-			if (loop_node == node && round == 1)
+			if (i >= size)
+				nodes_addr = _realloc(nodes_addr,
+															sizeof(void *) * size, sizeof(void *) * (size + 10));
+			if (nodes_addr)
 			{
-				print_int_str(0, "-> [", 0);
-				print_ptr((void *)(!i ? head : node), 0);
-				print_int_str(0, "] ", 0);
-				print_int_str((!i ? head : node)->n, NULL, 0);
-				_putchar2('\n');
-				break;
+				size += (i >= size ? 10 : 0);
+				if (exists(nodes_addr, size, (void *)node))
+				{
+					PRINT_LOOP_NODE_2(!i ? head : node);
+					break;
+				}
+				else
+				{
+					PRINT_LOOP_NODE(!i ? head : node);
+				}
+				*(nodes_addr + i) = i == 0 ? (void *)head : (void *)node;
+				node = i == 0 ? head->next : node->next;
+				i++;
 			}
-			else
-			{
-				print_int_str(0, "[", 0);
-				print_ptr((void *)(!i ? head : node), 0);
-				print_int_str(0, "] ", 0);
-				print_int_str((!i ? head : node)->n, NULL, 0);
-				_putchar2('\n');
-				round += (loop_node == node ? 1 : 0);
-			}
-			node = i == 0 ? head->next : node->next;
-			i++;
 		}
+		if (nodes_addr)
+			free(nodes_addr);
 		return (i);
 	}
 	exit(98);
