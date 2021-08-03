@@ -175,8 +175,7 @@ size_t print_listint_safe(const listint_t *head)
 				node = i == 0 ? head->next : node->next;
 				i++;
 			}
-			if (!nodes_addr)
-				exit(98);
+			/* if (!nodes_addr)exit(98); */
 		}
 		if (nodes_addr)
 			free(nodes_addr);
