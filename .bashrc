@@ -7,6 +7,8 @@ export PS1='\[\033]0;$TITLEPREFIX:$PWD\007\]\n\[\033[32m\]\u@PC \[\033[33m\]${PW
 
 md () { [ $# = 1 ] && mkdir -p "$@" && cd "$@" || echo "Error - no directory passed!"; }
 
+gccw () { [ $# -ge 1 ] && gcc -Wall -pedantic -Werror -Wextra -std=gnu89 "$@" || echo -e "\e[31mNo file passed!\e[0m"; }
+
 export LESS_TERMCAP_mb=$(tput bold; tput setaf 2) # green
 export LESS_TERMCAP_md=$(tput bold; tput setaf 6) # cyan
 export LESS_TERMCAP_me=$(tput sgr0)
