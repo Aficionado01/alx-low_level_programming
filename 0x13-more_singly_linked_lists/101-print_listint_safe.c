@@ -137,41 +137,38 @@ void print_int_str(int num, char *str, char stage)
  */
 size_t print_listint_safe(const listint_t *head)
 {
-	listint_t *node;
 	void **nodes_addr = NULL;
 	size_t size = 0;
-	size_t i = !head || (head && head->next) ? 0 : 1;
+	const size_t incr = 15;
+	size_t i = 0;
 
 	if (head)
 	{
-		if (!head->next)
-			PRINT_LOOP_NODE(head);
-		node = head->next;
-		while (node)
+		while (head != NULL)
 		{
 			if (i >= size)
 				nodes_addr = _realloc(nodes_addr,
-															sizeof(void *) * size, sizeof(void *) * (size + 10));
-			if (nodes_addr)
+															sizeof(void *) * size, sizeof(void *) * (size + incr));
+			if (nodes_addr != NULL)
 			{
-				size += (i >= size ? 10 : 0);
-				if (exists(nodes_addr, size, (void *)node))
+				size += (i >= size ? incr : 0);
+				if (exists(nodes_addr, size, (void *)head))
 				{
-					PRINT_LOOP_NODE_2(i == 0 ? head : node);
+					PRINT_LOOP_NODE_2(head);
 					break;
 				}
 				else
 				{
-					PRINT_LOOP_NODE(i == 0 ? head : node);
+					PRINT_LOOP_NODE(head);
 				}
-				*(nodes_addr + i) = i == 0 ? (void *)head : (void *)node;
-				node = i == 0 ? head->next : node->next;
+				*(nodes_addr + i) = i == 0 ? (void *)head : (void *)head;
+				head = head->next;
 				i++;
 			}
-			if (!nodes_addr)
+			if (nodes_addr == NULL)
 				exit(98);
 		}
-		if (nodes_addr)
+		if (nodes_addr != NULL)
 			free(nodes_addr);
 	}
 	return (i);
