@@ -116,9 +116,9 @@ void print_int_str(int num, char *str, char stage)
 			}
 			else
 			{
-				if (num / 10 > 0)
+				if ((num / 10 > 0) || (num / 10 < 0))
 					print_int_str(num / 10, NULL, stage + 1);
-				_putchar((num % 10) + '0');
+				_putchar(((num % 10) < 0 ? (num % 10) * -1 : (num % 10)) + '0');
 			}
 		}
 	}
@@ -137,14 +137,19 @@ void print_int_str(int num, char *str, char stage)
  */
 size_t print_listint_safe(const listint_t *head)
 {
+	/* listint_t *hare = head, *tortoise = head; */
+	listint_t *node;
 	void **nodes_addr = NULL;
 	size_t size = 0;
 	const size_t incr = 15;
-	size_t i = 0;
+	size_t i = !head || (head && head->next) ? 0 : 1;
 
 	if (head)
 	{
-		while (head != NULL)
+		if (!head->next)
+			PRINT_LOOP_NODE(head);
+		node = head->next;
+		while (node)
 		{
 			if (i >= size)
 				nodes_addr = _realloc(nodes_addr,
@@ -152,17 +157,17 @@ size_t print_listint_safe(const listint_t *head)
 			if (nodes_addr != NULL)
 			{
 				size += (i >= size ? incr : 0);
-				if (exists(nodes_addr, size, (void *)head))
+				if (exists(nodes_addr, size, (void *)node))
 				{
-					printf("-> [%p] %d\n", (void *)head, head->n);
+					PRINT_LOOP_NODE_2(i == 0 ? head : node);
 					break;
 				}
 				else
 				{
-					printf("[%p] %d\n", (void *)head, head->n);
+					PRINT_LOOP_NODE(i == 0 ? head : node);
 				}
-				*(nodes_addr + i) = i == 0 ? (void *)head : (void *)head;
-				head = head->next;
+				*(nodes_addr + i) = i == 0 ? (void *)head : (void *)node;
+				node = i == 0 ? head->next : node->next;
 				i++;
 			}
 			if (nodes_addr == NULL)
