@@ -151,6 +151,8 @@ size_t print_listint_safe(const listint_t *head)
 
 	if (head)
 	{
+		if (!head->next)
+			PRINT_LOOP_NODE(head);
 		node = head->next;
 		while (node)
 		{
