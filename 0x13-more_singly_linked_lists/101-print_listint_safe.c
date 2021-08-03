@@ -83,17 +83,10 @@ void print_ptr(void *ptr, char stage)
 	}
 	else
 	{
-		if (adr == 0)
-		{
-			_putchar('0');
-		}
-		else
-		{
-			if (adr / 16 > 0)
-				print_ptr((void *)(adr / 16), stage + 1);
-			_putchar((adr % 16) < 10 ? (adr % 16) + '0'
-															: (adr % 16) - 10 + 'a');
-		}
+		if (adr / 16 > 0)
+			print_ptr((void *)(adr / 16), stage + 1);
+		_putchar((adr % 16) < 10 ? (adr % 16) + '0'
+														: (adr % 16) - 10 + 'a');
 	}
 }
 
@@ -164,18 +157,19 @@ size_t print_listint_safe(const listint_t *head)
 				size += (i >= size ? 10 : 0);
 				if (exists(nodes_addr, size, (void *)node))
 				{
-					PRINT_LOOP_NODE_2(!i ? head : node);
+					PRINT_LOOP_NODE_2(i == 0 ? head : node);
 					break;
 				}
 				else
 				{
-					PRINT_LOOP_NODE(!i ? head : node);
+					PRINT_LOOP_NODE(i == 0 ? head : node);
 				}
 				*(nodes_addr + i) = i == 0 ? (void *)head : (void *)node;
 				node = i == 0 ? head->next : node->next;
 				i++;
 			}
-			/* if (!nodes_addr)exit(98); */
+			if (!nodes_addr)
+				exit(98);
 		}
 		if (nodes_addr)
 			free(nodes_addr);
