@@ -1,14 +1,25 @@
 #!/bin/bash
 
-export GIT_PS1="($(git branch | cut -c 3-))"
-export PS1='\[\033]0;$TITLEPREFIX:$PWD\007\]\n\[\033[32m\]\u@PC \[\033[33m\]${PWD##*/}\[\033[36m\] ${GIT_PS1}\[\033[0m\]\n$ '
+#region Colors
 
-## Helper Functions/Commands
+#endregion
+
+branch_test=`git branch`
+if [[ ${#branch_test} > 0 ]]; then
+	export PS1='\[\033]0;$TITLEPREFIX:$PWD\007\]\n\[\033[32m\]\u@PC \[\033[33m\]${PWD##*/}\[\033[36m\] (`git branch | cut -c 3-`)\[\033[0m\]\n$ '
+else
+	export PS1='\[\033]0;$TITLEPREFIX:$PWD\007\]\n\[\033[32m\]\u@PC \[\033[33m\]${PWD##*/}\[\033[36m\]\[\033[0m\]\n$ '
+fi
+
+#region Helper Functions/Commands
 
 md () { [ $# = 1 ] && mkdir -p "$@" && cd "$@" || echo "Error - no directory passed!"; }
 
 gccw () { [ $# -ge 1 ] && gcc -Wall -pedantic -Werror -Wextra -std=gnu89 "$@" || echo -e "\e[31mNo file passed!\e[0m"; }
 
+#endregion
+
+#region Less Colorifier
 export LESS_TERMCAP_mb=$(tput bold; tput setaf 2) # green
 export LESS_TERMCAP_md=$(tput bold; tput setaf 6) # cyan
 export LESS_TERMCAP_me=$(tput sgr0)
@@ -29,3 +40,4 @@ export LESS="--RAW-CONTROL-CHARS"
 
 # Use colors for less, man, etc.
 [[ -f ~/.LESS_TERMCAP ]] && . ~/.LESS_TERMCAP
+#endregion
