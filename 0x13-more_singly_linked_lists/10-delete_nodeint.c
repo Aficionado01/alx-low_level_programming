@@ -1,4 +1,4 @@
-include "lists.h"
+#include "lists.h"
 #include <stdlib.h>
 
 /**
@@ -9,7 +9,7 @@ include "lists.h"
 *
 * Return: pointer to the indexed node
 */
-int delete_nodeint_at_index(listint_t**head, unsigned int index)
+int delete_nodeint_at_index(listint_t **head, unsigned int index)
 {
 unsigned int i;
 listint_t *prev, *elm;
