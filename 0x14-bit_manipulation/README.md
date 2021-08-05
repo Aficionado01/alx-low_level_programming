@@ -6,7 +6,7 @@ This project contains __C__ tasks for learning about bit manipulation.
 
 + [x] 0\. 0<br/>_**[0-binary_to_uint.c](0-binary_to_uint.c)**_ contains a function that converts a binary number to an `unsigned int`.
 + [x] 1\. 1<br/>_**[1-print_binary.c](1-print_binary.c)**_ contains a function that prints the binary representation of a number.
-+ [ ] 2\. 10<br/>_**[2-get_bit.c](2-get_bit.c)**_ contains a function that returns the value of a bit at a given index.
++ [x] 2\. 10<br/>_**[2-get_bit.c](2-get_bit.c)**_ contains a function that returns the value of a bit at a given index.
 + [ ] 3\. 11<br/>_**[3-set_bit.c](3-set_bit.c)**_ contains a function that  sets the value of a bit to `1` at a given index.
 + [ ] 4\. 100<br/>_**[4-clear_bit.c](4-clear_bit.c)**_ contains a function that sets the value of a bit to `0` at a given index.
 + [ ] 5\. 101<br/>_**[5-flip_bits.c](5-flip_bits.c)**_ contains a function that returns the number of bits you would need to flip to get from one number to another.
