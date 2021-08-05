@@ -4,7 +4,7 @@ This project contains __C__ tasks for learning about bit manipulation.
 
 ## Tasks Completed
 
-+ [ ] 0\. 0<br/>_**[0-print_listint.c](0-print_listint.c)**_ contains a function that converts a binary number to an `unsigned int`.
++ [ ] 0\. 0<br/>_**[0-binary_to_uint.c](0-binary_to_uint.c)**_ contains a function that converts a binary number to an `unsigned int`.
 + [ ] 1\. 1<br/>_**[1-print_binary.c](1-print_binary.c)**_ contains a function that prints the binary representation of a number.
 + [ ] 2\. 10<br/>_**[2-get_bit.c](2-get_bit.c)**_ contains a function that returns the value of a bit at a given index.
 + [ ] 3\. 11<br/>_**[3-set_bit.c](3-set_bit.c)**_ contains a function that  sets the value of a bit to `1` at a given index.
