@@ -60,8 +60,6 @@ void write_format(va_list *args_list, fmt_info_t *fmt_info)
 		{'s', convert_fmt_s},
 		{'d', convert_fmt_di},
 		{'i', convert_fmt_di},
-		/* {'F', convert_fmt_fF}, */
-		/* {'f', convert_fmt_fF}, */
 		{'X', convert_fmt_xX},
 		{'x', convert_fmt_xX},
 		{'o', convert_fmt_o},
@@ -72,6 +70,8 @@ void write_format(va_list *args_list, fmt_info_t *fmt_info)
 		{'r', convert_fmt_r},
 		{'S', convert_fmt_S},
 		/* #end */
+		{'F', convert_fmt_fF},
+		{'f', convert_fmt_fF},
 	};
 
 	for (i = 0; i < 23 && spec_printers[i].spec != '\0'; i++)
@@ -130,7 +130,6 @@ int write_to_buffer(char c, char action)
 	static int chars_count;
 	static char buffer[1024];
 	static char out;
-
 
 	if (i < 1024 && action == 0)
 	{

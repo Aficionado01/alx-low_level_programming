@@ -55,13 +55,13 @@ float_info_t *new_float_info(ushort_t exponent_size, ushort_t mantissa_size)
 	float_info_t *float_info;
 
 	float_info = malloc(sizeof(float_info_t));
-	if (float_info)
+	if (float_info != NULL)
 	{
-		float_info->exponent = malloc(sizeof(char) * exponent_size);
-		if (!float_info->exponent)
+		float_info->exponent = malloc(sizeof(char) * (exponent_size + 1));
+		if (float_info->exponent == NULL)
 			free(float_info);
-		float_info->mantissa = malloc(sizeof(char) * mantissa_size);
-		if (!float_info->mantissa)
+		float_info->mantissa = malloc(sizeof(char) * (mantissa_size + 1));
+		if (float_info->mantissa == NULL)
 		{
 			free(float_info->exponent);
 			free(float_info);
@@ -76,11 +76,11 @@ float_info_t *new_float_info(ushort_t exponent_size, ushort_t mantissa_size)
  */
 void free_float_info(float_info_t *flt_info)
 {
-	if (flt_info)
+	if (flt_info != NULL)
 	{
-		if (flt_info->exponent)
+		if (flt_info->exponent != NULL)
 			free(flt_info->exponent);
-		if (flt_info->mantissa)
+		if (flt_info->mantissa != NULL)
 			free(flt_info->mantissa);
 		free(flt_info);
 	}

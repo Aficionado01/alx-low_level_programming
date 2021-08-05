@@ -4,6 +4,9 @@
 #ifndef TRUE
 #define TRUE 1
 #endif
+#ifndef T
+#define T 1
+#endif
 #ifndef FALSE
 #define FALSE 0
 #endif
@@ -124,7 +127,6 @@ void convert_fmt_c(va_list *args_list, fmt_info_t *fmt_info);
 void convert_fmt_s(va_list *args_list, fmt_info_t *fmt_info);
 
 void convert_fmt_di(va_list *args_list, fmt_info_t *fmt_info);
-/* void convert_fmt_fF(va_list *args_list, fmt_info_t *fmt_info); */
 void convert_fmt_xX(va_list *args_list, fmt_info_t *fmt_info);
 void convert_fmt_o(va_list *args_list, fmt_info_t *fmt_info);
 void convert_fmt_u(va_list *args_list, fmt_info_t *fmt_info);
@@ -133,6 +135,8 @@ void convert_fmt_b(va_list *args_list, fmt_info_t *fmt_info);
 void convert_fmt_R(va_list *args_list, fmt_info_t *fmt_info);
 void convert_fmt_r(va_list *args_list, fmt_info_t *fmt_info);
 void convert_fmt_S(va_list *args_list, fmt_info_t *fmt_info);
+
+void convert_fmt_fF(va_list *args_list, fmt_info_t *fmt_info);
 
 
 int str_len(char *str);
@@ -170,6 +174,9 @@ char *two_exp(short n);
 char *five_exp(unsigned short n);
 unsigned int two_pexp(unsigned int n);
 char *u_long_to_hex(unsigned long num, char upper);
+
+char *round_float(char *num, unsigned int precision, char can_free);
+char *round_float_to_int(char *num, int len, int dec_pos, int frac_len);
 
 
 char *u_long_to_str(unsigned long num);

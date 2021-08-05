@@ -25,8 +25,10 @@ char is_non_custom_specifier(char c)
 	case '%':
 	case 'c':
 	case 'd':
-	/* case 'F': */
-	/* case 'f': */
+	case 'E':
+	case 'e':
+	case 'F':
+	case 'f':
 	case 'i':
 	case 'n':
 	case 'o':

@@ -18,10 +18,10 @@ void set_float_parts(double num,	uchar_t exponent_size,
 	uchar_t size = exponent_size + mantissa_size + 1;
 	size_t tmp = *((size_t *)&num);
 
-	if (!float_info)
+	if (float_info == NULL)
 		return;
 	str = malloc(sizeof(char) * (size + 1));
-	if (str)
+	if (str != NULL)
 	{
 		for (i = 0; i < size; i++)
 		{
@@ -54,10 +54,11 @@ char *mantissa_to_dec_fraction(char *mantissa, unsigned short frac_len)
 	int len = str_len(mantissa);
 
 	str = malloc(sizeof(char) * (frac_len + 3));
-	if (str)
+	if (str != NULL)
 	{
 		mem_set(str, frac_len + 2, '0');
 		*(str + 1) = '.';
+		*(str + frac_len + 2) = '\0';
 		for (i = 0 - 1; i >= 0 - len; i--)
 		{
 			if (*(mantissa + ABS(i) - 1) == '1')
@@ -66,13 +67,12 @@ char *mantissa_to_dec_fraction(char *mantissa, unsigned short frac_len)
 				str = add_float(pow2, str, TRUE);
 			}
 		}
-		*(str + frac_len + 2) = '\0';
 	}
 	return (str);
 }
 
 /**
- * float_to_str - Converts a float to its string representation
+ * float_to_str - Converts an IEEE 754 float to its string representation
  * @flt_info: The information about the float
  * @can_free: Specifies whether the given numbers can be freed
  *
@@ -83,10 +83,10 @@ char *float_to_str(float_info_t *flt_info, char can_free)
 	uchar_t exponent_size = str_len(flt_info->exponent);
 	short bias = two_pexp(exponent_size) / 2 - 1, exponent;
 	char *power, *fraction, *product, *float_num, *hidden_bit, *pow_frac;
-	short frac_len = 15;/* Only doubles are supported */
+	unsigned short frac_len = 22;/* Only doubles are supported */
 
 	hidden_bit = malloc(sizeof(char) * 2);
-	if (hidden_bit)
+	if (hidden_bit != NULL)
 	{
 		*(hidden_bit + 0) = '1';
 		*(hidden_bit + 1) = '\0';
@@ -102,8 +102,8 @@ char *float_to_str(float_info_t *flt_info, char can_free)
 				*(pow_frac + 0) = '.';
 				*(pow_frac + 1) = '0';
 				*(pow_frac + 2) = '\0';
+				power = str_cat(power, pow_frac, TRUE);
 			}
-			power = str_cat(power, pow_frac, TRUE);
 		}
 		product = mul_float(fraction, power, TRUE);
 		float_num = str_cat(flt_info->sign == '1' ? "-" : "", product, FALSE);

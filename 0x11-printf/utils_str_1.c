@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "holberton.h"
 
 /**
@@ -73,7 +74,7 @@ char *insert_char(char *str, int pos, char c, char can_free)
 
 	len = str_len(str);
 	new_str = malloc(sizeof(char) * (len + 2));
-	if (new_str)
+	if (new_str != NULL)
 	{
 		for (i = 0, j = 0; i < len; i++)
 		{
@@ -100,7 +101,7 @@ int count_char(char *str, char c)
 {
 	int count = 0, i;
 
-	for (i = 0; *(str + i) != '\0'; i++)
+	for (i = 0; str != NULL && *(str + i) != '\0'; i++)
 		count += *(str + i) == c ? 1 : 0;
 	return (count);
 }
@@ -120,14 +121,16 @@ char *str_cat(char *left, char *right, char can_free)
 	int i;
 	char *str;
 
+	if (left == NULL && right == NULL)
+		return (NULL);
 	str = malloc(sizeof(char) * (left_length + right_length + 1));
-	if (str)
+	if (str != NULL)
 	{
 		for (i = 0; *(left + i) != '\0'; i++)
 			*(str + i) = *(left + i);
 		for (i = 0; *(right + i) != '\0'; i++)
 			*(str + left_length + i) = *(right + i);
-		*(str + left_length + i) = '\0';
+		*(str + left_length + right_length) = '\0';
 	}
 	if (can_free)
 	{
