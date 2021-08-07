@@ -8,7 +8,7 @@
 *
 * Return: pointer or NULL
 */
-char *create_array(unsigned int size,char c)
+char *create_array(unsigned int size, cchar c)
 {
 unsigned int i;
 char *array;
