@@ -21,8 +21,6 @@ void print_abi_version(void *header);
 void print_type(void *header);
 void print_entry_pt_addr(void *header);
 
-/* https://github.com/JonathanSalwan/binary-samples/blob/master/elf-Linux-ARM64-bash */
-
 /**
  * main - Displays the information contained in the ELF header at the
  * start of an ELF file
@@ -80,10 +78,8 @@ void close_fd(int fd)
 }
 
 /**
- * print_elf_header - Prints the contents of an elf file
- * @fd: The elf file handle
- * @to_fd: The destination file handle
- * @dest_file: The destination file name
+ * print_elf_header - Prints the contents of an elf header
+ * @header: The elf header
  */
 void print_elf_header(void *header)
 {
@@ -115,8 +111,11 @@ void print_elf_header(void *header)
 }
 
 /**
- * print_type - Prints the type in the ELF header
- * @header: The pointer to the ELF header
+ * is_elf_file - Checks if a file contains an ELF header
+ * @fd: The file handle
+ * @header: The pointer to the addres of the ELF header
+ *
+ * Return: 1 if file contains an ELF header, otherwise 0
  */
 char is_elf_file(int fd, void **header)
 {
@@ -325,8 +324,10 @@ void print_type(void *header)
 	int is_le = *((unsigned char *)header + 0x05) == 1;
 	unsigned short type;
 
-	type = *((unsigned char *)header + 0x10 + (is_le && get_endianness() ? 0 : 1));
-	type |= (*((unsigned char *)header + 0x10 + (is_le && get_endianness() ? 1 : 2)) << 8);
+	type = *((unsigned char *)header + 0x10 +
+		(is_le && get_endianness() ? 0 : 1));
+	type |= (*((unsigned char *)header + 0x10 +
+		(is_le && get_endianness() ? 1 : 2)) << 8);
 	switch (type)
 	{
 		case ET_REL:
