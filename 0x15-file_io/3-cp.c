@@ -6,6 +6,7 @@
 #include <unistd.h>
 
 void close_fd(int fd);
+void copy_contents(int from_fd, int to_fd, char *dest_file);
 
 /**
  * main - Copies the content of a file to another file
@@ -17,18 +18,17 @@ void close_fd(int fd);
  */
 int main(int argc, char *argv[])
 {
-	int perm = 0664, from_fd, to_fd, i, c, buf_size = 1024;
-	void *buf;
+	int from_fd, to_fd;
 
 	if (argc != 3)
 	{
 		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
 		exit(97);
 	}
-	to_fd = open(argv[2], O_RDWR | O_TRUNC);
+	to_fd = open(argv[2], O_WRONLY | O_TRUNC);
 	if (to_fd < 0)
 	{
-		to_fd = open(argv[2], O_RDWR | O_CREAT, perm);
+		to_fd = open(argv[2], O_WRONLY | O_CREAT, 0664);
 		if (to_fd < 0)
 		{
 			dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
@@ -38,22 +38,12 @@ int main(int argc, char *argv[])
 	from_fd = open(argv[1], O_RDONLY);
 	if (from_fd < 0)
 	{
+		close_fd(to_fd);
 		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", argv[1]);
 		exit(98);
 	}
-	buf = malloc(sizeof(char) * buf_size);
-	for (i = 0; ; i += buf_size)
-	{
-		c = read(from_fd, buf, buf_size);
-		if (c == 0)
-			break;
-		if (write(to_fd, buf, c) != c)
-		{
-			dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
-			exit(99);
-		}
-	}
-	free(buf), close_fd(from_fd), close_fd(to_fd);
+	copy_contents(from_fd, to_fd, argv[2]);
+	close_fd(from_fd), close_fd(to_fd);
 	return (0);
 }
 
@@ -67,5 +57,33 @@ void close_fd(int fd)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't close fd %d", fd);
 		exit(100);
+	}
+}
+
+/**
+ * copy_contents - Copies the contents from one file to another
+ * @from_fd: The source file handle
+ * @to_fd: The destination file handle
+ * @dest_file: The destination file name
+ */
+void copy_contents(int from_fd, int to_fd, char *dest_file)
+{
+	int i, c, buf_size = 1024;
+	void *buf = malloc(sizeof(char) * buf_size);
+
+	if (buf != NULL)
+	{
+		for (i = 0; ; i += buf_size)
+		{
+			c = read(from_fd, buf, buf_size);
+			if (c == 0)
+				break;
+			if (write(to_fd, buf, c) != c)
+			{
+				dprintf(STDERR_FILENO, "Error: Can't write to %s\n", dest_file);
+				exit(99);
+			}
+		}
+		free(buf);
 	}
 }
