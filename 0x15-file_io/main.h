@@ -1,7 +1,9 @@
 #ifndef MAIN_H
 #define MAIN_H
+#include <elf.h>
 #include <fcntl.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
@@ -47,4 +49,10 @@ void print_os_abi(void *header);
 void print_abi_version(void *header);
 void print_type(void *header);
 void print_entry_pt_addr(void *header);
+void ensure_endianness(char little_e, void *data, unsigned int len);
+void print_elf32_header(Elf32_Ehdr *h);
+void print_elf32_header_2(Elf32_Ehdr *h);
+void print_elf64_header(Elf64_Ehdr *h);
+void print_elf64_header_2(Elf64_Ehdr *h);
+void put_err(char *str);
 #endif
