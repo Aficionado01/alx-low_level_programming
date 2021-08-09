@@ -153,7 +153,7 @@ void print_elf_header(void *header)
 		{
 			for (len = 0; *(sections[i] + len) != '\0'; len++)
 				;
-			PRINT_N_SPACES(title_width - len);
+			PRINT_N_SPACES(title_width - len - 1);
 		}
 		print_section(i, header);
 		i++;
@@ -274,7 +274,7 @@ void print_type(void *header)
 			printf("EXEC (Executable file)\n");
 			break;
 		case ET_DYN:
-			printf("DYN (Shared object)\n");
+			printf("DYN (Shared object file)\n");
 			break;
 		case ET_CORE:
 			printf("CORE (Core file)\n");
