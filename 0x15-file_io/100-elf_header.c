@@ -5,40 +5,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
-#define PRINT_MAGIC(header) {\
-	for (i = 0; i < EI_NIDENT; i++) \
-		printf("%02x%c", *((unsigned char *)(header) + i), \
-			i < EI_NIDENT - 1 ? ' ' : '\n'); }
-
-#define PRINT_DATA(header) {\
-	printf("2's complement, %s\n", \
-		(*((unsigned char *)header + 0x05) == 1) ? "little endian" : "big endian"); }
-
-#define PRINT_VERSION(header) {\
-if (*((unsigned char *)header + 6) == 0) \
-	printf("%u %s\n", *((unsigned char *)header + 6), "(invalid)"); \
-else if (*((unsigned char *)header + 6) == 1) \
-	printf("%u %s\n", *((unsigned char *)header + 6), "(current)"); }
-
-#define PRINT_N_SPACES(n) { \
-for (j = 0; j < (n); j++) \
-	printf("%c", ' '); }
-
-#define CLOSE_FD(fd) {\
-if (close((fd)) == -1) \
-{ \
-	write(STDERR_FILENO, "Error: Can't close file\n", 24); \
-	exit(98); \
-}}
-
-char is_elf_file(int fd, void **header);
-void print_elf_header(void *header);
-void print_section(int id, void *header);
-void print_class(void *header);
-void print_os_abi(void *header);
-void print_abi_version(void *header);
-void print_type(void *header);
-void print_entry_pt_addr(void *header);
+#include "main.h"
 
 /**
  * main - Displays the information contained in the ELF header at the
@@ -216,38 +183,42 @@ void print_class(void *header)
  */
 void print_os_abi(void *header)
 {
-	char i, *os_abi_versions[] = {
-		"Unix - System V",
-		"HP-UX",
-		"Unix - NetBSD",
-		"Linux",
-		"GNU Hurd",
-		"Unix - Solaris",
-		"Unix - AIX",
-		"Unix - IRIX",
-		"Unix - FreeBSD",
-		"Unix - Tru64",
-		"Novell Modesto",
-		"Unix - OpenBSD",
-		"OpenVMS",
-		"NonStop Kernel",
-		"AROS",
-		"Fenix OS",
-		"Unix - CloudABI",
-		"Stratus Technologies OpenVOS",
-		NULL,
-	};
-
-	while (*(os_abi_versions + (int)i) != NULL)
+	switch (*((unsigned char *)header + 0x07))
 	{
-		if (i == *((unsigned char *)header + 0x07))
-		{
-			printf("%s\n", *(os_abi_versions + (int)i));
-			return;
-		}
-		i++;
+	case 0:
+		printf("%s\n", "Unix - System V");
+		break;
+	case 1:
+		printf("%s\n", "HP-UX");
+		break;
+	case 2:
+		printf("%s\n", "Unix - NetBSD");
+		break;
+	case 3:
+		printf("%s\n", "Linux");
+		break;
+	case 6:
+		printf("%s\n", "Unix - Solaris");
+		break;
+	case 8:
+		printf("%s\n", "Unix - IRIX");
+		break;
+	case 9:
+		printf("%s\n", "Unix - FreeBSD");
+		break;
+	case 10:
+		printf("%s\n", "TRU64 UNIX");
+		break;
+	case 97:
+		printf("%s\n", "ARM");
+		break;
+	case 255:
+		printf("%s\n", "Stand-alone (embedded)");
+		break;
+	default:
+		printf("<unknown: %d>\n", *((unsigned char *)header + 0x07));
+		break;
 	}
-	printf("<unknown: %d>\n", *((unsigned char *)header + 0x07));
 }
 
 /**
@@ -274,6 +245,9 @@ void print_type(void *header)
 		(is_le && (5 << 8 == 0 ? 0 : 1) ? 1 : 2)) << 8);
 	switch (type)
 	{
+		case ET_NONE:
+			printf("NONE (Unknown file)\n");
+			break;
 		case ET_REL:
 			printf("REL (Relocatable file)\n");
 			break;
@@ -287,7 +261,8 @@ void print_type(void *header)
 			printf("CORE (Core file)\n");
 			break;
 		default:
-		break;
+			printf("<unknown: %d>\n", type);
+			break;
 	}
 }
 
