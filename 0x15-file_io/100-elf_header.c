@@ -286,5 +286,5 @@ void print_entry_pt_addr(void *header)
 		if (can_print)
 			printf("%02x", *((unsigned char *)header + offset + j));
 	}
-	printf("\n");
+	/* printf("\n"); */
 }
