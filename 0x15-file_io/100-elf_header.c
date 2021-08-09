@@ -240,7 +240,7 @@ void print_os_abi(void *header)
 
 	while (*(os_abi_versions + (int)i) != NULL)
 	{
-		if (i == )
+		if (i == *((unsigned char *)header + 0x07))
 		{
 			printf("%s\n", *(os_abi_versions + (int)i));
 			return;
