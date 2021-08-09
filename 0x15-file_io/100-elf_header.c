@@ -5,17 +5,36 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
+#define PRINT_MAGIC(header) {\
+	for (i = 0; i < EI_NIDENT; i++) \
+		printf("%02x%c", *((unsigned char *)(header) + i), \
+			i < EI_NIDENT - 1 ? ' ' : '\n'); }
 
-void close_fd(int fd);
+#define PRINT_DATA(header) {\
+	printf("2's complement, %s\n", \
+		(*((unsigned char *)header + 0x05) == 1) ? "little endian" : "big endian"); }
+
+#define PRINT_VERSION(header) {\
+if (*((unsigned char *)header + 6) == 0) \
+	printf("%x %s\n", *((unsigned char *)header + 6), "(invalid)"); \
+else if (*((unsigned char *)header + 6) == 1) \
+	printf("%x %s\n", *((unsigned char *)header + 6), "(current)"); }
+
+#define PRINT_N_SPACES(n) { \
+for (j = 0; j < (n); j++) \
+	printf("%c", ' '); }
+
+#define CLOSE_FD(fd) {\
+if (close((fd)) == -1) \
+{ \
+	write(STDERR_FILENO, "Error: Can't close file\n", 24); \
+	exit(98); \
+}}
+
+char is_elf_file(int fd, void **header);
 void print_elf_header(void *header);
 void print_section(int id, void *header);
-char is_elf_file(int fd, void **header);
-int str_len(char *str);
-void print_n_spaces(int n);
-void print_magic(void *header);
 void print_class(void *header);
-void print_data(void *header);
-void print_version(void *header);
 void print_os_abi(void *header);
 void print_abi_version(void *header);
 void print_type(void *header);
@@ -37,13 +56,13 @@ int main(int argc, char *argv[])
 
 	if (argc != 2)
 	{
-		printf("Usage: elf_header elf_filename\n");
+		write(STDERR_FILENO, "Usage: elf_header elf_filename\n", 32);
 		exit(98);
 	}
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 	{
-		printf("Error: Can't read from file %s\n", argv[1]);
+		write(STDERR_FILENO, "Error: Can't read from file\n", 29);
 		exit(98);
 	}
 	if (is_elf_file(fd, &header))
@@ -56,58 +75,12 @@ int main(int argc, char *argv[])
 	}
 	else
 	{
-		close_fd(fd);
-		printf("Invalid ELF file %s.\n", argv[1]);
+		CLOSE_FD(fd);
+		write(STDERR_FILENO, "Invalid ELF file %s.\n", 22);
 		exit(98);
 	}
-	close_fd(fd);
+	CLOSE_FD(fd);
 	return (0);
-}
-
-/**
- * close_fd - closes a file handle and exits program on failure
- * @fd: The file handle
- */
-void close_fd(int fd)
-{
-	if (close(fd) == -1)
-	{
-		dprintf(STDERR_FILENO, "Error: Can't close fd %d", fd);
-		exit(98);
-	}
-}
-
-/**
- * print_elf_header - Prints the contents of an elf header
- * @header: The elf header
- */
-void print_elf_header(void *header)
-{
-	char i = 0;
-	int title_width = 35;
-	char *sections[] = {
-		"Magic",
-		"Class",
-		"Data",
-		"Version",
-		"OS/ABI",
-		"ABI Version",
-		"Type",
-		"Entry point address",
-		NULL,
-	};
-
-	printf("ELF Header:\n");
-	while (*(sections + i) != NULL)
-	{
-		printf("  %s:", *(sections + i));
-		if (i == 0)
-			print_n_spaces(3);
-		else
-			print_n_spaces(title_width - str_len(*(sections + i)));
-		print_section(i, header);
-		i++;
-	}
 }
 
 /**
@@ -140,8 +113,8 @@ char is_elf_file(int fd, void **header)
 			}
 			else
 			{
-				close_fd(fd);
-				printf("Incomplete ELF file.\n");
+				CLOSE_FD(fd);
+				write(STDERR_FILENO, "Incomplete ELF file.\n", 22);
 				exit(98);
 			}
 		}
@@ -150,40 +123,41 @@ char is_elf_file(int fd, void **header)
 }
 
 /**
- * print_n_spaces - Prints a given number of spaces
- * @n: The number of spaces to print
+ * print_elf_header - Prints the contents of an elf header
+ * @header: The elf header
  */
-void print_n_spaces(int n)
+void print_elf_header(void *header)
 {
-	int i;
+	int i = 0, title_width = 35, len, j;
+	char *sections[] = {
+		"Magic",
+		"Class",
+		"Data",
+		"Version",
+		"OS/ABI",
+		"ABI Version",
+		"Type",
+		"Entry point address",
+		NULL,
+	};
 
-	for (i = 0; i < n; i++)
-		printf("%c", ' ');
-}
-
-/**
- * str_len - Computes the length of a string
- * @str: The string
- *
- * Return: The length of the string
- */
-int str_len(char *str)
-{
-	int len = 0;
-
-	while (str != NULL && *(str + len) != '\0')
-		len++;
-	return (len);
-}
-
-/**
- * get_endianness - Checks the endianness of this system
- *
- * Return: 0 if big endian, 1 if little endian
- */
-int get_endianness(void)
-{
-	return (5 << 8 == 0 ? 0 : 1);
+	printf("ELF Header:\n");
+	while (*(sections + i) != NULL)
+	{
+		printf("  %s:", *(sections + i));
+		if (i == 0)
+		{
+			PRINT_N_SPACES(3);
+		}
+		else
+		{
+			for (len = 0; *(sections[i] + len) != '\0'; len++)
+				;
+			PRINT_N_SPACES(title_width - len);
+		}
+		print_section(i, header);
+		i++;
+	}
 }
 
 /**
@@ -193,19 +167,21 @@ int get_endianness(void)
  */
 void print_section(int id, void *header)
 {
+	int i;
+
 	switch (id)
 	{
 	case 0:
-		print_magic(header);
+		PRINT_MAGIC(header);
 		break;
 	case 1:
 		print_class(header);
 		break;
 	case 2:
-		print_data(header);
+		PRINT_DATA(header);
 		break;
 	case 3:
-		print_version(header);
+		PRINT_VERSION(header);
 		break;
 	case 4:
 		print_os_abi(header);
@@ -225,51 +201,12 @@ void print_section(int id, void *header)
 }
 
 /**
- * print_magic - Prints the magic in the ELF header
- * @header: The pointer to the ELF header
- */
-void print_magic(void *header)
-{
-	int i;
-
-	for (i = 0; i < EI_NIDENT; i++)
-		printf("%02x%c", *((unsigned char *)header + i),
-			i < EI_NIDENT - 1 ? ' ' : '\n');
-}
-
-/**
  * print_class - Prints the class section in the ELF header
  * @header: The pointer to the ELF header
  */
 void print_class(void *header)
 {
 	printf("ELF%d\n", *((unsigned char *)header + 4) == 1 ? 32 : 64);
-}
-
-/**
- * print_data - Prints the data section in the ELF header
- * @header: The pointer to the ELF header
- */
-void print_data(void *header)
-{
-	int is_le = *((unsigned char *)header + 0x05) == 1;
-
-	printf("2's complement, %s\n",
-		is_le ? "little endian" : "big endian");
-}
-
-/**
- * print_version - Prints the version section in the ELF header
- * @header: The pointer to the ELF header
- */
-void print_version(void *header)
-{
-	int offset = 6;
-
-	if (*((unsigned char *)header + offset) == 0)
-		printf("%x %s\n", *((unsigned char *)header + offset), "(invalid)");
-	else if (*((unsigned char *)header + offset) == 1)
-		printf("%x %s\n", *((unsigned char *)header + offset), "(current)");
 }
 
 /**
@@ -325,9 +262,9 @@ void print_type(void *header)
 	unsigned short type;
 
 	type = *((unsigned char *)header + 0x10 +
-		(is_le && get_endianness() ? 0 : 1));
+		(is_le && (5 << 8 == 0 ? 0 : 1) ? 0 : 1));
 	type |= (*((unsigned char *)header + 0x10 +
-		(is_le && get_endianness() ? 1 : 2)) << 8);
+		(is_le && (5 << 8 == 0 ? 0 : 1) ? 1 : 2)) << 8);
 	switch (type)
 	{
 		case ET_REL:
