@@ -16,9 +16,9 @@
 
 #define PRINT_VERSION(header) {\
 if (*((unsigned char *)header + 6) == 0) \
-	printf("%x %s\n", *((unsigned char *)header + 6), "(invalid)"); \
+	printf("%u %s\n", *((unsigned char *)header + 6), "(invalid)"); \
 else if (*((unsigned char *)header + 6) == 1) \
-	printf("%x %s\n", *((unsigned char *)header + 6), "(current)"); }
+	printf("%u %s\n", *((unsigned char *)header + 6), "(current)"); }
 
 #define PRINT_N_SPACES(n) { \
 for (j = 0; j < (n); j++) \
@@ -56,13 +56,13 @@ int main(int argc, char *argv[])
 
 	if (argc != 2)
 	{
-		write(STDERR_FILENO, "Usage: elf_header elf_filename\n", 32);
+		write(STDERR_FILENO, "Usage: elf_header elf_filename\n", 31);
 		exit(98);
 	}
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 	{
-		write(STDERR_FILENO, "Error: Can't read from file\n", 29);
+		write(STDERR_FILENO, "Error: Can't read from file\n", 28);
 		exit(98);
 	}
 	if (is_elf_file(fd, &header))
@@ -76,7 +76,7 @@ int main(int argc, char *argv[])
 	else
 	{
 		CLOSE_FD(fd);
-		write(STDERR_FILENO, "Invalid ELF file %s.\n", 22);
+		write(STDERR_FILENO, "Invalid ELF file.\n", 18);
 		exit(98);
 	}
 	CLOSE_FD(fd);
@@ -107,14 +107,15 @@ char is_elf_file(int fd, void **header)
 			*header = malloc(*(buf + 4) == 1 ? 52 : 64);
 			lseek(fd, 0, SEEK_SET);
 			c = read(fd, *header, (*(buf + 4) == 1 ? 52 : 64));
-			if (c == 52 || c == 64)
+			if ((c == 52 || c == 64) && *((unsigned char *)*header + 6) == 1)
 			{
 				return (1);
 			}
 			else
 			{
+				free(*header);
 				CLOSE_FD(fd);
-				write(STDERR_FILENO, "Incomplete ELF file.\n", 22);
+				write(STDERR_FILENO, "Incomplete ELF file.\n", 21);
 				exit(98);
 			}
 		}
@@ -181,7 +182,7 @@ void print_section(int id, void *header)
 		PRINT_DATA(header);
 		break;
 	case 3:
-		PRINT_VERSION(header);
+		printf("%u %s\n", *((unsigned char *)header + 6), "(current)");
 		break;
 	case 4:
 		print_os_abi(header);
@@ -215,32 +216,38 @@ void print_class(void *header)
  */
 void print_os_abi(void *header)
 {
-	switch (*((unsigned char *)header + 0x07))
+	char i, *os_abi_versions[] = {
+		"Unix - System V",
+		"HP-UX",
+		"Unix - NetBSD",
+		"Linux",
+		"GNU Hurd",
+		"Unix - Solaris",
+		"Unix - AIX",
+		"Unix - IRIX",
+		"Unix - FreeBSD",
+		"Unix - Tru64",
+		"Novell Modesto",
+		"Unix - OpenBSD",
+		"OpenVMS",
+		"NonStop Kernel",
+		"AROS",
+		"Fenix OS",
+		"Unix - CloudABI",
+		"Stratus Technologies OpenVOS",
+		NULL,
+	};
+
+	while (*(os_abi_versions + (int)i) != NULL)
 	{
-	case 0x00:
-		printf("Unix - System V\n");
-		break;
-	case 0x01:
-		printf("HP-UX\n");
-		break;
-	case 0x02:
-		printf("NetBSD\n");
-		break;
-	case 0x03:
-		printf("Linux\n");
-		break;
-	case 0x09:
-		printf("FreeBSD\n");
-		break;
-	case 0x0A:
-		printf("Tru64\n");
-		break;
-	case 0x0C:
-		printf("OpenBSD\n");
-		break;
-	default:
-		break;
+		if (i == )
+		{
+			printf("%s\n", *(os_abi_versions + (int)i));
+			return;
+		}
+		i++;
 	}
+	printf("<unknown: %d>\n", *((unsigned char *)header + 0x07));
 }
 
 /**
