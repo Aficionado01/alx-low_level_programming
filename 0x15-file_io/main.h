@@ -12,25 +12,6 @@ for (i = 0; i < EI_NIDENT; i++) \
 	printf("%02x%c", *((unsigned char *)(header) + i), \
 		i < EI_NIDENT - 1 ? ' ' : '\n'); }
 
-#define PRINT_DATA(header) {\
-printf(*((unsigned char *)header + 0x05) == ELFDATA2LSB \
-	? "2's complement, little endian\n" \
-		: ((*((unsigned char *)header + 0x05) == ELFDATA2MSB) \
-			? "2's complement, big endian\n" \
-			: (*((unsigned char *)header + 0x05) == ELFDATANONE \
-				? "none\n" : "<unknown: %x>\n"\
-				)), *((unsigned char *)header + 0x05)); }
-
-#define PRINT_VERSION(header) \
-printf("%d%s", *((unsigned char *)header + 6), \
-	*((unsigned char *)header + 6) == EV_CURRENT \
-		? " (current)\n" \
-		: (((*((unsigned char *)header + 6) < EV_CURRENT) && \
-				(*((unsigned char *)header + 6) != EV_NONE)) \
-			? "\n" \
-			: " <unknown>\n") \
-	)
-
 #define CLOSE_FD(fd) {\
 if (close((fd)) == -1) \
 { \
@@ -48,6 +29,8 @@ char is_elf_file(int fd, void **header);
 void print_elf_header(void *header);
 void print_section(int id, void *header);
 void print_class(void *header);
+void print_data(void *header);
+void print_version(void *header);
 void print_os_abi(void *header);
 void print_abi_version(void *header);
 void print_type(void *header);

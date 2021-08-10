@@ -141,10 +141,10 @@ void print_section(int id, void *header)
 		print_class(header);
 		break;
 	case 2:
-		PRINT_DATA(header);
+		print_data(header);
 		break;
 	case 3:
-		PRINT_VERSION(header);
+		print_version(header);
 		break;
 	case 4:
 		print_os_abi(header);
@@ -184,6 +184,37 @@ void print_class(void *header)
 		printf("<unknown: %x>\n", *((unsigned char *)header + 4));
 		break;
 	}
+}
+
+/**
+ * print_data - Prints the data section in the ELF header
+ * @header: The pointer to the ELF header
+ */
+void print_data(void *header)
+{
+	if (*((unsigned char *)header + 0x05) == ELFDATA2LSB)
+		printf("2's complement, little endian\n");
+	else if (*((unsigned char *)header + 0x05) == ELFDATA2MSB)
+		printf("2's complement, big endian\n");
+	else if (*((unsigned char *)header + 0x05) == ELFDATANONE)
+		printf("none\n");
+	else
+		printf("<unknown: %x>\n", *((unsigned char *)header + 0x05));
+}
+
+/**
+ * print_version - Prints the version section in the ELF header
+ * @header: The pointer to the ELF header
+ */
+void print_version(void *header)
+{
+	if (*((unsigned char *)header + 6) == EV_CURRENT)
+		printf("%d (current)\n", *((unsigned char *)header + 6));
+	else if ((*((unsigned char *)header + 6) < EV_CURRENT)
+		&& (*((unsigned char *)header + 6) != EV_NONE))
+		printf("%d\n", *((unsigned char *)header + 6));
+	else
+		printf("%d <unknown>\n", *((unsigned char *)header + 6));
 }
 
 /**
