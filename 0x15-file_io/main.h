@@ -22,7 +22,7 @@ if (*((unsigned char *)header + 6) == EV_NONE) \
 	printf("%u %s\n", *((unsigned char *)header + 6), "(invalid)"); \
 else if (*((unsigned char *)header + 6) == EV_CURRENT) \
 	printf("%u %s\n", *((unsigned char *)header + 6), "(current)"); \
-else \
+else if (*((unsigned char *)header + 6) < EV_CURRENT) \
 	printf("%u\n", *((unsigned char *)header + 6)); }
 
 #define PRINT_N_SPACES(n) { \
