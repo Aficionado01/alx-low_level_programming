@@ -205,9 +205,6 @@ void print_os_abi(void *header)
 	case ELFOSABI_ARM:
 		printf("%s\n", "UNIX - ARM architecture");
 		break;
-	case ELFOSABI_STANDALONE:
-		printf("%s\n", "Stand-alone (embedded)");
-		break;
 	default:
 		printf("<unknown: %x>\n", *((unsigned char *)header + 0x07));
 		break;
