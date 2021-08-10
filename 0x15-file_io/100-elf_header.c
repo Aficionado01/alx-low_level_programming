@@ -1,10 +1,13 @@
 #include <elf.h>
 #include "main.h"
 
+/**
+ * test_out - Dummy function to test a check
+ */
 void test_out(void)
 {
 	printf("ELF Header:\n");
-  printf("Magic:   7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00");
+  printf("Magic:   7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00\n");
   printf("Class:                             ELF64\n");
   printf("Data:                              2's complement, little endian\n");
   printf("Version:                           1\n");
