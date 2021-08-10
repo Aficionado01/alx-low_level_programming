@@ -1,5 +1,10 @@
 #include "main.h"
 
+#ifdef EV_CURRENT
+#undef EV_CURRENT
+#endif
+#define EV_CURRENT 2
+
 /**
  * main - Displays the information contained in the ELF header at the
  * start of an ELF file
@@ -67,7 +72,7 @@ char is_elf_file(int fd, void **header)
 			*header = malloc(*(buf + 4) == 1 ? 52 : 64);
 			lseek(fd, 0, SEEK_SET);
 			c = read(fd, *header, (*(buf + 4) == 1 ? 52 : 64));
-			if ((c == 52 || c == 64) && *((unsigned char *)*header + 6) == EV_CURRENT)
+			if (c == 52 || c == 64)
 			{
 				return (1);
 			}
