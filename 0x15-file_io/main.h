@@ -18,8 +18,8 @@
 		(*((unsigned char *)header + 0x05) == 1) ? "little endian" : "big endian"); }
 
 #define PRINT_VERSION(header) {\
-if (*((unsigned char *)header + 6) == EV_NONE || \
-	*((unsigned char *)header + 6) > EV_CURRENT) \
+if ((*((unsigned char *)header + 6) == EV_NONE) || \
+	(*((unsigned char *)header + 6) > EV_CURRENT)) \
 	printf("%d %s\n", *((unsigned char *)header + 6), "<unknown>"); \
 else if (*((unsigned char *)header + 6) == EV_CURRENT) \
 	printf("%u %s\n", *((unsigned char *)header + 6), "(current)"); \
