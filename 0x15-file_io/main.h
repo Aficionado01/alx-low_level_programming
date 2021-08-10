@@ -21,7 +21,7 @@ printf(*((unsigned char *)header + 0x05) == ELFDATA2LSB \
 				? "none\n" : "<unknown: %x>\n"\
 				)), *((unsigned char *)header + 0x05)); }
 
-#define PRINT_VERSION(header) {\
+#define PRINT_VERSION(header) \
 printf("%d%s", *((unsigned char *)header + 6), \
 	*((unsigned char *)header + 6) == EV_CURRENT \
 		? " (current)\n" \
@@ -29,7 +29,7 @@ printf("%d%s", *((unsigned char *)header + 6), \
 				(*((unsigned char *)header + 6) != EV_NONE)) \
 			? "\n" \
 			: " <unknown>\n") \
-	); }
+	)
 
 #define PRINT_N_SPACES(n) { \
 for (j = 0; j < (n); j++) \
