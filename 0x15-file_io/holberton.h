@@ -31,10 +31,6 @@ printf("%d%s", *((unsigned char *)header + 6), \
 			: " <unknown>\n") \
 	)
 
-#define PRINT_N_SPACES(n) { \
-for (j = 0; j < (n); j++) \
-	printf("%c", ' '); }
-
 #define CLOSE_FD(fd) {\
 if (close((fd)) == -1) \
 { \
@@ -48,7 +44,6 @@ int create_file(const char *filename, char *text_content);
 int append_text_to_file(const char *filename, char *text_content);
 void close_fd(int fd);
 void copy_contents(int from_fd, int to_fd, char *src_file, char *dest_file);
-
 char is_elf_file(int fd, void **header);
 void print_elf_header(void *header);
 void print_section(int id, void *header);

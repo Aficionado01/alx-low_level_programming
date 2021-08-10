@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
 	else
 	{
 		CLOSE_FD(fd);
-		write(STDERR_FILENO, "Invalid ELF header.\n", 18);
+		write(STDERR_FILENO, "Invalid ELF header.\n", 20);
 		exit(98);
 	}
 	CLOSE_FD(fd);
@@ -54,22 +54,21 @@ int main(int argc, char *argv[])
 char is_elf_file(int fd, void **header)
 {
 	int c;
-	unsigned char buf[5];
+	unsigned char buf[4];
 
-	c = read(fd, (void *)buf, 5);
-	if (c == 5)
+	c = read(fd, (void *)buf, 4);
+	if (c == 4)
 	{
 		if (*(buf + 0) == 0x7f
 			&& (*(buf + 1) == 'E')
 			&& (*(buf + 2) == 'L')
-			&& (*(buf + 3) == 'F')
-			&& ((*(buf + 4) == 1) || (*(buf + 4) == 2)))
+			&& (*(buf + 3) == 'F'))
 		{
-			*header = malloc(*(buf + 4) == 1 ? 52 : 64);
+			*header = malloc(*(buf + 4) == 2 ? 64 : 52);
 			if (*header != NULL)
 			{
 				lseek(fd, 0, SEEK_SET);
-				c = read(fd, *header, (*(buf + 4) == 1 ? 52 : 64));
+				c = read(fd, *header, (*(buf + 4) == 2 ? 64 : 52));
 				if (c == 52 || c == 64)
 				{
 					return (1);
@@ -78,14 +77,14 @@ char is_elf_file(int fd, void **header)
 				{
 					free(*header);
 					CLOSE_FD(fd);
-					write(STDERR_FILENO, "Incomplete ELF header.\n", 21);
+					write(STDERR_FILENO, "Incomplete ELF header.\n", 23);
 					exit(98);
 				}
 			}
 			else
 			{
 				CLOSE_FD(fd);
-				write(STDERR_FILENO, "Incomplete ELF header.\n", 21);
+				write(STDERR_FILENO, "Incomplete ELF header.\n", 23);
 				exit(98);
 			}
 		}
@@ -99,7 +98,7 @@ char is_elf_file(int fd, void **header)
  */
 void print_elf_header(void *header)
 {
-	int i = 0, title_width = 35, len, j;
+	int i = 0, title_width = 35, len;
 	char *sections[] = {
 		"Magic",
 		"Class",
@@ -115,17 +114,10 @@ void print_elf_header(void *header)
 	printf("ELF Header:\n");
 	while (*(sections + i) != NULL)
 	{
-		printf("  %s:", *(sections + i));
-		if (i == 0)
-		{
-			PRINT_N_SPACES(3);
-		}
-		else
-		{
-			for (len = 0; *(sections[i] + len) != '\0'; len++)
-				;
-			PRINT_N_SPACES(title_width - len - 1);
-		}
+		for (len = 0; *(sections[i] + len) != '\0'; len++)
+			;
+		printf("  %s%-*c", *(sections + i),
+			i == 0 ? 3 + 1: title_width - len, ':');
 		print_section(i, header);
 		i++;
 	}
