@@ -9,13 +9,18 @@
 #include <unistd.h>
 
 #define PRINT_MAGIC(header) {\
-	for (i = 0; i < EI_NIDENT; i++) \
-		printf("%02x%c", *((unsigned char *)(header) + i), \
-			i < EI_NIDENT - 1 ? ' ' : '\n'); }
+for (i = 0; i < EI_NIDENT; i++) \
+	printf("%02x%c", *((unsigned char *)(header) + i), \
+		i < EI_NIDENT - 1 ? ' ' : '\n'); }
 
 #define PRINT_DATA(header) {\
-	printf("2's complement, %s\n", \
-		(*((unsigned char *)header + 0x05) == 1) ? "little endian" : "big endian"); }
+printf(*((unsigned char *)header + 0x05) == ELFDATA2LSB \
+	? "2's complement, little endian\n" \
+		: ((*((unsigned char *)header + 0x05) == ELFDATA2MSB) \
+			? "2's complement, big endian\n" \
+			: (*((unsigned char *)header + 0x05) == ELFDATANONE \
+				? "none\n" : "<unknown: %x>\n"\
+				)), *((unsigned char *)header + 0x05)); }
 
 #define PRINT_VERSION(header) { \
 if (*((unsigned char *)header + 6) == EV_CURRENT) \

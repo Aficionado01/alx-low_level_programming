@@ -167,7 +167,21 @@ void print_section(int id, void *header)
  */
 void print_class(void *header)
 {
-	printf("ELF%d\n", *((unsigned char *)header + 4) == 1 ? 32 : 64);
+	switch (*((unsigned char *)header + 4))
+	{
+	case ELFCLASSNONE:
+		printf("none\n");
+		break;
+	case ELFCLASS32:
+		printf("ELF32\n");
+		break;
+	case ELFCLASS64:
+		printf("ELF64\n");
+		break;
+	default:
+		printf("<unknown: %x>\n", *((unsigned char *)header + 4));
+		break;
+	}
 }
 
 /**
@@ -226,7 +240,7 @@ void print_abi_version(void *header)
  */
 void print_type(void *header)
 {
-	int is_le = *((unsigned char *)header + 0x05) == 1;
+	int is_le = *((unsigned char *)header + 0x05) == ELFDATA2LSB;
 	unsigned short type;
 
 	type = *((unsigned char *)header + 0x10 +
@@ -263,7 +277,7 @@ void print_type(void *header)
 			printf("Processor Specific: (ffff)\n");
 			break;
 		default:
-			printf("<unknown: %x>\n", type);
+			printf("<unknown>: %x\n", type);
 			break;
 	}
 }
@@ -276,8 +290,8 @@ void print_type(void *header)
 void print_entry_pt_addr(void *header)
 {
 	int i, j, k = 0, can_print = 0, offset = 0x18;
-	int val_len = *((unsigned char *)header + 4) == 1 ? 4 : 8;
-	int is_le = *((unsigned char *)header + 0x05) == 1;
+	int val_len = *((unsigned char *)header + 4) == ELFDATA2LSB ? 4 : 8;
+	int is_le = *((unsigned char *)header + 0x05) == ELFDATA2LSB;
 
 	printf("0x");
 	for (i = 0; i < val_len; i++)
