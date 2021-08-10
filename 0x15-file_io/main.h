@@ -21,7 +21,9 @@
 if (*((unsigned char *)header + 6) == 0) \
 	printf("%u %s\n", *((unsigned char *)header + 6), "(invalid)"); \
 else if (*((unsigned char *)header + 6) == 1) \
-	printf("%u %s\n", *((unsigned char *)header + 6), "(current)"); }
+	printf("%u %s\n", *((unsigned char *)header + 6), "(current)"); \
+else \
+	printf("%u\n", *((unsigned char *)header + 6)); }
 
 #define PRINT_N_SPACES(n) { \
 for (j = 0; j < (n); j++) \
@@ -49,10 +51,10 @@ void print_os_abi(void *header);
 void print_abi_version(void *header);
 void print_type(void *header);
 void print_entry_pt_addr(void *header);
-void ensure_endianness(char little_e, void *data, unsigned int len);
+/* void ensure_endianness(char little_e, void *data, unsigned int len);
 void print_elf32_header(Elf32_Ehdr *h);
 void print_elf32_header_2(Elf32_Ehdr *h);
 void print_elf64_header(Elf64_Ehdr *h);
 void print_elf64_header_2(Elf64_Ehdr *h);
-void put_err(char *str);
+void put_err(char *str); */
 #endif

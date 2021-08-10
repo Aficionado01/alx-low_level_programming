@@ -1,273 +1,301 @@
 #include "main.h"
-#include <stdio.h>
-#include <elf.h>
-#include <inttypes.h>
-
-#define MIN_HEADER_SIZE (sizeof(Elf32_Ehdr))
-#define HEADER_DIFF (sizeof(Elf64_Ehdr) - sizeof(Elf32_Ehdr))
 
 /**
- * ensure_endianness - ensures endianness
- * @little_e: whether data is little endian
- * @data: data to ensure
- * @len: lenth of data
+ * main - Displays the information contained in the ELF header at the
+ * start of an ELF file
+ * @argc: The number of arguments
+ * @argv: The arguments
  *
- * Return: void
- */
-void ensure_endianness(char little_e, void *data, unsigned int len)
-{
-	unsigned long num = 1, i = 0;
-	char _little_e = ((num >> 8) << 8 != num), tmp, *_data = data;
-
-	if (little_e != _little_e)
-	{
-		for (i = 0; i < len - 1; i++)
-		{
-			tmp = _data[i];
-			_data[i] = _data[len - i];
-			_data[len - i] = tmp;
-		}
-	}
-}
-/**
- * put_err - prints a string to the standard error file
- * @str: string to print
- *
- * Return: void
- */
-void put_err(char *str)
-{
-	int len = 0;
-
-	while (str[len])
-		len++;
-	write(STDERR_FILENO, str, len);
-}
-
-/**
- * print_elf32_header - prints the contents of an elf header (first half)
- * @h: elf header
- *
- * Return: void
- */
-void print_elf32_header(Elf32_Ehdr *h)
-{
-	Elf32_Ehdr header = *h;
-	char c, i;
-
-	printf("ELF Header:\n");
-	printf("  Magic:  ");
-	for (i = 0; i < EI_NIDENT; i++)
-		printf(" %02x", header.e_ident[(int)i]);
-	printf("\n");
-
-	printf("  Class:                             ");
-	c = header.e_ident[EI_CLASS];
-	printf(c == ELFCLASS32 ? "ELF32"
-		   : c == ELFCLASS64 ? "ELF64"
-		   : c == ELFCLASSNONE ? "none" : "<unknown: %x>", c);
-	printf("\n");
-
-	printf("  Data:                              ");
-	c = header.e_ident[EI_DATA];
-	printf(c == ELFDATA2LSB ? "2's complement, little endian"
-		   : c == ELFDATA2MSB ?
-		   "2's complement, big endian" : c == ELFDATANONE ? "none"
-		   : "<unknown: %x>", c);
-	printf("\n");
-
-	printf("  Version:                           ");
-	c = header.e_ident[EI_VERSION];
-	printf(c == EV_CURRENT ? "1 (current)" : "%d <unknown>", c);
-	printf("\n");
-
-	print_elf32_header_2(h);
-}
-
-/**
- * print_elf32_header_2 - prints the contents of an elf header (second half)
- * @h: elf header
- *
- * Return: void
- */
-void print_elf32_header_2(Elf32_Ehdr *h)
-{
-	Elf32_Ehdr header = *h;
-	char c;
-	uint16_t t2;
-
-	printf("  OS/ABI:                            ");
-	c = header.e_ident[EI_OSABI];
-	printf(c == ELFOSABI_NONE || c == ELFOSABI_SYSV ? "UNIX - System V"
-		   : c == ELFOSABI_HPUX ? "UNIX - HP-UX"
-		   : c == ELFOSABI_NETBSD ? "UNIX - NetBSD"
-		   : c == ELFOSABI_LINUX || c == ELFOSABI_GNU ? "UNIX - GNU"
-		   : c == ELFOSABI_SOLARIS ? "UNIX - Solaris"
-		   : c == ELFOSABI_IRIX ? "UNIX - IRIX"
-		   : c == ELFOSABI_FREEBSD ? "UNIX - FreeBSD"
-		   : c == ELFOSABI_TRU64 ? "UNIX - TRU64"
-		   : c == ELFOSABI_ARM ? "UNIX - ARM architecture"
-		   : c == (char)ELFOSABI_STANDALONE ? "Stand-alone (embedded)"
-		   : "<unknown: %x>", c), printf("\n");
-	printf("  ABI Version:                       ");
-	c = header.e_ident[EI_ABIVERSION];
-	printf("%d", c);
-	printf("\n");
-	printf("  Type:                              ");
-	t2 = header.e_type;
-	ensure_endianness(header.e_ident[EI_DATA] == ELFDATA2LSB, &t2, 2);
-	printf(t2 == ET_NONE ? "NONE (None)" :
-		   t2 == ET_REL ? "REL (Relocatable file)"
-		   : t2 == ET_EXEC ? "EXEC (Executable file)"
-		   : t2 == ET_DYN ? "DYN (Shared object file)"
-		   : t2 == ET_CORE ? "CORE (Core file)"
-		   : t2 == ET_LOOS ? "OS Specific: (fe00)"
-		   : t2 == ET_HIOS ? "OS Specific: (feff)"
-		   : t2 == ET_LOPROC ? "Processor Specific: (ff00)"
-		   : t2 == ET_HIPROC ? "Processor Specific: (ffff)"
-		   : "<unknown>: %x", t2), printf("\n");
-
-	ensure_endianness(header.e_ident[EI_DATA] == ELFDATA2LSB, &header.e_entry, 4);
-	printf("  Entry point address:               ");
-	printf("0x%x", header.e_entry), printf("\n");
-}
-
-/**
- * print_elf64_header - prints the contents of an elf header (first half)
- * @h: elf header
- *
- * Return: void
- */
-void print_elf64_header(Elf64_Ehdr *h)
-{
-	Elf64_Ehdr header = *h;
-	char c, i;
-
-	printf("ELF Header:\n");
-	printf("  Magic:  ");
-	for (i = 0; i < EI_NIDENT; i++)
-		printf(" %02x", header.e_ident[(int)i]);
-	printf("\n");
-
-	printf("  Class:                             ");
-	c = header.e_ident[EI_CLASS];
-	printf(c == ELFCLASS32 ? "ELF32"
-		   : c == ELFCLASS64 ? "ELF64"
-		   : c == ELFCLASSNONE ? "none" : "<unknown: %x>", c);
-	printf("\n");
-
-	printf("  Data:                              ");
-	c = header.e_ident[EI_DATA];
-	printf(c == ELFDATA2LSB ? "2's complement, little endian"
-		   : c == ELFDATA2MSB ?
-		   "2's complement, big endian" : c == ELFDATANONE ? "none"
-		   : "<unknown: %x>", c);
-	printf("\n");
-
-	printf("  Version:                           ");
-	c = header.e_ident[EI_VERSION];
-	printf(c == EV_CURRENT ? "1 (current)" : "%d <unknown>", c);
-	printf("\n");
-
-	print_elf64_header_2(h);
-}
-
-/**
- * print_elf64_header_2 - prints the contents of an elf header (second half)
- * @h: elf header
- *
- * Return: void
- */
-void print_elf64_header_2(Elf64_Ehdr *h)
-{
-	Elf64_Ehdr header = *h;
-	char c;
-	uint16_t t2;
-
-	printf("  OS/ABI:                            ");
-	c = header.e_ident[EI_OSABI];
-	printf(c == ELFOSABI_NONE || c == ELFOSABI_SYSV ? "UNIX - System V"
-		   : c == ELFOSABI_HPUX ? "UNIX - HP-UX"
-		   : c == ELFOSABI_NETBSD ? "UNIX - NetBSD"
-		   : c == ELFOSABI_LINUX || c == ELFOSABI_GNU ? "UNIX - GNU"
-		   : c == ELFOSABI_SOLARIS ? "UNIX - Solaris"
-		   : c == ELFOSABI_IRIX ? "UNIX - IRIX"
-		   : c == ELFOSABI_FREEBSD ? "UNIX - FreeBSD"
-		   : c == ELFOSABI_TRU64 ? "UNIX - TRU64"
-		   : c == ELFOSABI_ARM ? "UNIX - ARM architecture"
-		   : c == (char)ELFOSABI_STANDALONE ? "Stand-alone (embedded)"
-		   : "<unknown: %x>", c);
-	printf("\n");
-
-	printf("  ABI Version:                       ");
-	c = header.e_ident[EI_ABIVERSION];
-	printf("%d", c);
-	printf("\n");
-
-	printf("  Type:                              ");
-	t2 = header.e_type;
-	ensure_endianness(header.e_ident[EI_DATA] == ELFDATA2LSB, &t2, 2);
-	printf(t2 == ET_NONE ? "NONE (None)" :
-		   t2 == ET_REL ? "REL (Relocatable file)"
-		   : t2 == ET_EXEC ? "EXEC (Executable file)"
-		   : t2 == ET_DYN ? "DYN (Shared object file)"
-		   : t2 == ET_CORE ? "CORE (Core file)"
-		   : t2 == ET_LOOS ? "OS Specific: (fe00)"
-		   : t2 == ET_HIOS ? "OS Specific: (feff)"
-		   : t2 == ET_LOPROC ? "Processor Specific: (ff00)"
-		   : t2 == ET_HIPROC ? "Processor Specific: (ffff)"
-		   : "<unknown>: %x", t2), printf("\n");
-	printf("  Entry point address:               ");
-	ensure_endianness(header.e_ident[EI_DATA] == ELFDATA2LSB, &header.e_entry, 8);
-	printf("0x%lx", header.e_entry), printf("\n");
-}
-
-/**
- * main - prints the elf header information of a file
- * @argc: argument count
- * @argv: arguments
- *
- * Return: 0 if the file's elf header was read successfully
+ * Return: 0 if successful, otherwise a number between 97 and
+ * 100 (each number represents an error)
  */
 int main(int argc, char *argv[])
 {
-	char *filename;
-	int handle, read_len;
-	char header[MIN_HEADER_SIZE + HEADER_DIFF] = {0};
-	Elf32_Ehdr *header32 = (void *)header;
-	Elf64_Ehdr *header64 = (void *)header;
+	int fd;
+	void *header = NULL;
 
 	if (argc != 2)
-		return (put_err("Usage: elf_header elf_filename\n"), 98);
-	filename = argv[1], handle = open(filename, O_RDONLY);
-	if (handle == -1)
-		return (put_err("readelf: Error: "), put_err(filename),
-				put_err(": Failed to read file's magic number\n"), 98);
-	read_len = read(handle, header, MIN_HEADER_SIZE);
-	if (read_len == -1)
-error_section:
-		return (put_err("readelf: Error: "), put_err(filename),
-				put_err(": Failed to read file's magic number\n"), 98);
-	if (read_len != MIN_HEADER_SIZE ||
-		!((header32->e_ident[EI_MAG0] == ELFMAG0) &&
-		  (header32->e_ident[EI_MAG1] == ELFMAG1) &&
-		  (header32->e_ident[EI_MAG2] == ELFMAG2) &&
-		  (header32->e_ident[EI_MAG3] == ELFMAG3)))
-		return (put_err("readelf: Error: Not an ELF file - "),
-				put_err("it has the wrong magic bytes at the start\n"), 98);
-
-	if (header32->e_ident[EI_CLASS] == ELFCLASS64)
 	{
-		read_len = read(handle, ((char *)&header64) + MIN_HEADER_SIZE, HEADER_DIFF);
-		if (read_len == -1)
+		write(STDERR_FILENO, "Usage: elf_header elf_filename\n", 31);
+		exit(98);
+	}
+	fd = open(argv[1], O_RDONLY);
+	if (fd < 0)
+	{
+		write(STDERR_FILENO, "Error: Can't read from file\n", 28);
+		exit(98);
+	}
+	if (is_elf_file(fd, &header))
+	{
+		if (header != NULL)
 		{
-			close(handle);
-			goto error_section;
+			print_elf_header(header);
+			free(header);
 		}
-		print_elf64_header(header64);
 	}
 	else
-		print_elf32_header(header32);
-	close(handle);
+	{
+		CLOSE_FD(fd);
+		write(STDERR_FILENO, "Invalid ELF file.\n", 18);
+		exit(98);
+	}
+	CLOSE_FD(fd);
 	return (0);
+}
+
+/**
+ * is_elf_file - Checks if a file contains an ELF header
+ * @fd: The file handle
+ * @header: The pointer to the addres of the ELF header
+ *
+ * Return: 1 if file contains an ELF header, otherwise 0
+ */
+char is_elf_file(int fd, void **header)
+{
+	int c;
+	unsigned char buf[5];
+
+	c = read(fd, (void *)buf, 5);
+	if (c == 5)
+	{
+		if (*(buf + 0) == 0x7f
+			&& (*(buf + 1) == 'E')
+			&& (*(buf + 2) == 'L')
+			&& (*(buf + 3) == 'F')
+			&& ((*(buf + 4) == 1) || (*(buf + 4) == 2)))
+		{
+			*header = malloc(*(buf + 4) == 1 ? 52 : 64);
+			lseek(fd, 0, SEEK_SET);
+			c = read(fd, *header, (*(buf + 4) == 1 ? 52 : 64));
+			if ((c == 52 || c == 64) && *((unsigned char *)*header + 6) == EV_CURRENT)
+			{
+				return (1);
+			}
+			else
+			{
+				free(*header);
+				CLOSE_FD(fd);
+				write(STDERR_FILENO, "Incomplete ELF file.\n", 21);
+				exit(98);
+			}
+		}
+	}
+	return (0);
+}
+
+/**
+ * print_elf_header - Prints the contents of an elf header
+ * @header: The elf header
+ */
+void print_elf_header(void *header)
+{
+	int i = 0, title_width = 35, len, j;
+	char *sections[] = {
+		"Magic",
+		"Class",
+		"Data",
+		"Version",
+		"OS/ABI",
+		"ABI Version",
+		"Type",
+		"Entry point address",
+		NULL,
+	};
+
+	printf("ELF Header:\n");
+	while (*(sections + i) != NULL)
+	{
+		printf("  %s:", *(sections + i));
+		if (i == 0)
+		{
+			PRINT_N_SPACES(3);
+		}
+		else
+		{
+			for (len = 0; *(sections[i] + len) != '\0'; len++)
+				;
+			PRINT_N_SPACES(title_width - len - 1);
+		}
+		print_section(i, header);
+		i++;
+	}
+}
+
+/**
+ * print_section - Prints the content of a section in the ELF header
+ * @id: The id of the section
+ * @header: The pointer to the ELF header
+ */
+void print_section(int id, void *header)
+{
+	int i;
+
+	switch (id)
+	{
+	case 0:
+		PRINT_MAGIC(header);
+		break;
+	case 1:
+		print_class(header);
+		break;
+	case 2:
+		PRINT_DATA(header);
+		break;
+	case 3:
+		PRINT_VERSION(header);
+		break;
+	case 4:
+		print_os_abi(header);
+		break;
+	case 5:
+		print_abi_version(header);
+		break;
+	case 6:
+		print_type(header);
+		break;
+	case 7:
+		print_entry_pt_addr(header);
+		break;
+	default:
+		break;
+	}
+}
+
+/**
+ * print_class - Prints the class section in the ELF header
+ * @header: The pointer to the ELF header
+ */
+void print_class(void *header)
+{
+	printf("ELF%d\n", *((unsigned char *)header + 4) == 1 ? 32 : 64);
+}
+
+/**
+ * print_os_abi - Prints the OS/ABI section in the ELF header
+ * @header: The pointer to the ELF header
+ */
+void print_os_abi(void *header)
+{
+	switch (*((unsigned char *)header + 0x07))
+	{
+	case ELFOSABI_SYSV:
+		printf("%s\n", "UNIX - System V");
+		break;
+	case ELFOSABI_HPUX:
+		printf("%s\n", "UNIX - HP-UX");
+		break;
+	case ELFOSABI_NETBSD:
+		printf("%s\n", "UNIX - NetBSD");
+		break;
+	case ELFOSABI_LINUX:
+		printf("%s\n", "UNIX - GNU");
+		break;
+	case ELFOSABI_SOLARIS:
+		printf("%s\n", "UNIX - Solaris");
+		break;
+	case ELFOSABI_IRIX:
+		printf("%s\n", "UNIX - IRIX");
+		break;
+	case ELFOSABI_FREEBSD:
+		printf("%s\n", "UNIX - FreeBSD");
+		break;
+	case ELFOSABI_TRU64:
+		printf("%s\n", "UNIX - TRU64");
+		break;
+	case ELFOSABI_ARM:
+		printf("%s\n", "UNIX - ARM architecture");
+		break;
+	case ELFOSABI_STANDALONE:
+		printf("%s\n", "Stand-alone (embedded)");
+		break;
+	default:
+		printf("<unknown: %x>\n", *((unsigned char *)header + 0x07));
+		break;
+	}
+}
+
+/**
+ * print_abi_version - Prints the ABI version in the ELF header
+ * @header: The pointer to the ELF header
+ */
+void print_abi_version(void *header)
+{
+	printf("%d\n", *((unsigned char *)header + 8));
+}
+
+/**
+ * print_type - Prints the type section in the ELF header
+ * @header: The pointer to the ELF header
+ */
+void print_type(void *header)
+{
+	int is_le = *((unsigned char *)header + 0x05) == 1;
+	unsigned short type;
+
+	type = *((unsigned char *)header + 0x10 +
+		(is_le && (5 << 8 == 0 ? 0 : 1) ? 0 : 1));
+	type |= (*((unsigned char *)header + 0x10 +
+		(is_le && (5 << 8 == 0 ? 0 : 1) ? 1 : 2)) << 8);
+	switch (type)
+	{
+		case ET_NONE:
+			printf("NONE (None)\n");
+			break;
+		case ET_REL:
+			printf("REL (Relocatable file)\n");
+			break;
+		case ET_EXEC:
+			printf("EXEC (Executable file)\n");
+			break;
+		case ET_DYN:
+			printf("DYN (Shared object file)\n");
+			break;
+		case ET_CORE:
+			printf("CORE (Core file)\n");
+			break;
+		case ET_LOOS:
+			printf("OS Specific: (fe00)\n");
+			break;
+		case ET_HIOS:
+			printf("OS Specific: (feff)\n");
+			break;
+		case ET_LOPROC:
+			printf("Processor Specific: (ff00)\n");
+			break;
+		case ET_HIPROC:
+			printf("Processor Specific: (ffff)\n");
+			break;
+		default:
+			printf("<unknown: %x>\n", type);
+			break;
+	}
+}
+
+/**
+ * print_entry_pt_addr - Prints the Entry point address
+ * section in the ELF header
+ * @header: The pointer to the ELF header
+ */
+void print_entry_pt_addr(void *header)
+{
+	int i, j, k = 0, can_print = 0, offset = 0x18;
+	int val_len = *((unsigned char *)header + 4) == 1 ? 4 : 8;
+	int is_le = *((unsigned char *)header + 0x05) == 1;
+
+	printf("0x");
+	for (i = 0; i < val_len; i++)
+	{
+		j = is_le ? val_len - i - 1 : i;
+		can_print = *((unsigned char *)header + offset + j) > 0 && !can_print
+			? 1 : can_print;
+		if (can_print)
+		{
+			if (k > 0)
+				printf("%02x", *((unsigned char *)header + offset + j));
+			else
+				printf("%x", *((unsigned char *)header + offset + j));
+			k++;
+		}
+	}
+	printf("\n");
 }
