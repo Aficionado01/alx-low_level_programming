@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
 	else
 	{
 		CLOSE_FD(fd);
-		write(STDERR_FILENO, "Invalid ELF file.\n", 18);
+		write(STDERR_FILENO, "Invalid ELF header.\n", 18);
 		exit(98);
 	}
 	CLOSE_FD(fd);
@@ -75,7 +75,7 @@ char is_elf_file(int fd, void **header)
 			{
 				free(*header);
 				CLOSE_FD(fd);
-				write(STDERR_FILENO, "Incomplete ELF file.\n", 21);
+				write(STDERR_FILENO, "Incomplete ELF header.\n", 21);
 				exit(98);
 			}
 		}

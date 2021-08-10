@@ -17,14 +17,13 @@
 	printf("2's complement, %s\n", \
 		(*((unsigned char *)header + 0x05) == 1) ? "little endian" : "big endian"); }
 
-#define PRINT_VERSION(header) {\
-if ((*((unsigned char *)header + 6) == EV_NONE) || \
-	(*((unsigned char *)header + 6) > EV_CURRENT)) \
-	printf("%d %s\n", *((unsigned char *)header + 6), "<unknown>"); \
-else if (*((unsigned char *)header + 6) == EV_CURRENT) \
-	printf("%u %s\n", *((unsigned char *)header + 6), "(current)"); \
-else if (*((unsigned char *)header + 6) < EV_CURRENT) \
-	printf("%u\n", *((unsigned char *)header + 6)); }
+#define PRINT_VERSION(header) { \
+if (*((unsigned char *)header + 6) == EV_CURRENT) \
+	printf("%d (current)\n", *((unsigned char *)header + 6)); \
+else if (*((unsigned char *)header + 6) == 1) \
+	printf("%d\n", *((unsigned char *)header + 6)); \
+else \
+	printf("%d <unknown>\n", *((unsigned char *)header + 6)); }
 
 #define PRINT_N_SPACES(n) { \
 for (j = 0; j < (n); j++) \
@@ -52,10 +51,4 @@ void print_os_abi(void *header);
 void print_abi_version(void *header);
 void print_type(void *header);
 void print_entry_pt_addr(void *header);
-/* void ensure_endianness(char little_e, void *data, unsigned int len);
-void print_elf32_header(Elf32_Ehdr *h);
-void print_elf32_header_2(Elf32_Ehdr *h);
-void print_elf64_header(Elf64_Ehdr *h);
-void print_elf64_header_2(Elf64_Ehdr *h);
-void put_err(char *str); */
 #endif
