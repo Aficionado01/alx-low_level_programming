@@ -7,27 +7,17 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-#define PRINT_MAGIC(header) {\
-for (i = 0; i < EI_NIDENT; i++) \
-	printf("%02x%c", *((unsigned char *)(header) + i), \
-		i < EI_NIDENT - 1 ? ' ' : '\n'); }
-
-#define CLOSE_FD(fd) {\
-if (close((fd)) == -1) \
-{ \
-	write(STDERR_FILENO, "Error: Can't close file\n", 24); \
-	exit(98); \
-}}
-
 int _putchar(char c);
 ssize_t read_textfile(const char *filename, size_t letters);
 int create_file(const char *filename, char *text_content);
 int append_text_to_file(const char *filename, char *text_content);
 void close_fd(int fd);
 void copy_contents(int from_fd, int to_fd, char *src_file, char *dest_file);
+void close_fd(int fd);
 char is_elf_file(int fd, void **header);
 void print_elf_header(void *header);
 void print_section(int id, void *header);
+void print_magic(void *header);
 void print_class(void *header);
 void print_data(void *header);
 void print_version(void *header);

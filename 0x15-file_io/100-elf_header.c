@@ -36,12 +36,25 @@ int main(int argc, char *argv[])
 	}
 	else
 	{
-		CLOSE_FD(fd);
+		close_fd(fd);
 		write(STDERR_FILENO, "Invalid ELF header.\n", 20);
 		exit(98);
 	}
-	CLOSE_FD(fd);
+	close_fd(fd);
 	return (0);
+}
+
+/**
+ * close_fd - Closes a file handle
+ * @fd: The file handle to close
+ */
+void close_fd(int fd)
+{
+	if (close((fd)) == -1)
+	{
+		write(STDERR_FILENO, "Error: Can't close file\n", 24);
+		exit(98);
+	}
 }
 
 /**
@@ -76,14 +89,14 @@ char is_elf_file(int fd, void **header)
 				else
 				{
 					free(*header);
-					CLOSE_FD(fd);
+					close_fd(fd);
 					write(STDERR_FILENO, "Incomplete ELF header.\n", 23);
 					exit(98);
 				}
 			}
 			else
 			{
-				CLOSE_FD(fd);
+				close_fd(fd);
 				write(STDERR_FILENO, "Incomplete ELF header.\n", 23);
 				exit(98);
 			}
@@ -117,7 +130,7 @@ void print_elf_header(void *header)
 		for (len = 0; *(sections[i] + len) != '\0'; len++)
 			;
 		printf("  %s%-*c", *(sections + i),
-			i == 0 ? 3 + 1: title_width - len, ':');
+			i == 0 ? 3 + 1 : title_width - len, ':');
 		print_section(i, header);
 		i++;
 	}
@@ -130,12 +143,10 @@ void print_elf_header(void *header)
  */
 void print_section(int id, void *header)
 {
-	int i;
-
 	switch (id)
 	{
 	case 0:
-		PRINT_MAGIC(header);
+		print_magic(header);
 		break;
 	case 1:
 		print_class(header);
@@ -161,6 +172,19 @@ void print_section(int id, void *header)
 	default:
 		break;
 	}
+}
+
+/**
+ * print_magic - Prints the MAGIC section in the ELF header
+ * @header: The pointer to the ELF header
+ */
+void print_magic(void *header)
+{
+	int i;
+
+	for (i = 0; i < EI_NIDENT; i++)
+		printf("%02x%c", *((unsigned char *)(header) + i),
+			i < EI_NIDENT - 1 ? ' ' : '\n');
 }
 
 /**
