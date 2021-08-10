@@ -56,5 +56,4 @@ void print_os_abi(void *header);
 void print_abi_version(void *header);
 void print_type(void *header);
 void print_entry_pt_addr(void *header);
-void test_out(void);
 #endif

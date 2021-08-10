@@ -2,22 +2,6 @@
 #include "main.h"
 
 /**
- * test_out - Dummy function to test a check
- */
-void test_out(void)
-{
-	printf("ELF Header:\n");
-  printf("Magic:   7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00\n");
-  printf("Class:                             ELF64\n");
-  printf("Data:                              2's complement, little endian\n");
-  printf("Version:                           1\n");
-  printf("OS/ABI:                            UNIX - System V\n");
-  printf("ABI Version:                       0\n");
-  printf("Type:                              EXEC (Executable file)\n");
-  printf("Entry point address:               0x400600\n");
-}
-
-/**
  * main - Displays the information contained in the ELF header at the
  * start of an ELF file
  * @argc: The number of arguments
@@ -46,10 +30,7 @@ int main(int argc, char *argv[])
 	{
 		if (header != NULL)
 		{
-			if (EV_CURRENT == 2)
-				test_out();
-			else
-				print_elf_header(header);
+			print_elf_header(header);
 			free(header);
 		}
 	}
@@ -261,45 +242,28 @@ void print_abi_version(void *header)
 void print_type(void *header)
 {
 	int is_le = *((unsigned char *)header + 0x05) == ELFDATA2LSB;
-	unsigned short type;
+	unsigned short type = 0;
 
-	type = *((unsigned char *)header + 0x10 +
-		(is_le && (5 << 8 == 0 ? 0 : 1) ? 0 : 1));
+	type = (*((unsigned char *)header + 0x10 +
+		(is_le && ((unsigned short)5 << 8 == 0 ? 0 : 1) ? 0 : 1)));
 	type |= (*((unsigned char *)header + 0x10 +
-		(is_le && (5 << 8 == 0 ? 0 : 1) ? 1 : 2)) << 8);
-	switch (type)
-	{
-		case ET_NONE:
-			printf("NONE (None)\n");
-			break;
-		case ET_REL:
-			printf("REL (Relocatable file)\n");
-			break;
-		case ET_EXEC:
-			printf("EXEC (Executable file)\n");
-			break;
-		case ET_DYN:
-			printf("DYN (Shared object file)\n");
-			break;
-		case ET_CORE:
-			printf("CORE (Core file)\n");
-			break;
-		case ET_LOOS:
-			printf("OS Specific: (fe00)\n");
-			break;
-		case ET_HIOS:
-			printf("OS Specific: (feff)\n");
-			break;
-		case ET_LOPROC:
-			printf("Processor Specific: (ff00)\n");
-			break;
-		case ET_HIPROC:
-			printf("Processor Specific: (ffff)\n");
-			break;
-		default:
-			printf("<unknown>: %x\n", type);
-			break;
-	}
+		(is_le && ((unsigned short)5 << 8 == 0 ? 0 : 1) ? 1 : 0)) << 8);
+	if (type == ET_NONE)
+		printf("NONE (None)\n");
+	else if (type == ET_REL)
+		printf("REL (Relocatable file)\n");
+	else if (type == ET_EXEC)
+		printf("EXEC (Executable file)\n");
+	else if (type == ET_DYN)
+		printf("DYN (Shared object file)\n");
+	else if (type == ET_CORE)
+		printf("CORE (Core file)\n");
+	else if (type >= ET_LOOS && type <= ET_HIOS)
+		printf("OS Specific: (%x)\n", type);
+	else if (type >= ET_LOPROC)
+		printf("Processor Specific: (%x)\n", type);
+	else
+		printf("<unknown>: %x\n", type);
 }
 
 /**
