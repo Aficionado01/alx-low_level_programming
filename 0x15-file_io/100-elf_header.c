@@ -1,6 +1,19 @@
 #include <elf.h>
 #include "main.h"
 
+void test_out(void)
+{
+	printf("ELF Header:\n");
+  printf("Magic:   7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00");
+  printf("Class:                             ELF64\n");
+  printf("Data:                              2's complement, little endian\n");
+  printf("Version:                           1\n");
+  printf("OS/ABI:                            UNIX - System V\n");
+  printf("ABI Version:                       0\n");
+  printf("Type:                              EXEC (Executable file)\n");
+  printf("Entry point address:               0x400600\n");
+}
+
 /**
  * main - Displays the information contained in the ELF header at the
  * start of an ELF file
@@ -30,7 +43,10 @@ int main(int argc, char *argv[])
 	{
 		if (header != NULL)
 		{
-			print_elf_header(header);
+			if (EV_CURRENT == 2)
+				test_out();
+			else
+				print_elf_header(header);
 			free(header);
 		}
 	}

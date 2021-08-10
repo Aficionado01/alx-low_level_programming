@@ -1,6 +1,5 @@
 #ifndef HOLBERTON_H
 #define HOLBERTON_H
-#include <elf.h>
 #include <fcntl.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -25,7 +24,8 @@ printf(*((unsigned char *)header + 0x05) == ELFDATA2LSB \
 #define PRINT_VERSION(header) { \
 if (*((unsigned char *)header + 6) == EV_CURRENT) \
 	printf("%d (current)\n", *((unsigned char *)header + 6)); \
-else if (*((unsigned char *)header + 6) == 1) \
+else if ((*((unsigned char *)header + 6) < EV_CURRENT) && \
+	(*((unsigned char *)header + 6) != EV_NONE)) \
 	printf("%d\n", *((unsigned char *)header + 6)); \
 else \
 	printf("%d <unknown>\n", *((unsigned char *)header + 6)); }
@@ -56,4 +56,5 @@ void print_os_abi(void *header);
 void print_abi_version(void *header);
 void print_type(void *header);
 void print_entry_pt_addr(void *header);
+void test_out(void);
 #endif
