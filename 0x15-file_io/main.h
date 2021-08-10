@@ -24,7 +24,8 @@ printf(*((unsigned char *)header + 0x05) == ELFDATA2LSB \
 #define PRINT_VERSION(header) { \
 if (*((unsigned char *)header + 6) == EV_CURRENT) \
 	printf("%d (current)\n", *((unsigned char *)header + 6)); \
-else if (*((unsigned char *)header + 6) == 1) \
+else if ((*((unsigned char *)header + 6) < EV_CURRENT) && \
+	(*((unsigned char *)header + 6) != EV_NONE)) \
 	printf("%d\n", *((unsigned char *)header + 6)); \
 else \
 	printf("%d <unknown>\n", *((unsigned char *)header + 6)); }

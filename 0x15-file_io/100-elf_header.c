@@ -309,5 +309,7 @@ void print_entry_pt_addr(void *header)
 			k++;
 		}
 	}
+	if (!can_print)
+		printf("0");
 	printf("\n");
 }
