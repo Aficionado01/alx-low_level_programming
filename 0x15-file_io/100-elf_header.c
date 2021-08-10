@@ -1,10 +1,5 @@
 #include "main.h"
 
-#ifdef EV_CURRENT
-#undef EV_CURRENT
-#endif
-#define EV_CURRENT 2
-
 /**
  * main - Displays the information contained in the ELF header at the
  * start of an ELF file
