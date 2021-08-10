@@ -66,15 +66,24 @@ char is_elf_file(int fd, void **header)
 			&& ((*(buf + 4) == 1) || (*(buf + 4) == 2)))
 		{
 			*header = malloc(*(buf + 4) == 1 ? 52 : 64);
-			lseek(fd, 0, SEEK_SET);
-			c = read(fd, *header, (*(buf + 4) == 1 ? 52 : 64));
-			if (c == 52 || c == 64)
+			if (*header != NULL)
 			{
-				return (1);
+				lseek(fd, 0, SEEK_SET);
+				c = read(fd, *header, (*(buf + 4) == 1 ? 52 : 64));
+				if (c == 52 || c == 64)
+				{
+					return (1);
+				}
+				else
+				{
+					free(*header);
+					CLOSE_FD(fd);
+					write(STDERR_FILENO, "Incomplete ELF header.\n", 21);
+					exit(98);
+				}
 			}
 			else
 			{
-				free(*header);
 				CLOSE_FD(fd);
 				write(STDERR_FILENO, "Incomplete ELF header.\n", 21);
 				exit(98);
@@ -263,7 +272,7 @@ void print_type(void *header)
 	else if (type >= ET_LOPROC)
 		printf("Processor Specific: (%x)\n", type);
 	else
-		printf("<unknown>: %x\n", type);
+		printf("<unknown: %x>\n", type);
 }
 
 /**
