@@ -4,7 +4,7 @@ This project contains __C__ tasks for learning about doubly linked lists.
 
 ## Tasks To Complete
 
-+ [ ] 0\. Print list <br/>_**[0-print_dlistint.c](0-print_dlistint.c)**_ contains a function that prints all the elements of a `dlistint_t` list.
++ [x] 0\. Print list <br/>_**[0-print_dlistint.c](0-print_dlistint.c)**_ contains a function that prints all the elements of a `dlistint_t` list.
 + [ ] 1\. List length <br/>_**[1-dlistint_len.c](1-dlistint_len.c)**_ contains a function that returns the number of elements in a linked `dlistint_t` list.
 + [ ] 2\. Add node <br/>_**[2-add_dnodeint.c](2-add_dnodeint.c)**_ contains a function that adds a new node at the beginning of a `dlistint_t` list.
 + [ ] 3\. Add node at the end <br/>_**[3-add_dnodeint_end.c](3-add_dnodeint_end.c)**_ contains a function that adds a new node at the end of a `dlistint_t` list.
