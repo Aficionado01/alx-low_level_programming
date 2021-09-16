@@ -9,7 +9,7 @@ This project contains __C__ tasks for learning about doubly linked lists.
 + [x] 2\. Add node <br/>_**[2-add_dnodeint.c](2-add_dnodeint.c)**_ contains a function that adds a new node at the beginning of a `dlistint_t` list.
 + [x] 3\. Add node at the end <br/>_**[3-add_dnodeint_end.c](3-add_dnodeint_end.c)**_ contains a function that adds a new node at the end of a `dlistint_t` list.
 + [x] 4\. Free list <br/>_**[4-free_dlistint.c](4-free_dlistint.c)**_ contains a function that frees a `dlistint_t` list.
-+ [ ] 5\. Get node at index <br/>_**[5-get_dnodeint.c](5-get_dnodeint.c)**_ contains a function that returns the nth node of a `dlistint_t` linked list.
++ [x] 5\. Get node at index <br/>_**[5-get_dnodeint.c](5-get_dnodeint.c)**_ contains a function that returns the nth node of a `dlistint_t` linked list.
 + [ ] 6\. Sum list <br/>_**[6-sum_dlistint.c](6-sum_dlistint.c)**_ contains a function that returns the sum of all the data (n) of a `dlistint_t` linked list.
 + [ ] 7\. Insert at index <br/>_**[7-insert_dnodeint.c](7-insert_dnodeint.c)**_ contains a function that inserts a new node at a given position.
 + [ ] 8\. Delete at index <br/>_**[8-delete_dnodeint.c](8-delete_dnodeint.c)**_ contains a function that deletes the node at `index` index of a `dlistint_t` linked list.
