@@ -36,4 +36,4 @@ This project contains __C__ tasks for learning about dynamic libraries.
 	int div(int a, int b); /* Division */
 	int mod(int a, int b); /* Modulo */
 	```
-+ [ ] 3\. Code injection: Win the Giga Millions! <br/>_**[101-make_me_win.sh](101-make_me_win.sh)**_ runs two commands on the same server where the [Giga Millions](gm) program runs so that the numbers `9, 8, 10, 24, 75 + 9` would win the Jackpot.
++ [x] 3\. Code injection: Win the Giga Millions! <br/>_**[101-make_me_win.sh](101-make_me_win.sh)**_ runs two commands on the same server where the [Giga Millions](gm) program runs so that the numbers `9, 8, 10, 24, 75 + 9` would win the Jackpot.
