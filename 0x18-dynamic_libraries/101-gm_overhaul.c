@@ -7,9 +7,9 @@
  */
 void srand(unsigned int seed)
 {
-	const char *txt = "--> Please make me win!\n";
+	const char *txt = "Congratulations, you win the Jackpot!\n";
 
 	(void)seed;
-	write(STDOUT_FILENO, (void *)txt, 24);
+	write(STDOUT_FILENO, (void *)txt, 38);
 	exit(EXIT_SUCCESS);
 }
