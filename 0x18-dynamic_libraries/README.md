@@ -27,7 +27,7 @@ This project contains __C__ tasks for learning about dynamic libraries.
   char *_strpbrk(char *s, char *accept);
   char *_strstr(char *haystack, char *needle);
 	```
-+ [ ] 1\. Without libraries what have we? We have no past and no future <br/>_**[1-create_dynamic_lib.sh](1-create_dynamic_lib.sh)**_ creates a dynamic library called `liball.so` from all the `.c` files that are in the current directory.
++ [x] 1\. Without libraries what have we? We have no past and no future <br/>_**[1-create_dynamic_lib.sh](1-create_dynamic_lib.sh)**_ creates a dynamic library called `liball.so` from all the `.c` files that are in the current directory.
 + [ ] 2\. Let's call C functions from Python <br/>_**[100-operations.so](100-operations.so)**_ contains C functions that can be called from Python.<br/>The functions have the following prototypes:<br/>
   ```c
 	int add(int a, int b); /* Addition */
