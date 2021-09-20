@@ -4,7 +4,7 @@ This project contains __C__ tasks for learning about dynamic libraries.
 
 ## Tasks To Complete
 
-+ [ ] 0\. A library is not a luxury but one of the necessities of life <br/>_**[libdynamic.so](libdynamic.so)**_ contains the functions with the following prototypes from previous projects in this repository:<br/>
++ [x] 0\. A library is not a luxury but one of the necessities of life <br/>_**[libdynamic.so](libdynamic.so)**_ contains the functions with the following prototypes from previous projects in this repository:<br/>
   ```c
   int _putchar(char c);
   int _islower(int c);
