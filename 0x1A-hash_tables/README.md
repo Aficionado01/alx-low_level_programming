@@ -4,7 +4,7 @@ This project contains __C__ tasks for learning about the hash table data structu
 
 ## Tasks To Complete
 
-+ [ ] 0\. >>> ht = {} <br/>_**[0-hash_table_create.c](0-hash_table_create.c)**_ contains a function that creates a hash table.
++ [x] 0\. >>> ht = {} <br/>_**[0-hash_table_create.c](0-hash_table_create.c)**_ contains a function that creates a hash table.
 + [ ] 1\. djb2 <br/>_**[1-djb2.c](1-djb2.c)**_ contains a hash function implementing the djb2 algorithm.
 + [ ] 2\. key -> index <br/>_**[2-key_index.c](2-key_index.c)**_ contains a function that gives you the index of a key.
 + [ ] 3\. >>> ht['betty'] = 'cool' <br/>_**[3-hash_table_set.c](3-hash_table_set.c)**_ contains a function that adds an element to the hash table.
