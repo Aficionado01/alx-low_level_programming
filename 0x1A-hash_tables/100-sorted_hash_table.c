@@ -44,10 +44,10 @@ shash_table_t *shash_table_create(unsigned long int size)
 		{
 			for (i = 0; i < size; i++)
 				tbl->array[i] = NULL;
-			tbl->size = size;
-			tbl->shead = NULL;
-			tbl->stail = NULL;
 		}
+		tbl->size = size;
+		tbl->shead = NULL;
+		tbl->stail = NULL;
 	}
 	return (tbl);
 }
@@ -367,7 +367,7 @@ void shash_table_print_rev(const shash_table_t *ht)
 		node = ht->stail;
 		while (node != NULL)
 		{
-			shash_node_list_print(node, &first, FALSE);
+			shash_node_list_print(node, &first, TRUE);
 			printf("%s'%s': '%s'", first ? "" : ", ", node->key, node->value);
 			fflush(stdout);
 			first = FALSE;
