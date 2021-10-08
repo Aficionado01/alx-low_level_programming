@@ -90,7 +90,7 @@ int update_key_value(shash_table_t *ht,
 void insert_node(shash_table_t *ht, shash_node_t *hn);
 int insert_hash_table(shash_table_t *ht,
 	unsigned long idx, const char *key, const char *value);
-char insert_hash_node(shash_node_t *hn, const char *key, const char *value);
+int insert_hash_node(shash_node_t *hn, const char *key, const char *value);
 int shash_table_set(shash_table_t *ht, const char *key, const char *value);
 char *shash_table_get(const shash_table_t *ht, const char *key);
 void shash_node_list_print(const shash_node_t *hn_head,
