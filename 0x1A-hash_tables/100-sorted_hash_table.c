@@ -211,7 +211,7 @@ char insert_hash_node(shash_node_t *hn, const char *key, const char *value)
 		}
 		else
 		{
-			new_node->sprev = hn;
+			new_node->sprev = NULL;
 			hn->next = new_node;
 		}
 		return (1);
@@ -306,7 +306,7 @@ void shash_node_list_print(const shash_node_t *hn_head,
 			while ((node != NULL) && (node->next == NULL))
 			{
 				printf("%s'%s': '%s'", *first ? "" : ", ", node->key, node->value);
-				*first = 0;
+				*first = FALSE;
 				node = node->sprev;
 			}
 		}
