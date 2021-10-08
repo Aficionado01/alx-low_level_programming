@@ -85,16 +85,9 @@ void hash_table_print(const hash_table_t *ht);
 void hash_table_delete(hash_table_t *ht);
 char *str_copy1(const char *s);
 shash_table_t *shash_table_create(unsigned long int size);
-int update_key_value(shash_table_t *ht,
-	unsigned long idx, const char *key, const char *value);
-void insert_node(shash_table_t *ht, shash_node_t *hn);
-int insert_hash_table(shash_table_t *ht,
-	unsigned long idx, const char *key, const char *value);
-int insert_hash_node(shash_node_t *hn, const char *key, const char *value);
+void insert_shash_node(shash_table_t *ht, shash_node_t *hn);
 int shash_table_set(shash_table_t *ht, const char *key, const char *value);
 char *shash_table_get(const shash_table_t *ht, const char *key);
-void shash_node_list_print(const shash_node_t *hn_head,
-	char *first, char reverse);
 void shash_table_print(const shash_table_t *ht);
 void shash_table_print_rev(const shash_table_t *ht);
 void shash_table_delete(shash_table_t *ht);
