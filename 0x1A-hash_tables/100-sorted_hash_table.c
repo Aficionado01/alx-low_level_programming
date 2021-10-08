@@ -180,12 +180,11 @@ int insert_hash_table(shash_table_t *ht,
  *
  * Return: An insertion status. 1 for successful and 0 otherwise.
  */
-char insert_hash_node(shash_node_t *hn, const char *key, const char *value)
+int insert_hash_node(shash_node_t *hn, const char *key, const char *value)
 {
 	shash_node_t *next = NULL, *prev = NULL, *tmp = NULL, *new_node = NULL;
 
-	if ((hn != NULL) && (hn->next != NULL)
-		&& (key != NULL) && (strlen(key) > 0))
+	if ((hn != NULL) && (key != NULL) && (strlen(key) > 0))
 	{
 		next = hn->next;
 		new_node = malloc(sizeof(shash_node_t));
@@ -212,6 +211,7 @@ char insert_hash_node(shash_node_t *hn, const char *key, const char *value)
 		else
 		{
 			new_node->sprev = NULL;
+			new_node->snext = next;
 			hn->next = new_node;
 		}
 		return (1);
@@ -230,7 +230,7 @@ char insert_hash_node(shash_node_t *hn, const char *key, const char *value)
 int shash_table_set(shash_table_t *ht, const char *key, const char *value)
 {
 	unsigned long idx;
-	char update, ht_ins;
+	int update, ht_ins;
 
 	if ((ht != NULL) && (ht->array != NULL)
 		&& (key != NULL) && (strlen(key) > 0))
