@@ -60,7 +60,7 @@ shash_table_t *shash_table_create(unsigned long int size)
  */
 void insert_shash_node(shash_table_t *ht, shash_node_t *hn)
 {
-	shash_node_t *next = NULL, *prev = NULL, *tmp = NULL;
+	shash_node_t *next = NULL, *prev = NULL;
 
 	if ((ht != NULL) && (hn != NULL))
 	{
@@ -72,15 +72,14 @@ void insert_shash_node(shash_table_t *ht, shash_node_t *hn)
 			else
 				break;
 		}
+		if (next != NULL)
+			next->sprev = hn;
 		if (prev != NULL)
 		{
-			tmp = prev->snext;
 			prev->snext = hn;
 			hn->sprev = prev;
-			hn->snext = tmp;
-			if (tmp != NULL)
-				tmp->sprev = hn;
-			else
+			hn->snext = next;
+			if (next == NULL)
 				ht->stail = hn;
 		}
 		else
