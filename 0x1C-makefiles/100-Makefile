@@ -18,4 +18,4 @@ oclean: m.h
 
 fclean: clean oclean
 
-re: fclean all
+re: oclean all
