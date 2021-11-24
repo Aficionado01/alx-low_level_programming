@@ -62,7 +62,7 @@ This project contains tasks for learning about the use of a *Makefile* in develo
   + The `all` rule should recompile only the updated source files.
   + The `clean`, `oclean`, `fclean`, `re` rules should never fail.
   + A list of all the `.o` files should not be present in the Makefile.
-+ [ ] 5\. Island Perimeter <br/>_**[5-island_perimeter.py](5-island_perimeter.py)**_ contains a function `def island_perimeter(grid):` that returns the perimeter of the island described in `grid`:
++ [x] 5\. Island Perimeter <br/>_**[5-island_perimeter.py](5-island_perimeter.py)**_ contains a function `def island_perimeter(grid):` that returns the perimeter of the island described in `grid`:
   + `grid` is a list of list of integers:
     + 0 represents a water zone.
     + 1 represents a land zone.
