@@ -9,7 +9,7 @@ This project contains tasks for learning about the use of a *Makefile* in develo
   + rules: `all`.
     + The `all` rule builds the executable.
   + variables: none.
-+ [ ] 1\. make -f 1-Makefile <br/>_**[1-Makefile](1-Makefile)**_ Requirements:
++ [x] 1\. make -f 1-Makefile <br/>_**[1-Makefile](1-Makefile)**_ Requirements:
   + name of the executable: `school`.
   + rules: `all`.
     + `all`: builds the executable.
