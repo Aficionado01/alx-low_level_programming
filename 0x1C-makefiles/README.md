@@ -4,7 +4,7 @@ This project contains tasks for learning about the use of a *Makefile* in develo
 
 ## Tasks To Complete
 
-+ [ ] 0\. make -f 0-Makefile <br/>_**[0-Makefile](0-Makefile)**_ Requirements:
++ [x] 0\. make -f 0-Makefile <br/>_**[0-Makefile](0-Makefile)**_ Requirements:
   + name of the executable: `school`.
   + rules: `all`.
     + The `all` rule builds the executable.
