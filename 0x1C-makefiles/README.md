@@ -16,7 +16,7 @@ This project contains tasks for learning about the use of a *Makefile* in develo
   + variables: `CC`, `SRC`.
     + `CC`: the compiler to be used.
     + `SRC`: the `.c` files.
-+ [ ] 2\. make -f 2-Makefile <br/>_**[2-Makefile](2-Makefile)**_ Requirements:
++ [x] 2\. make -f 2-Makefile <br/>_**[2-Makefile](2-Makefile)**_ Requirements:
   + name of the executable: `school`.
   + rules: `all`.
     + `all`: builds the executable.
@@ -27,7 +27,7 @@ This project contains tasks for learning about the use of a *Makefile* in develo
     + `NAME`: the name of the executable.
   + The `all` rule should recompile only the updated source files.
   + A list of all the `.o` files should not be present in the Makefile.
-+ [ ] 3\. make -f 3-Makefile <br/>_**[3-Makefile](3-Makefile)**_ Requirements:
++ [x] 3\. make -f 3-Makefile <br/>_**[3-Makefile](3-Makefile)**_ Requirements:
   + name of the executable: `school`.
   + rules: `all`, `clean`, `oclean`, `fclean`, `re`.
     + `all`: builds the executable.
@@ -44,7 +44,7 @@ This project contains tasks for learning about the use of a *Makefile* in develo
   + The `all` rule should recompile only the updated source files.
   + The `clean`, `oclean`, `fclean`, `re` rules should never fail.
   + A list of all the `.o` files should not be present in the Makefile.
-+ [ ] 4\. A complete Makefile <br/>_**[4-Makefile](4-Makefile)**_ Requirements:
++ [x] 4\. A complete Makefile <br/>_**[4-Makefile](4-Makefile)**_ Requirements:
   + name of the executable: `school`.
   + rules: `all`, `clean`, `oclean`, `fclean`, `re`.
     + `all`: builds the executable.
@@ -71,7 +71,7 @@ This project contains tasks for learning about the use of a *Makefile* in develo
     + Grid is rectangular, width and height don't exceed 100.
   + Grid is completely surrounded by water, and there is one island (or nothing).
   + The island doesn't have "lakes" (water inside that isn't connected to the water around the island).
-+ [ ] 6\. make -f 100-Makefile <br/>_**[100-Makefile](100-Makefile)**_ Requirements:
++ [x] 6\. make -f 100-Makefile <br/>_**[100-Makefile](100-Makefile)**_ Requirements:
   + name of the executable: `school`.
   + rules: `all`, `clean`, `oclean`, `fclean`, `re`.
     + `all`: builds the executable.
