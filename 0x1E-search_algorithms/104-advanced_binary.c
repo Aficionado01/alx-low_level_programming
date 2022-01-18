@@ -29,9 +29,9 @@ int binary_search_index(int *array, size_t size, int value, int offset)
 	{
 		return (*(array + m) == value ? offset : -1);
 	}
-	else if (*(array + m) >= value)
+	else if (*(array + m) > value)
 	{
-		index = binary_search_index(array, m, value, offset);
+		index = binary_search_index(array, m - 1, value, offset);
 		return (index);
 	}
 	else
