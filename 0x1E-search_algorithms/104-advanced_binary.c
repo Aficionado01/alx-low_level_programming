@@ -10,7 +10,7 @@ void print_array(int *array, size_t l, size_t r)
 {
 	size_t i;
 
-	if (l != r)
+	if (!array && (l != r))
 	{
 		printf("Searching in array: ");
 		for (i = l; i < l + (r - l + 1); i++)
@@ -34,26 +34,24 @@ int binary_search_index1(int *array, size_t l, size_t r, int value)
 
 	if (!array)
 		return (-1);
+	print_array(array, l, r);
 	m = l + ((r - l) / 2);
 	if (l == r)
 		return (*(array + m) == value ? (int)m : -1);
 	if (value < *(array + m))
 	{
-		print_array(array, l, m);
 		return (binary_search_index1(array, l, m, value));
 	}
 	else if (value == *(array + m))
 	{
 		if ((m > 0) && (*(array + m - 1) == value))
 		{
-			print_array(array, l, m);
 			return (binary_search_index1(array, l, m, value));
 		}
 		return ((int)m);
 	}
 	else
 	{
-		print_array(array, m + 1, r);
 		return (binary_search_index1(array, m + 1, r, value));
 	}
 }
@@ -72,6 +70,5 @@ int advanced_binary(int *array, size_t size, int value)
 		return (-1);
 	else if ((size == 1) && (*array == value))
 		return (0);
-	print_array(array, 0, size - 1);
 	return (binary_search_index1(array, 0, size - 1, value));
 }
