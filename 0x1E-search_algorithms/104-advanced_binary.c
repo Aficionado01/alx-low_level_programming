@@ -10,7 +10,7 @@ void print_array(int *array, size_t l, size_t r)
 {
 	size_t i;
 
-	if (!array && (l != r))
+	if (array)
 	{
 		printf("Searching in array: ");
 		for (i = l; i < l + (r - l + 1); i++)
