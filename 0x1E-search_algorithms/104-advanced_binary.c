@@ -6,48 +6,45 @@
  * @array: The array to search in.
  * @size: The length of the array.
  * @value: The value to look for.
- * @offset: The number of positions from the beginning of the initial array.
  *
  * Return: The first index of the value in the array, otherwise -1.
  */
-int binary_search_index(int *array, size_t size, int value, int offset)
+int binary_search_index1(int *array, size_t l, size_t r, int value)
 {
-	size_t i, m = size;
+	size_t i, m;
 	int index;
 
-	if (!array || !size)
+	if (!array)
 		return (-1);
-	if (size > 0)
+	if (l != r)
 	{
 		printf("Searching in array: ");
-		for (i = 0; i < size; i++)
-			printf("%d%s", *(array + i), i < (size - 1) ? ", " : "\n");
+		for (i = l; i < l + (r - l + 1); i++)
+			printf("%d%s", *(array + i), i < l + (r - l) ? ", " : "\n");
 	}
-	m = size / 2;
-	if (size <= 1)
+	m = l + ((r - l) / 2);
+	if (l == r)
+		return (*(array + m) == value ? (int)m : -1);
+	if (value < *(array + m))
 	{
-		return (*(array + m) == value ? offset : -1);
-	}
-	else if (*(array + m) > value)
-	{
-		index = binary_search_index(array, m, value, offset);
+		index = binary_search_index1(array, l, m, value);
 		return (index);
 	}
-	else if (*(array + m) == value)
+	else if (value == *(array + m))
 	{
 		if ((m > 0) && (*(array + m - 1) == value))
-			index = binary_search_index(array, m - 1, value, offset);
+			index = binary_search_index1(array, l, m, value);
 		else
-			index = offset + (int)m;
+			index = (int)m;
 		return (index);
 	}
 	else
 	{
-		index = binary_search_index(
-			array + m,
-			size - m - (size % 2 ? 1 : 0),
-			value,
-			(int)m + offset
+		index = binary_search_index1(
+			array,
+			m + 1,
+			r,
+			value
 		);
 		return (index);
 	}
@@ -63,5 +60,5 @@ int binary_search_index(int *array, size_t size, int value, int offset)
  */
 int advanced_binary(int *array, size_t size, int value)
 {
-	return (binary_search_index(array, size, value, 0));
+	return (binary_search_index1(array, 0, size - 1, value));
 }
