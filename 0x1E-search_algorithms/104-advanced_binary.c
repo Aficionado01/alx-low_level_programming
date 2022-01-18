@@ -34,6 +34,14 @@ int binary_search_index(int *array, size_t size, int value, int offset)
 		index = binary_search_index(array, m - 1, value, offset);
 		return (index);
 	}
+	else if (*(array + m) == value)
+	{
+		if ((m > 0) && (*(array + m - 1) == value))
+			index = binary_search_index(array, m - 1, value, offset);
+		else
+			index = offset + (int)m;
+		return (index);
+	}
 	else
 	{
 		index = binary_search_index(
