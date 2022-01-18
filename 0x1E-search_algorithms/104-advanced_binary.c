@@ -6,7 +6,7 @@
  * @l: The left index of the array.
  * @r: The right index of the array.
  */
-void print_array(int *array, int l, int r)
+void print_array(int *array, size_t l, size_t r)
 {
 	size_t i;
 
