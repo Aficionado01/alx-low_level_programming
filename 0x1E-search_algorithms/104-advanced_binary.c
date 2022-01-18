@@ -1,10 +1,11 @@
 #include "search_algos.h"
 
 /**
- * binary_search_index - Searches a value in a sorted array using \
+ * binary_search_index1 - Searches a value in a sorted array using \
  * a binary search.
  * @array: The array to search in.
- * @size: The length of the array.
+ * @l: The left index of the array.
+ * @r: The right index of the array.
  * @value: The value to look for.
  *
  * Return: The first index of the value in the array, otherwise -1.
