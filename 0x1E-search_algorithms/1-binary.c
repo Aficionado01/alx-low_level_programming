@@ -27,7 +27,7 @@ int binary_search_index(int *array, size_t size, int value, int offset)
 	incr = size % 2 ? 1 : 0;
 	if (size <= 1)
 	{
-		return (*(array + m) == value ? m + offset : -1);
+		return (*(array + m) == value ? (int)m + offset : -1);
 	}
 	else if (*(array + m) > value)
 	{
