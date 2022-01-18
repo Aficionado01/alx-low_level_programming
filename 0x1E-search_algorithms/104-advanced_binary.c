@@ -61,5 +61,7 @@ int binary_search_index1(int *array, size_t l, size_t r, int value)
  */
 int advanced_binary(int *array, size_t size, int value)
 {
+	if (!array || !size)
+		return (-1);
 	return (binary_search_index1(array, 0, size - 1, value));
 }
