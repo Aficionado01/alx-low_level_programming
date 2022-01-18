@@ -12,10 +12,10 @@
  */
 int binary_search_index(int *array, size_t size, int value, int offset)
 {
-	size_t i, m = size, incr;
+	size_t i, m = size;
 	int index;
 
-	if (!array)
+	if (!array || !size)
 		return (-1);
 	if (size > 0)
 	{
@@ -24,14 +24,13 @@ int binary_search_index(int *array, size_t size, int value, int offset)
 			printf("%d%s", *(array + i), i < (size - 1) ? ", " : "\n");
 	}
 	m = size / 2;
-	incr = size % 2 ? 1 : 0;
 	if (size <= 1)
 	{
 		return (*(array + m) == value ? offset : -1);
 	}
 	else if (*(array + m) > value)
 	{
-		index = binary_search_index(array, m - 1, value, offset);
+		index = binary_search_index(array, m, value, offset);
 		return (index);
 	}
 	else if (*(array + m) == value)
@@ -45,10 +44,10 @@ int binary_search_index(int *array, size_t size, int value, int offset)
 	else
 	{
 		index = binary_search_index(
-			array + m + incr,
-			size - m - incr,
+			array + m,
+			size - m - (size % 2 ? 1 : 0),
 			value,
-			m + incr + offset
+			(int)m + offset
 		);
 		return (index);
 	}
