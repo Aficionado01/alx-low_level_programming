@@ -1,4 +1,3 @@
-#include <math.h>
 #include "search_algos.h"
 
 /**
@@ -40,9 +39,9 @@ int binary_search_index(int *array, size_t size, int value, int offset)
 	else
 	{
 		if (*(array + m) == value)
-			return (m + offset);
-		if ((m > 0) && *(array + m - 1) == value)
-			return (m + offset - 1);
+			return ((int)m + offset);
+		if ((m > 0) && (*(array + m - 1) == value))
+			return ((int)m + offset - 1);
 		index = binary_search_index(
 			array + m + incr,
 			size - m - incr,
@@ -67,6 +66,8 @@ int exponential_search(int *array, size_t size, int value)
 	size_t low = 1, high = 2;
 	int index;
 
+	if (!array || !size)
+		return (-1);
 	while (low < size)
 	{
 		printf("Value checked array[%lu] = [%d]\n", low, array[low]);
