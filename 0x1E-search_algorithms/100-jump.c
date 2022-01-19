@@ -26,6 +26,8 @@ int jump_search(int *array, size_t size, int value)
 		a = b;
 		b += step;
 	}
+	if (a >= size)
+		return (-1);
 	b = b >= size ? size - 1 : b;
 	printf("Value found between indexes [%d] and [%d]\n", (int)a, (int)b);
 	for (; a < size; a++)
