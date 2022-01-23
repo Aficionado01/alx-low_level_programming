@@ -13,11 +13,11 @@
 typedef struct listint_s
 {
   /* Integer stored at the node. */
-  int n;
+int n;
   /* Index of the node in the list. */
-  size_t index;
+size_t index;
   /* Pointer to the next node. */
-  struct listint_s *next;
+struct listint_s *next;
 } listint_t;
 
 /**
@@ -32,13 +32,13 @@ typedef struct listint_s
 typedef struct skiplist_s
 {
   /* Integer stored at the node. */
-  int n;
+int n;
   /* Index of the node in the list. */
-  size_t index;
+size_t index;
   /* Pointer to the next node. */
-  struct skiplist_s *next;
+struct skiplist_s *next;
   /* Pointer to the next node in the express lane. */
-  struct skiplist_s *express;
+struct skiplist_s *express;
 } skiplist_t;
 
 int linear_search(int *array, size_t size, int value);
