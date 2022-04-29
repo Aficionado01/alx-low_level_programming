@@ -82,33 +82,27 @@ char *float_to_str(float_info_t *flt_info, char can_free)
 {
 	uchar_t exponent_size = str_len(flt_info->exponent);
 	short bias = two_pexp(exponent_size) / 2 - 1, exponent;
-	char *power, *fraction, *product, *float_num, *hidden_bit, *pow_frac;
+	char *power, *fraction, *product, *float_num, *pow_frac;
 	unsigned short frac_len = 22;/* Only doubles are supported */
 
-	hidden_bit = malloc(sizeof(char) * 2);
-	if (hidden_bit != NULL)
+	exponent = bin_to_int(flt_info->exponent) - bias;
+	power = two_exp(exponent);
+	fraction = mantissa_to_dec_fraction(flt_info->mantissa, frac_len);
+	fraction[0] = '1';
+	if (exponent >= 0)
 	{
-		*(hidden_bit + 0) = '1';
-		*(hidden_bit + 1) = '\0';
-		exponent = bin_to_int(flt_info->exponent) - bias;
-		power = two_exp(exponent);
-		fraction = mantissa_to_dec_fraction(flt_info->mantissa, frac_len);
-		fraction = str_cat(hidden_bit, fraction, TRUE);
-		if (exponent >= 0)
+		pow_frac = malloc(sizeof(char) * 3);
+		if (pow_frac)
 		{
-			pow_frac = malloc(sizeof(char) * 3);
-			if (pow_frac)
-			{
-				*(pow_frac + 0) = '.';
-				*(pow_frac + 1) = '0';
-				*(pow_frac + 2) = '\0';
-				power = str_cat(power, pow_frac, TRUE);
-			}
+			*(pow_frac + 0) = '.';
+			*(pow_frac + 1) = '0';
+			*(pow_frac + 2) = '\0';
+			power = str_cat(power, pow_frac, TRUE);
 		}
-		product = mul_float(fraction, power, TRUE);
-		float_num = str_cat(flt_info->sign == '1' ? "-" : "", product, FALSE);
-		free(product);
 	}
+	product = mul_float(fraction, power, TRUE);
+	float_num = str_cat(flt_info->sign == '1' ? "-" : "", product, FALSE);
+	free(product);
 	if (can_free)
 		free_float_info(flt_info);
 	return (float_num);
