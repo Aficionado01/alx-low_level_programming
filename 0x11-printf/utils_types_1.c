@@ -24,10 +24,7 @@ void set_float_parts(double num,	uchar_t exponent_size,
 	if (str != NULL)
 	{
 		for (i = 0; i < size; i++)
-		{
-			*(str + i) = (tmp % 2)  + '0';
-			tmp /= 2;
-		}
+			*(str + i) = ((tmp >> i) & 1)  + '0';
 		*(str + size) = '\0';
 		rev_string(str);
 		float_info->sign = *str;
