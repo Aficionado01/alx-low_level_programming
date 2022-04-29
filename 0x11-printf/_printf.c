@@ -141,6 +141,7 @@ int write_to_buffer(char c, char action)
 	if (i >= 1024 || action == 1)
 	{
 		out = write(1, buffer, i);
+		fflush(stdout);
 		i = 0;
 		mem_set(buffer, 1024, 0);
 	}
