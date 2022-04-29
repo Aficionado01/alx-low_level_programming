@@ -99,38 +99,45 @@ char *add_int(char *left, char *right, int can_free)
  */
 char *add_float(char *left, char *right, char can_free)
 {
-	char *left_c = str_copy(left);
-	char *right_c = str_copy(right);
 	int len1, len2, dec_pos1, dec_pos2, frac_len1, frac_len2, size;
-	char *sum;
+	int i, rem, carry, dig1, dig2, dec_pos;
+	char *sum, trim;
 
-	len1 = str_len(left_c);
-	len2 = str_len(right_c);
-	dec_pos1 = index_of(left_c, '.');
-	dec_pos2 = index_of(right_c, '.');
-	frac_len1 = len1 - (dec_pos1 + 1);
-	frac_len2 = len2 - (dec_pos2 + 1);
-	if (frac_len1 < frac_len2)
-		left_c = append_char(left_c, '0', frac_len2 - frac_len1, TRUE);
-	if (frac_len2 < frac_len1)
-		right_c = append_char(right_c, '0', frac_len1 - frac_len2, TRUE);
-	size = MAX(len1, len2);
-	sum = malloc(sizeof(char) * (size + 1));
-	if (sum)
+	for (len1 = 0; *(left + len1) != '\0'; len1++)
+		dec_pos1 = *(left + len1) == '.' ? len1 : dec_pos1;
+	for (len2 = 0; *(right + len2) != '\0'; len2++)
+		dec_pos2 = *(right + len2) == '.' ? len2 : dec_pos2;
+	frac_len1 = len1 - dec_pos1 - 1, frac_len2 = len2 - dec_pos2 - 1;
+	dec_pos = frac_len1 > frac_len2 ? dec_pos1 : dec_pos2;
+	size = MAX(len1, len2) + 1, sum = malloc(sizeof(char) * (size + 1));
+	if (sum == NULL)
+		return (NULL);
+	mem_set(sum, size, '0'), carry = 0, len1--, len2--;
+	for (i = size - 1; i >= 0; i--)
 	{
-		mem_set(sum, size, '0');
-		left_c = delete_char(left_c, '.', TRUE);
-		right_c = delete_char(right_c, '.', TRUE);
-		sum = add_int(left_c, right_c, TRUE);
-		size = str_len(sum);
-		sum = insert_char(sum, size - MAX(frac_len1, frac_len2), '.', TRUE);
-		if (can_free)
-		{
-			free(left);
-			free(right);
-		}
+		frac_len1 = len1 - dec_pos1 - 1, frac_len2 = len2 - dec_pos2 - 1;
+		dig1 = len1 > dec_pos1
+			? ((len1 - dec_pos1 - 1) >= frac_len2 ? *(left + len1) - '0' : 0)
+			: ((len1 == dec_pos1) || (len1 < 0) ? 0 : *(left + len1) - '0');
+		len1 -= (len1 > dec_pos1
+			? ((len1 - dec_pos1 - 1) >= frac_len2 ? 1 : 0)
+			: (len2 <= dec_pos2 ? 1 : 0));
+		dig2 = len2 > dec_pos2
+			? ((len2 - dec_pos2 - 1) >= frac_len1 ? *(right + len2) - '0' : 0)
+			: ((len2 == dec_pos2) || (len2 < 0) ? 0 : *(right + len2) - '0');
+		len2 -= (len2 > dec_pos2
+			? ((len2 - dec_pos2 - 1) >= frac_len1 ? 1 : 0)
+			: (len1 <= dec_pos1 ? 1 : 0));
+		rem = (dig1 + dig2 + carry) % 10, carry = (dig1 + dig2 + carry) / 10;
+		*(sum + i) = (i - 1 == dec_pos) ? '.' : rem + '0';
 	}
-	return (sum);
+	*(sum + size) = '\0';
+	if ((can_free >> 0) & TRUE)
+		free(left);
+	if ((can_free >> 1) & TRUE)
+		free(right);
+	trim = (size > 1) && (sum[0] == '0');
+	return (trim ? sub_str(sum, 1, 01) : sum);
 }
 
 /**
